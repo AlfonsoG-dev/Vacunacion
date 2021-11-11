@@ -32,9 +32,9 @@ public class Usuario {
      */
     private String direccion;
     /**
-     * codigo de la cita del usuario
+     * Cita agendada por el usuario 
      */
-    private int cita;
+    private Cita cita;
     //-------------------------------------//
     //----------------Constructor------------//
     //-------------------------------------//
@@ -51,7 +51,7 @@ public class Usuario {
      * @param nDireccion, es la direccion de domicilio del usuario. nDireccion != "" && nDireccion != null
      * @param nCita, es el codigo de la cita del usuario. nCita > 0 && nCita != null
      */
-    public Usuario(int nDocumento, String nTipo, String nNombre, String nApellido, int nCelular, String nCorreo, String nDireccion, int nCita){
+    public Usuario(int nDocumento, String nTipo, String nNombre, String nApellido, int nCelular, String nCorreo, String nDireccion){
         
         numDocumento = nDocumento;
         tipoDocumento = nTipo;
@@ -60,7 +60,7 @@ public class Usuario {
         celular = nCelular;
         correo = nCorreo;
         direccion = nDireccion;
-        cita = nCita;
+        cita = null;
     }
     //-------------------------------------//
     //----------------Metodos------------//
@@ -118,7 +118,12 @@ public class Usuario {
      * codigo de la cita del usuario
      * @return codigo de la cita
      */
-    public int darCita(){
-        return cita;
+    public int darCita(Cita miCita){
+        int codigo = 0;
+        if(miCita!=null){
+            cita = miCita;
+            codigo = cita.darCodigo();
+        }
+        return codigo;
     }
 }
