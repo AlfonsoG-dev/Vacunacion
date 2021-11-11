@@ -100,7 +100,7 @@ public class Operacion {
         int codigoC=0;
         if(nCita != null && nUsuario != null){
             codigoC = nCita.darCodigo();
-            codigoU = nUsuario.darCita();
+            codigoU = nUsuario.darCita(nCita);
             if(codigoC == codigoU){
                 encontrado = true;
                 darCitasAgendadas().add(nUsuario);
@@ -126,6 +126,7 @@ public class Operacion {
                 if(eliminar.darCodigo() == nCita.darCodigo()){
                     encontrado = true;
                     miCita().remove(i);
+                    
                 }
                 else{
                     System.out.println("La cita no se encuentra agendada");
@@ -134,4 +135,25 @@ public class Operacion {
         }
         return encontrado;
     }
+    /**
+     * re agendar la cita que se cancelo para otra fecha
+     * <b> pre: </b> la lista de citas se encuentra inicializada
+     * <b> post: </b> se agenda la cita para el usuario
+     * @param nCita, cita del usuario a agendar
+     * @param nUsuario, usuario que agenda la cita
+     * @return la cita con el usuario que agendo la cita
+     */
+    public Boolean agendarCita(Cita nCita, Usuario nUsuario){
+        Boolean agendar = false;
+        if(nCita != null && nUsuario != null){
+            for(int i=0; i<darCitasAgendadas().size();i++){
+                if(darCitasAgendadas().get(i).darCita(nCita) == 0){
+                    darCitasAgendadas().add(nUsuario);
+                    agendar = true;
+                }
+            }
+        }
+        return agendar;
+    }
+
 }
