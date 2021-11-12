@@ -144,11 +144,21 @@ public class Operacion {
         String mensaje = null;
         if(nCita != null && nUsuario!=null){
             Usuario nuevo = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nCita);
-            miUsuario().add(nuevo);
-            miCita().add(nCita);
-            darCitasAgendadas().add(nuevo);
+            agregarListas(nCita, nUsuario);
             mensaje = "El usuario se agrego a la lista: " + nuevo.darNombre();
         }
         return mensaje;
+    }
+    /**
+     * se agregan los elementos a la lista para su verificacion
+     * <b> pre: </b> las lista de usuario, cita se encuentran inicializadas
+     * <b> post: </b> se añaden los elementos a la lista
+     * @param nCita, es la cita del usuario. nCita != "" && nCita != null
+     * @param nUsuario, es el usurio que agendo la cita. nUsuario != "" && nUsuario != null
+     */
+    public void agregarListas(Cita nCita, Usuario nUsuario){
+        miUsuario().add(nUsuario);
+        miCita().add(nCita);
+        darCitasAgendadas().add(nUsuario);
     }
 }
