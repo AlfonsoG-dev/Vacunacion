@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch prueba",
+            "request": "launch",
+            "mainClass": "Mundo.prueba",
+            "projectName": "Vacunacion_5b93c148"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
