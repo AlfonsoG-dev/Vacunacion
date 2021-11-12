@@ -38,6 +38,7 @@ public class Cita {
         fecha = nFecha;
         turno = nTurno;
         lugar = nLugar;
+        verificarInvariante();
     }
     //-------------------------------------//
     //----------------Metodos------------//
@@ -69,5 +70,23 @@ public class Cita {
      */
     public String darLugar(){
         return lugar;
+    }
+    //-----------------------------------//
+    //--------------Invariantes------------//
+    //-----------------------------------//
+    /**
+     * verificar la invariante de clase 
+     * <b> pre: </b> los atributos se encuentran declarados e inicializados
+     * <b> post: </b> se verifica la invariante de la clase
+     * El codigo de la cita no puede ser 0. codigo > 0
+     * La fecha de la cita no puede ser null. fecha != null
+     * El turno de la cita no puede ser 0. turno > 0
+     * El lugar de la cita no puede ser null. lugar != null
+     */
+    public void verificarInvariante(){
+        assert codigo > 0 : "El codigo de la clase no puede ser 0"; 
+        assert fecha != null : "La fecha de la cita no puede ser null"; 
+        assert turno > 0 : "El turno de la cita no puede ser 0"; 
+        assert lugar != null: "El lugar de la cita no puede ser null";  
     }
 }
