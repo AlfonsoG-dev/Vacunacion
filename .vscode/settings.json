@@ -4,5 +4,16 @@
         "test"
     ],
     "java.project.outputPath": "bin",
-    "compile-hero.disable-compile-files-on-did-save-code": false
+    "compile-hero.disable-compile-files-on-did-save-code": false,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.base.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.controls.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.fxml.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.graphics.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.media.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.swing.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.web.jar",
+        "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx-swt.jar"
+    ]
 }
