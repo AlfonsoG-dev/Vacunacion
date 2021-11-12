@@ -61,6 +61,7 @@ public class Usuario {
         correo = nCorreo;
         direccion = nDireccion;
         cita = nCita;
+        verificarInvariante();
     }
     //-------------------------------------//
     //----------------Metodos------------//
@@ -125,5 +126,23 @@ public class Usuario {
             codigo = cita.darCodigo();
         }
         return codigo;
+    }
+    //-------------------------------------//
+    //----------------Invariantes---------//
+    //-----------------------------------//
+    /**
+     * verificar la invariante de la clase
+     * <b> pre: </b> los atributos de la clase se encuentran declarados e inicializados
+     * <b> post: </b> se verifica la invariante de la clase
+     * El numero de documento no puede ser 0. numDocumento > 0 
+     * El nombre del usuario no puede ser null. nombre != null 
+     * El apellido del usuario no puede ser null. apellido != null
+     * La cita del usuario no puede ser null. cita != null
+     */
+    private void verificarInvariante(){
+        assert numDocumento > 0 : "El numero de documento no puede ser 0";
+        assert nombre != null : "El nombre del usuario no puede ser null";
+        assert apellido != null : "El apellido del usuario no puede ser null";
+        assert cita != null : "La cita del usuario no puede ser null";
     }
 }
