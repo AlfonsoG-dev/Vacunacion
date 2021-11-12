@@ -143,17 +143,15 @@ public class Operacion {
      * @param nUsuario, usuario que agenda la cita
      * @return la cita con el usuario que agendo la cita
      */
-    public Boolean agendarCita(Cita nCita, Usuario nUsuario){
-        Boolean agendar = false;
-        if(nCita != null && nUsuario != null){
-            for(int i=0; i<darCitasAgendadas().size();i++){
-                if(darCitasAgendadas().get(i).darCita(nCita) == 0){
-                    darCitasAgendadas().add(nUsuario);
-                    agendar = true;
-                }
-            }
+    public String agendarCita(Cita nCita, Usuario nUsuario){
+        String mensaje = null;
+        if(verificarCita(nCita, nUsuario)==false){
+            Usuario nuevo = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nCita);
+            miUsuario().add(nuevo);
+            miCita().add(nCita);
+            darCitasAgendadas().add(nuevo);
+            mensaje = "El usuario se agrego a la lista: " + nuevo.darNombre();
         }
-        return agendar;
+        return mensaje;
     }
-
 }
