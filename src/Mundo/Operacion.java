@@ -77,9 +77,6 @@ public class Operacion {
                 if(verificar.darDocumento() == nUsuario.darDocumento()){
                     encontrado = true;
                 }
-                else{
-                    System.out.println("El usuario no se encuentra registrado");
-                }
             }
         }
         return encontrado;
@@ -145,7 +142,7 @@ public class Operacion {
      */
     public String agendarCita(Cita nCita, Usuario nUsuario){
         String mensaje = null;
-        if(verificarCita(nCita, nUsuario)==false){
+        if(nCita != null && nUsuario!=null){
             Usuario nuevo = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nCita);
             miUsuario().add(nuevo);
             miCita().add(nCita);
