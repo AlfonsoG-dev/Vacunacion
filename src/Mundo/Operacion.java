@@ -161,4 +161,11 @@ public class Operacion {
         miCita().add(nCita);
         darCitasAgendadas().add(nUsuario);
     }
+    //-*---------------------------*-//
+    //-*------Invariante-----------*-//
+    //-*---------------------------*-//
+    public Boolean usuariosRepetidos(){
+        Boolean repetido = false;
+        return repetido;
+    }
 }
