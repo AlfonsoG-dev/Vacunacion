@@ -9,7 +9,10 @@ public class prueba {
         Operacion miOperacion = new Operacion();
         String registrar = miOperacion.registrarCita(mia, mio);
         Boolean buscar = miOperacion.buscarUsuario(mio);
-        System.out.print(registrar);
-        System.out.print(buscar);
+        System.out.println("Usuario 1: nombre : " + mio1.darNombre() + "\n" + 
+        "Usuario 2: nombre: " + mio.darNombre() + "\n" + 
+        "Usuario 1: cita: " + mio1.darCita().darCodigo() + "\n" + 
+        "Se registro la cita ?: " + registrar + "\n" + 
+        "Existe el usuario ingresado: " + buscar);
     }
 }
