@@ -85,7 +85,6 @@ public class Operacion {
      * buscar la cita para saber si se encuentra registrada
      * <b> pre: </b> la lista de citas y usuarios se encuentra incializada
      * <b> post: </b> se verifica si el usuario tiene una cita agendada o nop
-     * @param nCita, es la cita del usuario, nCita != null && nCita != ""
      * @param nUsuario, es el usuario con la cita a verificar, nUsuario != null && nUsuario != ""
      * @return true si el usuario tiene una cita agendada, de lo contrario false
      * el usuario solo tiene el codigo de la cita en donde 0 es que no tiene asignada cita.
@@ -93,6 +92,15 @@ public class Operacion {
      */
     public Boolean buscarCita(Usuario nUsuario){
         Boolean encontrado = false;
+        for(int i=0; i<miCita().size() && !encontrado; i++){
+            Cita existe = nUsuario.darCita();
+            if(existe.darCodigo() != nUsuario.darCita().darCodigo()){
+                System.out.print("La cita se debe registrar");
+            }
+            else{
+                encontrado = true;
+            }
+        }
         return encontrado;
     }
     /**
