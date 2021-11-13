@@ -104,14 +104,19 @@ public class Operacion {
         return encontrado;
     }
     /**
-     * cancelar la cita agendada por el usuario
+     * cancelar la cita agendada por el usuario, para cancelar la cita se pone 0 en el turno de la cita
      * <b> pre: </b> la lista de citas y de usuarios se encuentra inicializada
      * <b> post: </b> se elimina la cita de la lista de citas
      * @param nCita, es la cita a eliminar, nCita != "" && nCita != ""
      * @return true si la cita se elimino de lo contrario false
      */
-    public Boolean cancelarCita(Cita nCita){
+    public Boolean cancelarTurno(Usuario nUsuario){
         Boolean encontrado = false;
+        if(buscarUsuario(nUsuario)!=false){
+            int turno = nUsuario.darCita().darTurno();
+            turno = 0;
+            System.out.print("El turno cambio a: "+turno);
+        }
         return encontrado;
     }
     /**
@@ -142,7 +147,7 @@ public class Operacion {
     //-*------Invariante-----------*-//
     //-*---------------------------*-//
     private void verificarInvariante(){
-        assert !usuariosRepetidos() : "No tienen que existir 2 usuarios con numero de identificacion igutal";
+        assert !usuariosRepetidos() : "No tienen que existir 2 usuarios con numero de identificacion igual";
         assert !turnoRepetido() : "No tienen que existir 2 usuarios con el mismo turno de cita";
     }
     /**
