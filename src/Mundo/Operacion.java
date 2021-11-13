@@ -127,8 +127,23 @@ public class Operacion {
      * @param nUsuario, usuario que agenda la cita
      * @return la cita con el usuario que agendo la cita
      */
-    public String agendarCita(Cita nCita, Usuario nUsuario){
+    public String registrarCita(Cita nCita, Usuario nUsuario){
         String mensaje = null;
+        Cita nuevaCita = null;
+        Usuario nuevoUsuario = null;
+        if(nCita != null && nUsuario != null){
+            nuevaCita = new Cita(nCita.darCodigo(), nCita.darFecha(), nCita.darTurno(), nCita.darLugar());
+            nuevoUsuario = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), 
+            nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nuevaCita);
+            if(buscarUsuario(nuevoUsuario)==false){
+                mensaje = "El Usuario se registro como: " + nuevoUsuario.darNombre() + "\n" + 
+                "Con numero de identificacion: " + nuevoUsuario.darDocumento();
+                agregarDatosLista(nuevaCita, nuevoUsuario);
+            }
+            else{
+                mensaje = "El usuario ya se encuentra registrado en el sistema";
+            }
+        }
         return mensaje;
     }
     /**
