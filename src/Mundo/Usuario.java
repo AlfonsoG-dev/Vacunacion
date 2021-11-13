@@ -117,15 +117,11 @@ public class Usuario {
     }
     /**
      * codigo de la cita del usuario
+     * @param miCita, es la cita agendada del usuario
      * @return codigo de la cita
      */
-    public int darCita(Cita miCita){
-        int codigo = 0;
-        if(miCita!=null){
-            cita = miCita;
-            codigo = cita.darCodigo();
-        }
-        return codigo;
+    public Cita darCita(){
+        return cita;
     }
     //-------------------------------------//
     //----------------Invariantes---------//
