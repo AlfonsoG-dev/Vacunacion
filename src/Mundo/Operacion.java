@@ -144,7 +144,9 @@ public class Operacion {
             nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nuevaCita);
             if(buscarUsuario(nuevoUsuario)==false){
                 mensaje = "El Usuario se registro como: " + nuevoUsuario.darNombre() + "\n" + 
-                "Con numero de identificacion: " + nuevoUsuario.darDocumento();
+                "Con numero de identificacion: " + nuevoUsuario.darDocumento() + "\n" + 
+                "Con codigo de cita: " + nuevoUsuario.darCita().darCodigo() + "\n" + 
+                "el turno de la cita es: " + nuevoUsuario.darCita().darTurno();
                 agregarDatosLista(nuevaCita, nuevoUsuario);
             }
             else{
