@@ -116,9 +116,8 @@ public class Usuario {
         return direccion;
     }
     /**
-     * codigo de la cita del usuario
-     * @param miCita, es la cita agendada del usuario
-     * @return codigo de la cita
+     * cita agendada del usuario
+     * @return cita del usuario
      */
     public Cita darCita(){
         return cita;
