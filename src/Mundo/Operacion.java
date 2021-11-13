@@ -110,12 +110,19 @@ public class Operacion {
      * @param nCita, es la cita a eliminar, nCita != "" && nCita != ""
      * @return true si la cita se elimino de lo contrario false
      */
-    public Boolean cancelarTurno(Usuario nUsuario){
+    public Boolean cancelarCita(Usuario nUsuario){
         Boolean encontrado = false;
-        if(buscarUsuario(nUsuario)!=false){
-            int turno = nUsuario.darCita().darTurno();
-            turno = 0;
-            System.out.print("El turno cambio a: " + turno);
+        if(buscarUsuario(nUsuario)!=false && buscarCita(nUsuario)!=false){
+            Cita eliminar = nUsuario.darCita();
+            for(int i=0; i<miCita().size() && !encontrado; i++){
+                if(eliminar.darCodigo() != miCita().get(i).darCodigo()){
+                    System.out.println("La cita del usuario no se encuentra registrada");
+                }
+                else{
+                    encontrado = true;
+                    miCita().remove(i);
+                }
+            }
         }
         return encontrado;
     }
