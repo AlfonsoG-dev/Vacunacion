@@ -8,7 +8,7 @@ public class prueba {
         Usuario mio1 = new Usuario(193, "Cedula", "Sebastian", "Gomajoa", 3163, "@gmail", "Calle 2", mia1);
         Operacion miOperacion = new Operacion();
         String registrar = miOperacion.registrarCita(mia, mio);
-        Boolean buscar = miOperacion.buscarUsuario(mio1);
+        Boolean buscar = miOperacion.buscarUsuario(mio);
         System.out.print(registrar);
         System.out.print(buscar);
     }
