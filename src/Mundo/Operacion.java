@@ -17,7 +17,7 @@ public class Operacion {
     /**
      * lista con usuarios que tienen citas agendadas
      */
-    private ArrayList<Usuario> citasAgendadas;
+    private ArrayList<Usuario> usuariosCita;
     /**
      * numero maximo de citas o usuarios
      */
@@ -32,9 +32,10 @@ public class Operacion {
      * las listas se inicializan como null
      */
     public Operacion(){
-        usuarios = null;
-        citas = null;
-        citasAgendadas = new ArrayList<Usuario>();
+        usuarios = new ArrayList<Usuario>();
+        citas = new ArrayList<Cita>();
+        usuariosCita = new ArrayList<Usuario>();
+        verificarInvariante();
     }
     //-------------------------------------//
     //----------------Metodos------------//
@@ -44,7 +45,6 @@ public class Operacion {
      * @return usuarios en la eps
      */
     public ArrayList<Usuario> miUsuario(){
-        usuarios = new ArrayList<Usuario>();
         return usuarios;
     }
     /**
@@ -52,15 +52,14 @@ public class Operacion {
      * @return citas para el usuario
      */
     public ArrayList<Cita> miCita(){
-        citas = new ArrayList<Cita>();
         return citas;
     }
     /**
      * lista con las citas agendadas al usuario
      * @return citas agendadas por el usuario
      */
-    public ArrayList<Usuario> darCitasAgendadas(){
-        return citasAgendadas;
+    public ArrayList<Usuario> darUsuariosConCita(){
+        return usuariosCita;
     }
     /**
      * verificar si el usuario esta en el sistema
@@ -71,14 +70,6 @@ public class Operacion {
      */
     public Boolean verificarUsuario(Usuario nUsuario){
         Boolean encontrado = false;
-        if(nUsuario != null){
-            for(int i=0; i<miUsuario().size();i++){
-                Usuario verificar = miUsuario().get(i);
-                if(verificar.darDocumento() == nUsuario.darDocumento()){
-                    encontrado = true;
-                }
-            }
-        }
         return encontrado;
     }
     /**
@@ -93,19 +84,6 @@ public class Operacion {
      */
     public Boolean verificarCita(Cita nCita, Usuario nUsuario){
         Boolean encontrado = false;
-        int codigoU=0;
-        int codigoC=0;
-        if(nCita != null && nUsuario != null){
-            codigoC = nCita.darCodigo();
-            codigoU = nUsuario.darCita(nCita);
-            if(codigoC == codigoU){
-                encontrado = true;
-                darCitasAgendadas().add(nUsuario);
-            }
-            else{
-                System.out.println("EL usuario no tiene citas agendadas");
-            }
-        }
         return encontrado;
     }
     /**
@@ -117,19 +95,6 @@ public class Operacion {
      */
     public Boolean cancelarCita(Cita nCita){
         Boolean encontrado = false;
-        if(nCita != null){
-            for(int i=0; i<citas.size(); i++){
-                Cita eliminar = miCita().get(i);
-                if(eliminar.darCodigo() == nCita.darCodigo()){
-                    encontrado = true;
-                    miCita().remove(i);
-                    
-                }
-                else{
-                    System.out.println("La cita no se encuentra agendada");
-                }
-            }
-        }
         return encontrado;
     }
     /**
@@ -142,11 +107,6 @@ public class Operacion {
      */
     public String agendarCita(Cita nCita, Usuario nUsuario){
         String mensaje = null;
-        if(nCita != null && nUsuario!=null){
-            Usuario nuevo = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nCita);
-            agregarListas(nCita, nUsuario);
-            mensaje = "El usuario se agrego a la lista: " + nuevo.darNombre();
-        }
         return mensaje;
     }
     /**
@@ -156,16 +116,48 @@ public class Operacion {
      * @param nCita, es la cita del usuario. nCita != "" && nCita != null
      * @param nUsuario, es el usurio que agendo la cita. nUsuario != "" && nUsuario != null
      */
-    public void agregarListas(Cita nCita, Usuario nUsuario){
+    public void agregarDatosLista(Cita nCita, Usuario nUsuario){
         miUsuario().add(nUsuario);
         miCita().add(nCita);
-        darCitasAgendadas().add(nUsuario);
+        darUsuariosConCita().add(nUsuario);
     }
     //-*---------------------------*-//
     //-*------Invariante-----------*-//
     //-*---------------------------*-//
-    public Boolean usuariosRepetidos(){
-        Boolean repetido = false;
-        return repetido;
+    private void verificarInvariante(){
+        assert !usuariosRepetidos() : "No tienen que existir 2 usuarios con numero de identificacion igutal";
+        assert !turnoRepetido() : "No tienen que existir 2 usuarios con el mismo turno de cita";
+    }
+    /**
+     * validar que no existan usuarios repetidos
+     * <b> pre: </b> la lista de usuarios se encuentra inicializada
+     * <b> post: </b> se valida que no existan usuarios repetidos
+     * @return true si no existen usuarios repetidos, de lo contrario false
+     */
+    private Boolean usuariosRepetidos(){
+        Boolean noRepetido = true;
+        for(int i = 0; i < miUsuario().size();i++){
+            Usuario inicial = miUsuario().get(0);
+            if(inicial.darDocumento()==miUsuario().get(i).darDocumento()){
+                noRepetido = false;
+            }
+        }
+        return noRepetido;
+    }
+    /**
+     * validar que no existan usuarios con el mismo turno de cita
+     * <b> pre: </b> la lista de usuarios se encuentra inicializada
+     * <b> post: </b> se valida que no existan usuarios con el mismo turno de cita
+     * @return true si no existe el usuario con el mismo turno de cita, de lo contrario false
+     */
+    private Boolean turnoRepetido(){
+        Boolean noRepetido = true;
+        for(int i=0; i<miUsuario().size(); i++){
+            Usuario inicial = miUsuario().get(0);
+            if(inicial.darCita().darTurno() == miUsuario().get(i).darCita().darTurno()){
+                noRepetido = false;
+            }
+        }
+        return noRepetido;
     }
 }
