@@ -73,7 +73,7 @@ public class Operacion {
         for(int i=0; i<miUsuario().size() && !encontrado; i++){
             Usuario existe = miUsuario().get(i);
             if(existe.darDocumento() != nUsuario.darDocumento()){
-                System.out.print("El usuario no existe se debe registrar");
+                System.out.print("El usuario no existe se debe registrar : ");
             }
             else{
                 encontrado = true;
@@ -95,7 +95,7 @@ public class Operacion {
         for(int i=0; i<miCita().size() && !encontrado; i++){
             Cita existe = nUsuario.darCita();
             if(existe.darCodigo() != nUsuario.darCita().darCodigo()){
-                System.out.print("La cita se debe registrar");
+                System.out.print("La cita se debe registrar : ");
             }
             else{
                 encontrado = true;
@@ -115,7 +115,7 @@ public class Operacion {
         if(buscarUsuario(nUsuario)!=false){
             int turno = nUsuario.darCita().darTurno();
             turno = 0;
-            System.out.print("El turno cambio a: "+turno);
+            System.out.print("El turno cambio a: " + turno);
         }
         return encontrado;
     }
