@@ -84,8 +84,7 @@ public class Cita {
      * El lugar de la cita no puede ser null. lugar != null
      */
     public void verificarInvariante(){
-        assert codigo > 0 : "El codigo de la clase no puede ser 0"; 
-        assert fecha != null : "La fecha de la cita no puede ser null"; 
+        assert codigo > 0 : "El codigo de la clase no puede ser 0";  
         assert turno > 0 : "El turno de la cita no puede ser 0"; 
         assert lugar != null: "El lugar de la cita no puede ser null";  
     }
