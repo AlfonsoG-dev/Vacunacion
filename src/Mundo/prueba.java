@@ -6,8 +6,10 @@ public class prueba {
         Cita mia1 = new Cita(112, "Enero-20.2021", 120, "Pasto");
         Usuario mio = new Usuario(192, "Cedula", "Alfonso", "Gomajoa", 3163, "@gmail", "Calle 2", mia);
         Usuario mio1 = new Usuario(193, "Cedula", "Sebastian", "Gomajoa", 3163, "@gmail", "Calle 2", mia1);
-        System.out.print(mio.darCita().darFecha());
-        System.out.print(mio1.darCita().darCodigo());
-        System.out.print(mio.darCita().darCodigo());
+        Operacion miOperacion = new Operacion();
+        String registrar = miOperacion.registrarCita(mia, mio);
+        Boolean buscar = miOperacion.buscarUsuario(mio1);
+        System.out.print(registrar);
+        System.out.print(buscar);
     }
 }
