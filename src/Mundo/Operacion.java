@@ -62,18 +62,27 @@ public class Operacion {
         return usuariosCita;
     }
     /**
-     * verificar si el usuario esta en el sistema
+     * busca al usuario en la lista de usuarios para verificar 
      * <b> pre: </b> la lsita de usuarios se encuentra inicializada
-     * <b> post: </b> se verifica el usuario
+     * <b> post: </b> se verifica el usuario y si el usuario no existe se debe de registrar
      * @param nUsuario, es el usuario a verificar. nUsuario != "" && nUsuario != null
-     * @return true si el usuario esta en el sistema, false de lo contrario
+     * @return true si el usuario esta en el sistema, false de lo contrario 
      */
-    public Boolean verificarUsuario(Usuario nUsuario){
+    public Boolean buscarUsuario(Usuario nUsuario){
         Boolean encontrado = false;
+        for(int i=0; i<miUsuario().size() && !encontrado; i++){
+            Usuario existe = miUsuario().get(i);
+            if(existe.darDocumento() != nUsuario.darDocumento()){
+                System.out.print("El usuario no existe se debe registrar");
+            }
+            else{
+                encontrado = true;
+            }
+        }
         return encontrado;
     }
     /**
-     * verificar si el usuario tiene citas o nop
+     * buscar la cita para saber si se encuentra registrada
      * <b> pre: </b> la lista de citas y usuarios se encuentra incializada
      * <b> post: </b> se verifica si el usuario tiene una cita agendada o nop
      * @param nCita, es la cita del usuario, nCita != null && nCita != ""
@@ -82,7 +91,7 @@ public class Operacion {
      * el usuario solo tiene el codigo de la cita en donde 0 es que no tiene asignada cita.
      * si el usuario tiene agendada una cita se lo añade a la lista de citas agendadas
      */
-    public Boolean verificarCita(Cita nCita, Usuario nUsuario){
+    public Boolean buscarCita(Usuario nUsuario){
         Boolean encontrado = false;
         return encontrado;
     }
