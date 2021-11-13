@@ -142,7 +142,7 @@ public class Operacion {
             nuevaCita = new Cita(nCita.darCodigo(), nCita.darFecha(), nCita.darTurno(), nCita.darLugar());
             nuevoUsuario = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), 
             nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nuevaCita);
-            if(buscarUsuario(nuevoUsuario)==false){
+            if(buscarUsuario(nuevoUsuario) == false){
                 mensaje = "El Usuario se registro como: " + nuevoUsuario.darNombre() + "\n" + 
                 "Con numero de identificacion: " + nuevoUsuario.darDocumento() + "\n" + 
                 "Con codigo de cita: " + nuevoUsuario.darCita().darCodigo() + "\n" + 
@@ -173,6 +173,7 @@ public class Operacion {
     private void verificarInvariante(){
         assert !usuariosRepetidos() : "No tienen que existir 2 usuarios con numero de identificacion igual";
         assert !turnoRepetido() : "No tienen que existir 2 usuarios con el mismo turno de cita";
+        assert !codigoCitaRepetido() : "No tienen que existir 2 usuarios con el mismo codigo de cita";
     }
     /**
      * validar que no existan usuarios repetidos
@@ -202,6 +203,22 @@ public class Operacion {
             Usuario inicial = miUsuario().get(0);
             if(inicial.darCita().darTurno() == miUsuario().get(i).darCita().darTurno()){
                 noRepetido = false;
+            }
+        }
+        return noRepetido;
+    }
+    /**
+     * validar que no existan 2 usuarios con la misma cita
+     * <b> pre: </b> la lista de usurios se encuentra inicializada
+     * <b> post: </b> se valida que no existan 2 usuarios con la misma cita
+     * @return true si no existe el usuario con la misma cita, false de lo contrario
+     */
+    private Boolean codigoCitaRepetido(){
+        Boolean noRepetido = false;
+        for(int i=0; i<miUsuario().size();i++){
+            Usuario inicial = miUsuario().get(0);
+            if(inicial.darCita().darCodigo() == miUsuario().get(i).darCita().darCodigo()){
+                noRepetido = true;
             }
         }
         return noRepetido;
