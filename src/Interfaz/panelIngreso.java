@@ -1,5 +1,5 @@
 package Interfaz;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,5 +25,15 @@ public class panelIngreso {
 
     @FXML
     private TextField txtUsuario;
+
+    @FXML
+    void btnIngresarOnClicked(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnRegistrarOnClicked(ActionEvent event) {
+
+    }
 
 }
