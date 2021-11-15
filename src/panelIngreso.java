@@ -1,4 +1,5 @@
-package Interfaz;
+
+import javax.swing.JOptionPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,7 +29,7 @@ public class panelIngreso {
 
     @FXML
     void btnIngresarOnClicked(ActionEvent event) {
-
+        JOptionPane.showMessageDialog(null,"Ingresar algo:");
     }
 
     @FXML
