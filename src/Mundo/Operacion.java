@@ -101,14 +101,19 @@ public class Operacion {
      */
     public Boolean buscarUsuario(Usuario nUsuario){
         Boolean encontrado = false;
-        for(int i=0; i<miUsuario().size() && !encontrado; i++){
-            Usuario existe = miUsuario().get(i);
-            if(existe.darDocumento() != nUsuario.darDocumento()){
-                System.out.print("El usuario no existe se debe registrar : ");
+        try{
+            for(int i=0; i<miUsuario().size() && !encontrado; i++){
+                Usuario existe = miUsuario().get(i);
+                if(existe.darDocumento() != nUsuario.darDocumento()){
+                    System.out.print("El usuario no existe se debe registrar : ");
+                }
+                else{
+                    encontrado = true;
+                }
             }
-            else{
-                encontrado = true;
-            }
+
+        }catch (Exception e){
+            System.out.println("Error al buscar al usuario : " + e.getMessage());
         }
         return encontrado;
     }
@@ -123,14 +128,19 @@ public class Operacion {
      */
     public Boolean buscarCita(Usuario nUsuario){
         Boolean encontrado = false;
-        for(int i=0; i<miCita().size() && !encontrado; i++){
-            Cita existe = nUsuario.darCita();
-            if(existe.darCodigo() != nUsuario.darCita().darCodigo()){
-                System.out.print("La cita se debe registrar : ");
+        try{
+            for(int i=0; i<miCita().size() && !encontrado; i++){
+                Cita existe = nUsuario.darCita();
+                if(existe.darCodigo() != nUsuario.darCita().darCodigo()){
+                    System.out.print("La cita se debe registrar : ");
+                }
+                else{
+                    encontrado = true;
+                }
             }
-            else{
-                encontrado = true;
-            }
+
+        }catch(Exception e){
+            System.out.println("Error al momento de buscar la cita: " + e.getMessage());
         }
         return encontrado;
     }
@@ -143,17 +153,22 @@ public class Operacion {
      */
     public Boolean cancelarCita(Usuario nUsuario){
         Boolean encontrado = false;
-        if(buscarUsuario(nUsuario)!=false && buscarCita(nUsuario)!=false){
-            Cita eliminar = nUsuario.darCita();
-            for(int i=0; i<miCita().size() && !encontrado; i++){
-                if(eliminar.darCodigo() != miCita().get(i).darCodigo()){
-                    System.out.println("La cita del usuario no se encuentra registrada");
-                }
-                else{
-                    encontrado = true;
-                    miCita().remove(i);
+        try{
+
+            if(buscarUsuario(nUsuario)!=false && buscarCita(nUsuario)!=false){
+                Cita eliminar = nUsuario.darCita();
+                for(int i=0; i<miCita().size() && !encontrado; i++){
+                    if(eliminar.darCodigo() != miCita().get(i).darCodigo()){
+                        System.out.println("La cita del usuario no se encuentra registrada");
+                    }
+                    else{
+                        encontrado = true;
+                        miCita().remove(i);
+                    }
                 }
             }
+        }catch(Exception e){
+            System.out.println("Error al momento de cancelar la cita: " + e.getMessage());
         }
         return encontrado;
     }
@@ -169,20 +184,25 @@ public class Operacion {
         String mensaje = null;
         Cita nuevaCita = null;
         Usuario nuevoUsuario = null;
-        if(nCita != null && nUsuario != null){
-            nuevaCita = new Cita(nCita.darCodigo(), nCita.darFecha(), nCita.darTurno(), nCita.darLugar());
-            nuevoUsuario = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), 
-            nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nuevaCita);
-            if(buscarUsuario(nuevoUsuario) == false){
-                mensaje = "El Usuario se registro como: " + nuevoUsuario.darNombre() + "\n" + 
-                "Con numero de identificacion: " + nuevoUsuario.darDocumento() + "\n" + 
-                "Con codigo de cita: " + nuevoUsuario.darCita().darCodigo() + "\n" + 
-                "el turno de la cita es: " + nuevoUsuario.darCita().darTurno();
-                agregarDatosLista(nuevaCita, nuevoUsuario);
+        try{
+            
+            if(nCita != null && nUsuario != null){
+                nuevaCita = new Cita(nCita.darCodigo(), nCita.darFecha(), nCita.darTurno(), nCita.darLugar());
+                nuevoUsuario = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), 
+                nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nuevaCita);
+                if(buscarUsuario(nuevoUsuario) == false){
+                    mensaje = "El Usuario se registro como: " + nuevoUsuario.darNombre() + "\n" + 
+                    "Con numero de identificacion: " + nuevoUsuario.darDocumento() + "\n" + 
+                    "Con codigo de cita: " + nuevoUsuario.darCita().darCodigo() + "\n" + 
+                    "el turno de la cita es: " + nuevoUsuario.darCita().darTurno();
+                    agregarDatosLista(nuevaCita, nuevoUsuario);
+                }
+                else{
+                    mensaje = "El usuario ya se encuentra registrado en el sistema";
+                }
             }
-            else{
-                mensaje = "El usuario ya se encuentra registrado en el sistema";
-            }
+        }catch(Exception e){
+            System.out.println("Error al momento de registrar la cita del usuario: " + e.getMessage());
         }
         return mensaje;
     }
@@ -194,9 +214,14 @@ public class Operacion {
      * @param nUsuario, es el usurio que agendo la cita. nUsuario != "" && nUsuario != null
      */
     public void agregarDatosLista(Cita nCita, Usuario nUsuario){
-        miUsuario().add(nUsuario);
-        miCita().add(nCita);
-        darUsuariosConCita().add(nUsuario);
+        try{
+            miUsuario().add(nUsuario);
+            miCita().add(nCita);
+            darUsuariosConCita().add(nUsuario);
+
+        }catch(Exception e){
+            System.out.println("Error al momento de registrar datos en las listas: " + e.getMessage());
+        }
     }
     //-*---------------------------*-//
     //-*------Invariante-----------*-//
