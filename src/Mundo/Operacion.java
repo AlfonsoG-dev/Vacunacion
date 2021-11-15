@@ -70,6 +70,29 @@ public class Operacion {
         return cuentas;
     }
     /**
+     * buscar la cuenta del usuario
+     * <b> pre: </b> la lista de cuentas se encuentra inicializada
+     * <b> post: </b> se busca la cuenta y si no eixte se registra la cuenta
+     * @param nCuenta, es la cuenta a buscar. nCuenta != "" && nCuenta != null
+     * @return true si la cuenta se encuentra, de lo contrario false
+     */
+    public Boolean buscarCuenta(Cuenta nCuenta){
+        Boolean encontrado = false;
+        try{
+            for(int i=0; i<miCuenta().size() && !encontrado; i++){
+                Cuenta buscar = miCuenta().get(i);
+                if(buscar.darUsuario() != nCuenta.darUsuario()){
+                    System.out.println("La cuenta no se encuentra registrada en el sistema");
+                }else{
+                    encontrado = true;
+                }   
+            }
+        }catch (Exception e){
+            System.out.println("Error al momento de buscar la cuenta: " + e.getMessage());
+        }
+        return encontrado;
+    }
+    /**
      * busca al usuario en la lista de usuarios para verificar 
      * <b> pre: </b> la lsita de usuarios se encuentra inicializada
      * <b> post: </b> se verifica el usuario y si el usuario no existe se debe de registrar
