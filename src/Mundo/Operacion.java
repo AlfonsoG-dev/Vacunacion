@@ -93,6 +93,36 @@ public class Operacion {
         return encontrado;
     }
     /**
+     * registar la cuenta del usuario
+     * <b> pre: </b> la lista de cuentas se encuentra inicializada
+     * <b> post: </b> se regitra la cuenta del usuario
+     * @param nUsuario, es el usuario de la cuenta. nUsuario != "" && nUsuario != null
+     * @param nPassword, es la contrasenia de la cuentra. nPassword != "" && nPassword != null
+     * @return mensaje de "registro exitoso"
+     */
+    public String registrarCuenta(String nUsuario, String nPassword){
+        String mensaje = "";
+        Boolean stop = false;
+        Cuenta nueva = null;
+        try{
+            for(int i=0; i<miCuenta().size() && !stop;i++){
+                Cuenta inicial = miCuenta().get(i);
+                if(inicial.darUsuario() != nUsuario){
+                    nueva = new Cuenta(nUsuario, nPassword);
+                    mensaje = "Se registro la cuenta con usurio: " + nueva.darUsuario() + "\n" + 
+                    "y contrasenia: " + nueva.darPasword();
+                }else{
+                    mensaje = "la cuenta se encuentra registrada con usuario: " + nUsuario + "\n" + 
+                    "y contrasenia: " + nPassword; 
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Error al registrar la cuenta: " + e.getMessage());
+        }
+        return mensaje;
+    }
+
+    /**
      * busca al usuario en la lista de usuarios para verificar 
      * <b> pre: </b> la lsita de usuarios se encuentra inicializada
      * <b> post: </b> se verifica el usuario y si el usuario no existe se debe de registrar
