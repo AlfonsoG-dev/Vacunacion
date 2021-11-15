@@ -121,7 +121,30 @@ public class Operacion {
         }
         return mensaje;
     }
-
+    /**
+     * eliminar una cuenta del sistema
+     * <b> pre: </b> la lista de cuentas se encuentra inicializada
+     * <b> post: </b> se elimina la cuenta del sistema
+     * @param nUsuario, es el usuario a eliminar. nUsuario != "" && nUsuario != null
+     * @return true si se elimino la cuenta de lo contrario false
+     */
+    public Boolean eliminarCuenta(String nUsuario){
+        Boolean eliminar = false;
+        try{
+            for(int i=0; i<miCuenta().size() && !eliminar; i++){
+                Cuenta c = miCuenta().get(i);
+                if(c.darUsuario() == nUsuario){
+                    eliminar = true;
+                    miCuenta().remove(i);
+                }else{
+                    System.out.println("La cuenta no se encuentra registrada");
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Error al eliminar la cuenta: " + e.getMessage());
+        }
+        return eliminar;
+    }
     /**
      * busca al usuario en la lista de usuarios para verificar 
      * <b> pre: </b> la lsita de usuarios se encuentra inicializada
