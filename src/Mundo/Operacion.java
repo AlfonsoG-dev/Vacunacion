@@ -21,7 +21,7 @@ public class Operacion {
     /**
      * numero maximo de citas o usuarios
      */
-    public final static int MAX_C = 20;
+    private ArrayList<Cuenta> cuentas;
     //-------------------------------------//
     //----------------Constructor------------//
     //-------------------------------------//
@@ -35,6 +35,7 @@ public class Operacion {
         usuarios = new ArrayList<Usuario>();
         citas = new ArrayList<Cita>();
         usuariosCita = new ArrayList<Usuario>();
+        cuentas = new ArrayList<Cuenta>();
         verificarInvariante();
     }
     //-------------------------------------//
@@ -60,6 +61,13 @@ public class Operacion {
      */
     public ArrayList<Usuario> darUsuariosConCita(){
         return usuariosCita;
+    }
+    /**
+     * lista con las cuentas del usuario
+     * @return cuentas del usuario
+     */
+    public ArrayList<Cuenta> miCuenta(){
+        return cuentas;
     }
     /**
      * busca al usuario en la lista de usuarios para verificar 
@@ -174,6 +182,7 @@ public class Operacion {
         assert !usuariosRepetidos() : "No tienen que existir 2 usuarios con numero de identificacion igual";
         assert !turnoRepetido() : "No tienen que existir 2 usuarios con el mismo turno de cita";
         assert !codigoCitaRepetido() : "No tienen que existir 2 usuarios con el mismo codigo de cita";
+        assert !cuentaRepetida(): "No tienen que existir 2 cuentas con el mismo usuario";
     }
     /**
      * validar que no existan usuarios repetidos
@@ -183,7 +192,7 @@ public class Operacion {
      */
     private Boolean usuariosRepetidos(){
         Boolean noRepetido = true;
-        for(int i = 0; i < miUsuario().size();i++){
+        for(int i = 1; i < miUsuario().size();i++){
             Usuario inicial = miUsuario().get(0);
             if(inicial.darDocumento()==miUsuario().get(i).darDocumento()){
                 noRepetido = false;
@@ -199,7 +208,7 @@ public class Operacion {
      */
     private Boolean turnoRepetido(){
         Boolean noRepetido = true;
-        for(int i=0; i<miUsuario().size(); i++){
+        for(int i=1; i<miUsuario().size(); i++){
             Usuario inicial = miUsuario().get(0);
             if(inicial.darCita().darTurno() == miUsuario().get(i).darCita().darTurno()){
                 noRepetido = false;
@@ -215,10 +224,26 @@ public class Operacion {
      */
     private Boolean codigoCitaRepetido(){
         Boolean noRepetido = false;
-        for(int i=0; i<miUsuario().size();i++){
+        for(int i=1; i<miUsuario().size();i++){
             Usuario inicial = miUsuario().get(0);
             if(inicial.darCita().darCodigo() == miUsuario().get(i).darCita().darCodigo()){
                 noRepetido = true;
+            }
+        }
+        return noRepetido;
+    }
+    /**
+     * validar que no existan 2 cuentas con el mismo usuario
+     * <b> pre: </b> la lista de cuentas se encuentra inicializada
+     * <b> post: </b> se valida que no existan 2 cuentas con el mismo usuario
+     * @return true si no existen 2 cuentas con el mismo usuario, false de lo contrario
+     */
+    private Boolean cuentaRepetida(){
+        Boolean noRepetido = true;
+        for(int i=1; i<miCuenta().size() && !noRepetido; i++){
+            Cuenta inicial = miCuenta().get(0);
+            if(inicial.darUsuario() == miCuenta().get(i).darUsuario()){
+                noRepetido = false;
             }
         }
         return noRepetido;
