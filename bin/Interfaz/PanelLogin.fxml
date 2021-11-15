@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panelIngreso">
+   <children>
+      <Label fx:id="lblUsuarioL" layoutX="62.0" layoutY="61.0" prefHeight="27.0" prefWidth="124.0" text="Usuario" textAlignment="CENTER" textFill="#a41d1d">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPasword" layoutX="62.0" layoutY="150.0" prefHeight="27.0" prefWidth="124.0" text="Password" textAlignment="CENTER" textFill="#a41d1d">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnIngresar" layoutX="112.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Ingresar" />
+      <Button fx:id="btnRegistro" layoutX="244.0" layoutY="204.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Registrarse" />
+      <PasswordField fx:id="txtPasword" layoutX="170.0" layoutY="151.0" />
+      <TextField fx:id="txtUsuario" layoutX="170.0" layoutY="62.0" />
+   </children>
+</AnchorPane>
