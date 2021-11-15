@@ -43,5 +43,4 @@ public class Cuenta {
     public String darPasword(){
         return pasword;
     }
-
 }
