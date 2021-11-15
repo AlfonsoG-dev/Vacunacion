@@ -26,3 +26,4 @@
       <TextField fx:id="txtUsuario" layoutX="170.0" layoutY="62.0" />
    </children>
 </AnchorPane>
+   
