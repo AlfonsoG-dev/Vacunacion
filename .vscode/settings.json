@@ -3,8 +3,6 @@
         "src",
         "test"
     ],
-    "java.project.outputPath": "bin",
-    "compile-hero.disable-compile-files-on-did-save-code": false,
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "a:\\aplicaciones para la universidad\\java FX\\javafx-sdk-17.0.1\\lib\\javafx.base.jar",
