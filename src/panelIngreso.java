@@ -38,7 +38,9 @@ public class panelIngreso {
 
     @FXML
     void btnIngresarOnClicked(ActionEvent event) {
-        if(darContrasenia()!=null && darUsuario()!=null){
+        String pass = txtPasword.getText();
+        String usuario = txtUsuario.getText();
+        if(pass!=null && usuario!=null){
             if(miOperacion.buscarCuenta(miCuenta)!=false){
                 
                 JOptionPane.showMessageDialog(null, "Feliciataciones ingresaste");
@@ -53,9 +55,11 @@ public class panelIngreso {
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
+        String usuario = txtUsuario.getText();
+        String pass = txtPasword.getText();
         if(miOperacion.buscarCuenta(miCuenta)==false){
-            miOperacion.registrarCuenta(darUsuario(), darContrasenia());
-            JOptionPane.showMessageDialog(null, "Se registro al usuario" + darUsuario());
+            miOperacion.registrarCuenta(usuario, pass);
+            JOptionPane.showMessageDialog(null, "Se registro al usuario" + usuario);
 
         }else{
             
@@ -65,13 +69,5 @@ public class panelIngreso {
     public void limpiar(){
         txtUsuario.setText(null);
         txtPasword.setText(null);
-    }
-    public String darUsuario(){
-        String usuario = txtUsuario.getText();
-        return usuario;
-    }
-    public String darContrasenia(){
-        String contra = txtPasword.getText();
-        return contra;
-    }   
+    } 
 }
