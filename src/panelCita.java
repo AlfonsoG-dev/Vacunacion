@@ -62,7 +62,7 @@ public class panelCita implements Initializable{
     private Label lblCodigo;
 
     @FXML
-    private Label lblCodigo1;
+    private Label lblUsuario;
 
     @FXML
     private Label lblLugar;

@@ -44,7 +44,7 @@
       <TextField fx:id="txtCodigo" layoutX="140.0" layoutY="133.0" />
       <TextField fx:id="txtTurno" layoutX="140.0" layoutY="206.0" />
       <TextField fx:id="txtLugar" layoutX="140.0" layoutY="276.0" />
-      <Label fx:id="lblCodigo1" layoutX="40.0" layoutY="333.0" text="Fecha cita">
+      <Label fx:id="lblUsuario" layoutX="40.0" layoutY="333.0" text="Fecha cita">
          <font>
             <Font size="18.0" />
          </font>
