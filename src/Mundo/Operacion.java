@@ -79,11 +79,17 @@ public class Operacion {
     public Boolean buscarCuenta(Cuenta nCuenta){
         Boolean encontrado = false;
         try{
-            for(int i=0; i<miCuenta().size() && !encontrado; i++){
-                Cuenta buscar = miCuenta().get(i);
-                if(buscar.darUsuario() == nCuenta.darUsuario()){
-                    encontrado = true;
-                } 
+            if(miCuenta().size()>0){
+
+                for(int i=0; i<miCuenta().size() && !encontrado; i++){
+                    Cuenta buscar = miCuenta().get(i);
+                    if(buscar.darUsuario() == nCuenta.darUsuario()){
+                        encontrado = true;
+                    } 
+                }
+            }
+            else{
+                miCuenta().add(nCuenta);
             }
         }catch (Exception e){
             System.out.println("Error al momento de buscar la cuenta: " + e.getMessage());
@@ -103,16 +109,23 @@ public class Operacion {
         Boolean stop = false;
         Cuenta nueva = null;
         try{
-            for(int i=0; i<miCuenta().size() && !stop;i++){
-                Cuenta inicial = miCuenta().get(i);
-                if(inicial.darUsuario() != nUsuario){
-                    nueva = new Cuenta(nUsuario, nPassword);
-                    mensaje = "Se registro la cuenta con usurio: " + nueva.darUsuario() + "\n" + 
-                    "y contrasenia: " + nueva.darPasword();
-                }else{
-                    mensaje = "la cuenta se encuentra registrada con usuario: " + nUsuario + "\n" + 
-                    "y contrasenia: " + nPassword; 
+            if(miCuenta().size()>0){
+                
+                for(int i=0; i<miCuenta().size() && !stop;i++){
+                    Cuenta inicial = miCuenta().get(i);
+                    if(inicial.darUsuario() != nUsuario){
+                        nueva = new Cuenta(nUsuario, nPassword);
+                        mensaje = "Se registro la cuenta con usurio: " + nueva.darUsuario() + "\n" + 
+                        "y contrasenia: " + nueva.darPasword();
+                    }else{
+                        mensaje = "la cuenta se encuentra registrada con usuario: " + nUsuario + "\n" + 
+                        "y contrasenia: " + nPassword; 
+                    }
                 }
+            }
+            else{
+                nueva = new Cuenta(nUsuario, nPassword);
+                miCuenta().add(nueva);
             }
         }catch(Exception e){
             System.out.println("Error al registrar la cuenta: " + e.getMessage());
@@ -129,14 +142,20 @@ public class Operacion {
     public Boolean eliminarCuenta(String nUsuario){
         Boolean eliminar = false;
         try{
-            for(int i=0; i<miCuenta().size() && !eliminar; i++){
+            if(miCuenta().size()>0){
+
+                for(int i=0; i<miCuenta().size() && !eliminar; i++){
                 Cuenta c = miCuenta().get(i);
-                if(c.darUsuario() == nUsuario){
-                    eliminar = true;
-                    miCuenta().remove(i);
-                }else{
-                    System.out.println("La cuenta no se encuentra registrada");
+                    if(c.darUsuario() == nUsuario){
+                        eliminar = true;
+                        miCuenta().remove(i);
+                    }else{
+                        System.out.println("La cuenta no se encuentra registrada");
+                    }
                 }
+            }
+            else{
+                System.out.println("no existen cuentas en el arreglo");
             }
         }catch(Exception e){
             System.out.println("Error al eliminar la cuenta: " + e.getMessage());
