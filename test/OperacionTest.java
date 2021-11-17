@@ -42,11 +42,11 @@ public class OperacionTest {
     @Test
     public void testOperacion(){
         scenario1();
-        assertNotNull("No deberia ser null", miOperacion.buscarCita(miUsuario));
+        assertNotNull("No deberia ser null", miOperacion.buscarCita(miCita));
         assertNotNull("No deberia ser null", miOperacion.buscarCuenta(miCuenta));
         assertNotNull("No deberia ser null", miOperacion.buscarUsuario(miUsuario));
         assertEquals("Deberian eliminar la cuenta", true, miOperacion.eliminarCuenta(miCuenta.darUsuario()).booleanValue());
-        assertEquals("Deberia eliminar la cita", true, miOperacion.cancelarCita(miUsuario));
+        assertEquals("Deberia eliminar la cita", true, miOperacion.cancelarCita(miCita));
 
         //registrar una nueva cuenta 
         Cuenta nueva = new Cuenta("juan", "456");
@@ -66,7 +66,7 @@ public class OperacionTest {
         Cita c = new Cita(140, "octubre/1/2021", 50, "bogota");
         Usuario u= new Usuario(105, "cedula", "jakob", "mirama", 318, "@gmail", "villaflores", c);
         Usuario buscado = miOperacion.buscarUsuario(u);
-        Cita buscada = miOperacion.buscarCita(u);
+        Cita buscada = miOperacion.buscarCita(c);
         if(miOperacion.registrarCita(c, u)!=null){
             assertNotNull("Deberia estar el usuario registrado", miOperacion.miUsuario());
             assertEquals("Deberia ser el mismo usuario", u.getDocumento(), buscado.getDocumento());
