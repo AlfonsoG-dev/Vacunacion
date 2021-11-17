@@ -88,10 +88,6 @@ public class Operacion {
                     } 
                 }
             }
-            else{
-                miCuenta().add(nCuenta);
-                encontrado = true;
-            }
         }catch (Exception e){
             System.out.println("Error al momento de buscar la cuenta: " + e.getMessage());
         }
@@ -125,12 +121,6 @@ public class Operacion {
                     }
                 }
             }
-            else{
-                nueva = new Cuenta(nUsuario, nPassword);
-                miCuenta().add(nueva);
-                mensaje = "se registro la cuenta con usuario: " + nueva.darUsuario() + "\n" + 
-                "y contraseña: " + nueva.darPasword();
-            }
         }catch(Exception e){
             System.out.println("Error al registrar la cuenta: " + e.getMessage());
         }
@@ -157,10 +147,6 @@ public class Operacion {
                         System.out.println("La cuenta no se encuentra registrada");
                     }
                 }
-            }
-            else{
-                System.out.println("no existen cuentas en el arreglo");
-                eliminar = false;
             }
         }catch(Exception e){
             System.out.println("Error al eliminar la cuenta: " + e.getMessage());
@@ -271,9 +257,6 @@ public class Operacion {
                     "Con codigo de cita: " + nuevoUsuario.darCita().darCodigo() + "\n" + 
                     "el turno de la cita es: " + nuevoUsuario.darCita().darTurno();
                     agregarDatosLista(nuevaCita, nuevoUsuario);
-                }
-                else{
-                    mensaje = "El usuario ya se encuentra registrado en el sistema";
                 }
             }
         }catch(Exception e){
