@@ -74,7 +74,7 @@ public class panelIngreso {
             root= FXMLLoader.load(getClass().getResource("PanelCita.fxml"));    
             Stage citaStage = new Stage();
             Scene scene = new Scene(root);
-            citaStage.setTitle("Loggin");
+            citaStage.setTitle("Vacunacion: Cita");
             citaStage.setScene(scene);
             citaStage.showAndWait();
         } catch (Exception e) {

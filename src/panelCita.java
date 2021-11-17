@@ -132,7 +132,7 @@ public class panelCita {
             root= FXMLLoader.load(getClass().getResource("PanelLogin.fxml"));    
             scene = new Scene(root);
             Stage loginStage = new Stage();
-            loginStage.setTitle("Loggin");
+            loginStage.setTitle("Vacunacion: Ingreso");
             loginStage.setScene(scene);
             loginStage.showAndWait();
         } catch (Exception e) {
