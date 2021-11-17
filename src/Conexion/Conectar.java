@@ -2,8 +2,6 @@ package Conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import javax.swing.JOptionPane;
-
 public class Conectar {
     //-----------------------------//
     //----------Atributos---------//
@@ -23,14 +21,28 @@ public class Conectar {
     //---------------------------//
     //---------Metodos----------//
     //--------------------------//
+    /**
+     * 
+     * @return
+     */
     public Connection conectar(){
         Connection c = null;
         try{
             c = DriverManager.getConnection(url, user, password);
-            JOptionPane.showMessageDialog(null, "Conectado");
+            System.out.print("Conectado");
         }catch(Exception e){
-            System.out.println("Error" + e.getMessage());
+            System.out.print("Error: " + e.getMessage());
         }
         return c;
+    }
+    /**
+     * 
+     */
+    public void desconectar(Connection c){
+        try{
+            c.close();
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }
     }
 }
