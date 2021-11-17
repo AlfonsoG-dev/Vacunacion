@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import Conexion.Conectar;
 public class panelIngreso {
     /**
      * clase de tipo operacion
@@ -19,6 +20,10 @@ public class panelIngreso {
      * clase de tipo cuenta
      */
     Cuenta miCuenta;
+    /**
+     * 
+     */
+    Conectar conexion;
     @FXML
     private Button btnIngresar;
 
@@ -51,6 +56,7 @@ public class panelIngreso {
         miCuenta = new Cuenta(usuario, pass);
         if(miOperacion.buscarCuenta(miCuenta)==null){
             miOperacion.registrarCuenta(usuario, pass);
+
             Alertar.display("Ingreso y registro", "Se registro el usuario");
             limpiar();
 

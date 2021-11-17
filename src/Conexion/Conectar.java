@@ -1,5 +1,8 @@
 package Conexion;
 import java.sql.Connection;
+import java.sql.DriverManager;
+
+import javax.swing.JOptionPane;
 
 public class Conectar {
     //-----------------------------//
@@ -17,18 +20,14 @@ public class Conectar {
      * contrasenia de la base de datos
      */
     private final static String  password = "5x5W12";
-    /**
-     * driver para la conexion
-     */
-    private final static String driver = "";
     //---------------------------//
     //---------Metodos----------//
     //--------------------------//
     public Connection conectar(){
         Connection c = null;
         try{
-            Class.forName(driver);
-
+            c = DriverManager.getConnection(url, user, password);
+            JOptionPane.showMessageDialog(null, "Conectado");
         }catch(Exception e){
             System.out.println("Error" + e.getMessage());
         }
