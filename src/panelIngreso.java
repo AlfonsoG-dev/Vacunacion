@@ -35,11 +35,12 @@ public class panelIngreso {
 
     @FXML
     private TextField txtUsuario;
-
+    private String usuario;
+    private String pass;
     @FXML
     void btnIngresarOnClicked(ActionEvent event) {
-        String pass = txtPasword.getText();
-        String usuario = txtUsuario.getText();
+        pass = txtPasword.getText();
+        usuario = txtUsuario.getText();
         miCuenta = new Cuenta(usuario, pass);
         if(pass!=null && usuario!=null){
             if(miOperacion.buscarCuenta(miCuenta)!=false){
@@ -57,8 +58,8 @@ public class panelIngreso {
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        String usuario = txtUsuario.getText();
-        String pass = txtPasword.getText();
+        usuario = txtUsuario.getText();
+        pass = txtPasword.getText();
         miCuenta = new Cuenta(usuario, pass);
         if(miOperacion.buscarCuenta(miCuenta)==false){
             miOperacion.registrarCuenta(usuario, pass);
