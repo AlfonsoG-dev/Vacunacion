@@ -2,11 +2,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Mundo.Cita;
-import Mundo.Usuario;
 import Mundo.Operacion;
+import Mundo.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,13 +18,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+public class panelCita implements Initializable{
 
-public class panelCita {
-    private Parent root;
-    private Scene scene;
-    Operacion miOperacion = new Operacion();
     Cita miCita;
+    Operacion miOperacion = new Operacion();
     Usuario miUsuario;
+    private Parent root;
     @FXML
     private Button btnConsultar;
 
@@ -43,9 +43,6 @@ public class panelCita {
     private TableColumn<Cita, Integer> colCodigo;
 
     @FXML
-    private TableColumn<Usuario, Integer> colDocumento;
-
-    @FXML
     private TableColumn<Cita, String> colFecha;
 
     @FXML
@@ -53,9 +50,6 @@ public class panelCita {
 
     @FXML
     private TableColumn<Cita, Integer> colTurno;
-
-    @FXML
-    private TableColumn<Usuario, String> colUsuario;
 
     @FXML
     private DatePicker dtaFecha;
@@ -76,7 +70,7 @@ public class panelCita {
     private Label lblTurno;
 
     @FXML
-    private TableView<?> tblCitas;
+    private TableView<Cita> tblCitas;
 
     @FXML
     private TextField txtCita;
@@ -92,7 +86,12 @@ public class panelCita {
 
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-
+        try{
+            miCita = new Cita(1, "enero", 132, "pasto");
+            tblCitas.getItems().add(miCita);
+        }catch(Exception e){
+            Alertar.display("Error", e.getMessage());
+        }
     }
 
     @FXML
@@ -112,29 +111,29 @@ public class panelCita {
 
     @FXML
     void btnVolverOnClicked(ActionEvent event) {
-        entrarLogin();
 
-    }
-    
-    public void initialize(URL arg0, ResourceBundle arg1){
-        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        colDocumento.setCellValueFactory(new PropertyValueFactory<>("documento"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
-        colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
-        colUsuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
     }
     /**
      * 
      */
-    public void entrarLogin(){
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
+        colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
+    }
+    /**
+     * 
+     */
+    public void entrarLogin() {
         try {
-            root= FXMLLoader.load(getClass().getResource("PanelLogin.fxml"));    
-            scene = new Scene(root);
-            Stage loginStage = new Stage();
-            loginStage.setTitle("Vacunacion: Ingreso");
-            loginStage.setScene(scene);
-            loginStage.showAndWait();
+            root = FXMLLoader.load(getClass().getResource("PanelLogin.fxml"));
+            Stage citaStage = new Stage();
+            Scene scene = new Scene(root);
+            citaStage.setTitle("Vacunacion:login");
+            citaStage.setScene(scene);
+            citaStage.show();
         } catch (Exception e) {
             Alertar.display("Error", e.getMessage());
         }
