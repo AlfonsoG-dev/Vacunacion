@@ -81,11 +81,9 @@ public class Operacion {
         try{
             for(int i=0; i<miCuenta().size() && !encontrado; i++){
                 Cuenta buscar = miCuenta().get(i);
-                if(buscar.darUsuario() != nCuenta.darUsuario()){
-                    System.out.println("La cuenta no se encuentra registrada en el sistema");
-                }else{
+                if(buscar.darUsuario() == nCuenta.darUsuario()){
                     encontrado = true;
-                }   
+                } 
             }
         }catch (Exception e){
             System.out.println("Error al momento de buscar la cuenta: " + e.getMessage());
