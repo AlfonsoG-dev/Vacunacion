@@ -27,7 +27,7 @@ public class Alertar {
         layout.getChildren().addAll(lblMensaje, btnCerrar);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 200, 150);
+        Scene scene = new Scene(layout, 300, 150);
         windows.setScene(scene);
         windows.showAndWait();
     }    
