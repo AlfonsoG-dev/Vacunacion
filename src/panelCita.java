@@ -1,3 +1,6 @@
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import Mundo.Cita;
 import Mundo.Usuario;
 import Mundo.Operacion;
@@ -9,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class panelCita {
     Operacion miOperacion = new Operacion();
@@ -103,6 +107,15 @@ public class panelCita {
     @FXML
     void btnVolverOnClicked(ActionEvent event) {
 
+    }
+    
+    public void initialize(URL arg0, ResourceBundle arg1){
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        colDocumento.setCellValueFactory(new PropertyValueFactory<>("documento"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
+        colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
+        colUsuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
     }
 
 }
