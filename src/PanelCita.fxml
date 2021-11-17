@@ -52,8 +52,6 @@
       <DatePicker fx:id="dtaFecha" layoutX="140.0" layoutY="334.0" />
       <TableView fx:id="tblCitas" layoutX="549.0" layoutY="79.0" prefHeight="241.0" prefWidth="444.0">
         <columns>
-          <TableColumn fx:id="colUsuario" prefWidth="75.0" text="Usuario" />
-          <TableColumn fx:id="colDocumento" prefWidth="75.0" text="Documento" />
             <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Codigo" />
             <TableColumn fx:id="colTurno" prefWidth="75.0" text="Turno" />
             <TableColumn fx:id="colLugar" prefWidth="75.0" text="Lugar" />
