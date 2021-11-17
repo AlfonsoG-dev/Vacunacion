@@ -83,7 +83,7 @@ public class Operacion {
 
                 for(int i=0; i<miCuenta().size() && !encontrado; i++){
                     Cuenta buscar = miCuenta().get(i);
-                    if(buscar.darUsuario() == nCuenta.darUsuario()){
+                    if(buscar.darUsuario() == nCuenta.darUsuario() && buscar.darPasword()==nCuenta.darPasword()){
                         encontrado = true;
                     } 
                 }
@@ -118,6 +118,7 @@ public class Operacion {
                         nueva = new Cuenta(nUsuario, nPassword);
                         mensaje = "Se registro la cuenta con usurio: " + nueva.darUsuario() + "\n" + 
                         "y contrasenia: " + nueva.darPasword();
+                        stop= true;
                     }else{
                         mensaje = "la cuenta se encuentra registrada con usuario: " + nUsuario + "\n" + 
                         "y contrasenia: " + nPassword; 
@@ -148,7 +149,7 @@ public class Operacion {
             if(miCuenta().size()>0){
 
                 for(int i=0; i<miCuenta().size() && !eliminar; i++){
-                Cuenta c = miCuenta().get(i);
+                    Cuenta c = miCuenta().get(i);
                     if(c.darUsuario() == nUsuario){
                         eliminar = true;
                         miCuenta().remove(i);
