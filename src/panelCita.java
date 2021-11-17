@@ -121,7 +121,12 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnModificarOnClicked(ActionEvent event) {
-
+        String codigo = txtCodigo.getText();
+        String fecha = dtaFecha.getValue().toString();
+        String turno = txtTurno.getText();
+        String lugar = txtLugar.getText();
+        
+        miCitaDAO.modificarCita(codigo, fecha, turno, lugar);
     }
 
     @FXML
