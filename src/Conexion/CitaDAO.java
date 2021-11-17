@@ -91,4 +91,21 @@ public class CitaDAO {
         }
         return eliminar;
     }
+    /**
+     * modificar cita de la base de datos
+     * @param nCita, cita a modificar. nCita != "" && nCita != null
+     * @return cita modificada
+     */
+    public Cita modificarCita(Cita nCita){
+        Cita modificar = null;
+        Connection mia = miConexion.conectar();
+        try{
+            
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return modificar;
+    }
 }

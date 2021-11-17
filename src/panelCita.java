@@ -113,7 +113,6 @@ public class panelCita implements Initializable{
                 Alertar.display("Error", "No se elimino la cita");
             }else{
                 Alertar.display("felicidades", "Se elimino la cita");
-
             }
         }catch(Exception e){
             Alertar.display("Error: ", e.getMessage());
