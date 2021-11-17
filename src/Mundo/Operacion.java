@@ -189,19 +189,19 @@ public class Operacion {
      * el usuario solo tiene el codigo de la cita en donde 0 es que no tiene asignada cita.
      * si el usuario tiene agendada una cita se lo añade a la lista de citas agendadas
      */
-    public Cita buscarCita(Usuario nUsuario){
+    public Cita buscarCita(Cita nCita){
         Boolean encontrado = false;
         Cita c = null;
         try{
             for(int i=0; i<miCita().size() && !encontrado; i++){
-                Cita existe = nUsuario.getCita();
-                if(existe.getCodigo() != nUsuario.getCita().getCodigo()){
+                Cita existe = miCita().get(i);
+                if(existe.getCodigo() != nCita.getCodigo()){
                     c = null;
                     encontrado = false;
                     System.out.print("La cita se debe registrar : ");
                 }
                 else{
-                    c = nUsuario.getCita();
+                    c = nCita;
                     encontrado = true;
                 }
             }
@@ -222,7 +222,7 @@ public class Operacion {
         Boolean encontrado = false;
         try{
 
-            if(buscarUsuario(nUsuario)!=null && buscarCita(nUsuario)!=null){
+            if(buscarUsuario(nUsuario)!=null && buscarCita(nUsuario.getCita())!=null){
                 Cita eliminar = nUsuario.getCita();
                 for(int i=0; i<miCita().size() && !encontrado; i++){
                     if(eliminar.getCodigo() != miCita().get(i).getCodigo()){
