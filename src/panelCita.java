@@ -96,6 +96,9 @@ public class panelCita implements Initializable{
 
                 tblCitas.getItems().add(miCitaDAO.buscarCita(txtCodigo.getText()));
             }
+            else{
+                Alertar.display("Consulta", "No existe la cita");
+            }
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }
