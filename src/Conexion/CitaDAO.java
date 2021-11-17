@@ -1,5 +1,4 @@
 package Conexion;
-import Mundo.Operacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +7,6 @@ import java.sql.ResultSet;
 import Mundo.Cita;
 public class CitaDAO {
     //--------------------//
-    /**
-     * clase que realiza las operaciones 
-     */
-    private Operacion miOperacion;
-    /**
-     * clase cita 
-     */
-    private Cita miCita;
     /**
      * conexion con la base de datos
      */
@@ -51,6 +42,8 @@ public class CitaDAO {
      * registrar una cita en la base de datos
      * <b> pre: </b> la base de datos se encuentra inicializada
      * <b> post: </b> se registra la cita en la base de datos
+     * @param nCita, es la cita a insertar. nCita != "" && nCita != null
+     * @return la cita registrada
      */
     public Cita insertarCita(Cita nCita){
         Cita registrar = null;
@@ -65,7 +58,37 @@ public class CitaDAO {
             pst.execute();
         }catch(Exception e){
             System.out.println("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
         }
         return registrar;
+    }
+    /**
+     * eliminar la cita de la base de datos buscada por codigo
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se elimina la cita de la base de datos
+     * @param nCita, es la cita a eliminar. nCita != "" && nCita != null
+     * @return true si se elimino la cita, de lo contrario false
+     */
+    public Boolean eliminarCita(Cita nCita){
+        Boolean eliminar = false;
+        Connection mia = miConexion.conectar();
+        try{
+            String sql = "delete from vacuna where codigo = ?";
+            if(buscarCita(String.valueOf(nCita.getCodigo()))==null){
+                System.out.print("La cita no existe");
+                
+            }else{
+                PreparedStatement pst = mia.prepareStatement(sql);
+                pst.setString(1, String.valueOf(nCita.getCodigo()));
+                pst.execute();
+                eliminar = true;
+            }
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return eliminar;
     }
 }

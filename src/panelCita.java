@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import Conexion.Conectar;
 import Conexion.CitaDAO;
@@ -93,7 +94,7 @@ public class panelCita implements Initializable{
     void btnConsultarOnClicked(ActionEvent event) {
         try{
             if(miCitaDAO.buscarCita(txtCodigo.getText())!=null){
-
+                actualizarCampos(miCitaDAO.buscarCita(txtCodigo.getText()));
                 tblCitas.getItems().add(miCitaDAO.buscarCita(txtCodigo.getText()));
             }
             else{
@@ -106,7 +107,17 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
+        try{
+            Cita eliminar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            if(miCitaDAO.eliminarCita(eliminar)==false){
+                Alertar.display("Error", "No se elimino la cita");
+            }else{
+                Alertar.display("felicidades", "Se elimino la cita");
 
+            }
+        }catch(Exception e){
+            Alertar.display("Error: ", e.getMessage());
+        }
     }
 
     @FXML
@@ -123,7 +134,7 @@ public class panelCita implements Initializable{
                 tblCitas.getItems().add(registrar);
                 Alertar.display("Felicidades", "Se registro la cita con exito");
             }else{
-                Alertar.display("Felicidades", "se encuentra registrada");
+                Alertar.display("Error", "se encuentra registrada");
             }
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
@@ -161,5 +172,16 @@ public class panelCita implements Initializable{
         else if(txtTurno.getText() == null || txtTurno.getText() == ""){
             Alertar.display("verificar", "Verificar turno");
         }        
+    }
+    /**
+     * actualizar los valores de los campos
+     * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
+     * <b> post: </b> se actualizan los elementos
+     */
+    public void actualizarCampos(Cita c){
+        txtCodigo.setText(String.valueOf(c.getCodigo()));
+        txtLugar.setText(c.getLugar());
+        txtTurno.setText(String.valueOf(c.getTurno()));
+        dtaFecha.setValue(LocalDate.parse(c.getFecha()));
     }
 }
