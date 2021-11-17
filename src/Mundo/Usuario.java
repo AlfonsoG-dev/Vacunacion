@@ -70,56 +70,56 @@ public class Usuario {
      * numero de documento del usuario 
      * @return numero de documento 
      */
-    public int darDocumento(){
+    public int getDocumento(){
         return numDocumento;
     }
     /**
      * tipo de documento del usuario
      * @return tipo de documento
      */
-    public String darTipo(){
+    public String getTipo(){
         return tipoDocumento;
     }
     /**
      * nombre del usuario 
      * @return nombre del usuario
      */
-    public String darNombre(){
+    public String getNombre(){
         return nombre;
     }
     /**
      * apellido del usuario 
      * @return apellido del usuario
      */
-    public String darApellido(){
+    public String getApellido(){
         return apellido;
     }
     /**
      * numero de celular del usuario
      * @return numero de celular
      */
-    public int darCelular(){
+    public int getCelular(){
         return celular;
     }
     /**
      * correo electronico del usuario
      * @return correo del usuario
      */
-    public String darCorreo(){
+    public String getCorreo(){
         return correo;
     }
     /**
      * direccion de domicilio del usuario
      * @return direccion del usuario
      */
-    public String darDireccion(){
+    public String getDireccion(){
         return direccion;
     }
     /**
      * cita agendada del usuario
      * @return cita del usuario
      */
-    public Cita darCita(){
+    public Cita getCita(){
         return cita;
     }
     //-------------------------------------//

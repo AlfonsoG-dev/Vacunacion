@@ -165,7 +165,7 @@ public class Operacion {
         try{
             for(int i=0; i<miUsuario().size() && !encontrado; i++){
                 Usuario existe = miUsuario().get(i);
-                if(existe.darDocumento() != nUsuario.darDocumento()){
+                if(existe.getDocumento() != nUsuario.getDocumento()){
                     System.out.print("El usuario no existe se debe registrar : ");
                 }
                 else{
@@ -191,8 +191,8 @@ public class Operacion {
         Boolean encontrado = false;
         try{
             for(int i=0; i<miCita().size() && !encontrado; i++){
-                Cita existe = nUsuario.darCita();
-                if(existe.darCodigo() != nUsuario.darCita().darCodigo()){
+                Cita existe = nUsuario.getCita();
+                if(existe.getCodigo() != nUsuario.getCita().getCodigo()){
                     System.out.print("La cita se debe registrar : ");
                 }
                 else{
@@ -217,9 +217,9 @@ public class Operacion {
         try{
 
             if(buscarUsuario(nUsuario)!=false && buscarCita(nUsuario)!=false){
-                Cita eliminar = nUsuario.darCita();
+                Cita eliminar = nUsuario.getCita();
                 for(int i=0; i<miCita().size() && !encontrado; i++){
-                    if(eliminar.darCodigo() != miCita().get(i).darCodigo()){
+                    if(eliminar.getCodigo() != miCita().get(i).getCodigo()){
                         System.out.println("La cita del usuario no se encuentra registrada");
                     }
                     else{
@@ -234,10 +234,10 @@ public class Operacion {
         return encontrado;
     }
     /**
-     * re agendar la cita que se cancelo para otra fecha
+     * re agenget la cita que se cancelo para otra fecha
      * <b> pre: </b> la lista de citas se encuentra inicializada
      * <b> post: </b> se agenda la cita para el usuario
-     * @param nCita, cita del usuario a agendar
+     * @param nCita, cita del usuario a agenget
      * @param nUsuario, usuario que agenda la cita
      * @return la cita con el usuario que agendo la cita
      */
@@ -248,14 +248,14 @@ public class Operacion {
         try{
             
             if(nCita != null && nUsuario != null){
-                nuevaCita = new Cita(nCita.darCodigo(), nCita.darFecha(), nCita.darTurno(), nCita.darLugar());
-                nuevoUsuario = new Usuario(nUsuario.darDocumento(), nUsuario.darTipo(), nUsuario.darNombre(), nUsuario.darApellido(), 
-                nUsuario.darCelular(), nUsuario.darCorreo(), nUsuario.darDireccion(), nuevaCita);
+                nuevaCita = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
+                nuevoUsuario = new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), 
+                nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), nuevaCita);
                 if(buscarUsuario(nuevoUsuario) == false){
-                    mensaje = "El Usuario se registro como: " + nuevoUsuario.darNombre() + "\n" + 
-                    "Con numero de identificacion: " + nuevoUsuario.darDocumento() + "\n" + 
-                    "Con codigo de cita: " + nuevoUsuario.darCita().darCodigo() + "\n" + 
-                    "el turno de la cita es: " + nuevoUsuario.darCita().darTurno();
+                    mensaje = "El Usuario se registro como: " + nuevoUsuario.getNombre() + "\n" + 
+                    "Con numero de identificacion: " + nuevoUsuario.getDocumento() + "\n" + 
+                    "Con codigo de cita: " + nuevoUsuario.getCita().getCodigo() + "\n" + 
+                    "el turno de la cita es: " + nuevoUsuario.getCita().getTurno();
                     agregarDatosLista(nuevaCita, nuevoUsuario);
                 }
             }
@@ -291,7 +291,7 @@ public class Operacion {
         assert !cuentaRepetida(): "No tienen que existir 2 cuentas con el mismo usuario";
     }
     /**
-     * validar que no existan usuarios repetidos
+     * valiget que no existan usuarios repetidos
      * <b> pre: </b> la lista de usuarios se encuentra inicializada
      * <b> post: </b> se valida que no existan usuarios repetidos
      * @return true si no existen usuarios repetidos, de lo contrario false
@@ -300,14 +300,14 @@ public class Operacion {
         Boolean noRepetido = true;
         for(int i = 1; i < miUsuario().size();i++){
             Usuario inicial = miUsuario().get(0);
-            if(inicial.darDocumento()==miUsuario().get(i).darDocumento()){
+            if(inicial.getDocumento()==miUsuario().get(i).getDocumento()){
                 noRepetido = false;
             }
         }
         return noRepetido;
     }
     /**
-     * validar que no existan usuarios con el mismo turno de cita
+     * valiget que no existan usuarios con el mismo turno de cita
      * <b> pre: </b> la lista de usuarios se encuentra inicializada
      * <b> post: </b> se valida que no existan usuarios con el mismo turno de cita
      * @return true si no existe el usuario con el mismo turno de cita, de lo contrario false
@@ -316,14 +316,14 @@ public class Operacion {
         Boolean noRepetido = true;
         for(int i=1; i<miUsuario().size(); i++){
             Usuario inicial = miUsuario().get(0);
-            if(inicial.darCita().darTurno() == miUsuario().get(i).darCita().darTurno()){
+            if(inicial.getCita().getTurno() == miUsuario().get(i).getCita().getTurno()){
                 noRepetido = false;
             }
         }
         return noRepetido;
     }
     /**
-     * validar que no existan 2 usuarios con la misma cita
+     * valiget que no existan 2 usuarios con la misma cita
      * <b> pre: </b> la lista de usurios se encuentra inicializada
      * <b> post: </b> se valida que no existan 2 usuarios con la misma cita
      * @return true si no existe el usuario con la misma cita, false de lo contrario
@@ -332,14 +332,14 @@ public class Operacion {
         Boolean noRepetido = false;
         for(int i=1; i<miUsuario().size();i++){
             Usuario inicial = miUsuario().get(0);
-            if(inicial.darCita().darCodigo() == miUsuario().get(i).darCita().darCodigo()){
+            if(inicial.getCita().getCodigo() == miUsuario().get(i).getCita().getCodigo()){
                 noRepetido = true;
             }
         }
         return noRepetido;
     }
     /**
-     * validar que no existan 2 cuentas con el mismo usuario
+     * valiget que no existan 2 cuentas con el mismo usuario
      * <b> pre: </b> la lista de cuentas se encuentra inicializada
      * <b> post: </b> se valida que no existan 2 cuentas con el mismo usuario
      * @return true si no existen 2 cuentas con el mismo usuario, false de lo contrario

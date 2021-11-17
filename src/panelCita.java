@@ -87,8 +87,8 @@ public class panelCita implements Initializable{
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
         try{
-            miCita = new Cita(1, "enero", 132, "pasto");
-            tblCitas.getItems().add(miCita);
+            Cita nueva = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            tblCitas.getItems().add(nueva);
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }

@@ -38,7 +38,6 @@ public class Cita{
         fecha = nFecha;
         turno = nTurno;
         lugar = nLugar;
-        verificarInvariante();
     }
     //-------------------------------------//
     //----------------Metodos------------//
@@ -47,28 +46,28 @@ public class Cita{
      * codigo de la cita agendada
      * @return el codigo de la cita
      */
-    public int darCodigo(){
+    public int getCodigo(){
         return codigo;
     }
     /**
      * fecha de la cita agendada
      * @return fecha de la cita
      */
-    public String darFecha(){
+    public String getFecha(){
         return fecha;
     }
     /**
      * turno de la cita agendada
      * @return turno de la cita
      */
-    public int darTurno(){
+    public int getTurno(){
         return turno;
     }
     /**
      * lugar de la cita agendada
      * @return lugar de la cita
      */
-    public String darLugar(){
+    public String getLugar(){
         return lugar;
     }
     //-----------------------------------//
