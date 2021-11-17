@@ -77,7 +77,7 @@ public class panelIngreso {
             Scene scene = new Scene(root);
             citaStage.setTitle("Loggin");
             citaStage.setScene(scene);
-            citaStage.show();
+            citaStage.showAndWait();
         } catch (Exception e) {
             Alertar.display("Error", e.getMessage());
         }

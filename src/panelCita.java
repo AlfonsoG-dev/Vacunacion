@@ -6,6 +6,9 @@ import Mundo.Usuario;
 import Mundo.Operacion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -13,8 +16,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class panelCita {
+    private Parent root;
+    private Scene scene;
     Operacion miOperacion = new Operacion();
     Cita miCita;
     Usuario miUsuario;
@@ -106,6 +112,7 @@ public class panelCita {
 
     @FXML
     void btnVolverOnClicked(ActionEvent event) {
+        entrarLogin();
 
     }
     
@@ -117,5 +124,19 @@ public class panelCita {
         colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
         colUsuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
     }
-
+    /**
+     * 
+     */
+    public void entrarLogin(){
+        try {
+            root= FXMLLoader.load(getClass().getResource("PanelLogin.fxml"));    
+            scene = new Scene(root);
+            Stage loginStage = new Stage();
+            loginStage.setTitle("Loggin");
+            loginStage.setScene(scene);
+            loginStage.showAndWait();
+        } catch (Exception e) {
+            Alertar.display("Error", e.getMessage());
+        }
+    }
 }
