@@ -218,21 +218,11 @@ public class Operacion {
      * @param nCita, es la cita a eliminar, nCita != "" && nCita != ""
      * @return true si la cita se elimino de lo contrario false
      */
-    public Boolean cancelarCita(Usuario nUsuario){
+    public Boolean cancelarCita(Cita nCita){
         Boolean encontrado = false;
         try{
-
-            if(buscarUsuario(nUsuario)!=null && buscarCita(nUsuario.getCita())!=null){
-                Cita eliminar = nUsuario.getCita();
-                for(int i=0; i<miCita().size() && !encontrado; i++){
-                    if(eliminar.getCodigo() != miCita().get(i).getCodigo()){
-                        System.out.println("La cita del usuario no se encuentra registrada");
-                    }
-                    else{
-                        encontrado = true;
-                        miCita().remove(i);
-                    }
-                }
+            if(buscarCita(nCita)!=null){
+                miCita().remove(nCita);
             }
         }catch(Exception e){
             System.out.println("Error al momento de cancelar la cita: " + e.getMessage());
@@ -251,12 +241,11 @@ public class Operacion {
         Cita nuevaCita = null;
         Usuario nuevoUsuario = null;
         try{
-            
             if(nCita != null && nUsuario != null){
                 nuevaCita = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
                 nuevoUsuario = new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), 
                 nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), nuevaCita);
-                if(buscarUsuario(nuevoUsuario) == null){
+                if(buscarUsuario(nuevoUsuario) == null && buscarCita(nuevaCita)==null){
                     agregarDatosLista(nuevaCita, nuevoUsuario);
                 }
             }
