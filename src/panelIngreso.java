@@ -40,6 +40,7 @@ public class panelIngreso {
     void btnIngresarOnClicked(ActionEvent event) {
         String pass = txtPasword.getText();
         String usuario = txtUsuario.getText();
+        miCuenta = new Cuenta(usuario, pass);
         if(pass!=null && usuario!=null){
             if(miOperacion.buscarCuenta(miCuenta)!=false){
                 
@@ -57,6 +58,7 @@ public class panelIngreso {
     void btnRegistrarOnClicked(ActionEvent event) {
         String usuario = txtUsuario.getText();
         String pass = txtPasword.getText();
+        miCuenta = new Cuenta(usuario, pass);
         if(miOperacion.buscarCuenta(miCuenta)==false){
             miOperacion.registrarCuenta(usuario, pass);
             Alertar.display("Ingreso y registro", "Se registro el usuario");
