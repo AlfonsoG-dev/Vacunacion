@@ -43,10 +43,10 @@ public class panelIngreso {
         if(pass!=null && usuario!=null){
             if(miOperacion.buscarCuenta(miCuenta)!=false){
                 
-                JOptionPane.showMessageDialog(null, "Feliciataciones ingresaste");
+                Alertar.display("Ingreso y registro", "Ingresaste");
             }else{
                 
-                JOptionPane.showMessageDialog(null, "la cuenta no se encuentra registrada");
+                Alertar.display("Ingreso y registro", "El usuario se debe registrar");
             }
         }else{
             JOptionPane.showMessageDialog(null, "Los valores se encuentran mal registrados");
@@ -59,11 +59,11 @@ public class panelIngreso {
         String pass = txtPasword.getText();
         if(miOperacion.buscarCuenta(miCuenta)==false){
             miOperacion.registrarCuenta(usuario, pass);
-            JOptionPane.showMessageDialog(null, "Se registro al usuario" + usuario);
+            Alertar.display("Ingreso y registro", "Se registro el usuario");
 
         }else{
             
-            JOptionPane.showMessageDialog(null, "el usuario ya se encuentra registrado");
+            Alertar.display("Ingreso y registro", "El usuario se encuentra registrado");
         }
     }
     public void limpiar(){
