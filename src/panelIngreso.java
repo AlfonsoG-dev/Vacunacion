@@ -45,8 +45,9 @@ public class panelIngreso {
             if(miOperacion.buscarCuenta(miCuenta)!=false){
                 
                 Alertar.display("Ingreso y registro", "Ingresaste");
+                limpiar();
             }else{
-                
+
                 Alertar.display("Ingreso y registro", "El usuario se debe registrar");
             }
         }else{
@@ -62,12 +63,16 @@ public class panelIngreso {
         if(miOperacion.buscarCuenta(miCuenta)==false){
             miOperacion.registrarCuenta(usuario, pass);
             Alertar.display("Ingreso y registro", "Se registro el usuario");
+            limpiar();
 
         }else{
             
             Alertar.display("Ingreso y registro", "El usuario se encuentra registrado");
         }
     }
+    /**
+     * limpiar las casillas de texto de la pantalla
+     */
     public void limpiar(){
         txtUsuario.setText(null);
         txtPasword.setText(null);
