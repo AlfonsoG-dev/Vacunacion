@@ -1,3 +1,6 @@
+import Mundo.Cita;
+import Mundo.Usuario;
+import Mundo.Operacion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,7 +11,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 public class panelCita {
-
+    Operacion miOperacion = new Operacion();
+    Cita miCita;
+    Usuario miUsuario;
     @FXML
     private Button btnConsultar;
 
@@ -25,22 +30,22 @@ public class panelCita {
     private Button btnVolver;
 
     @FXML
-    private TableColumn<?, ?> colCodigo;
+    private TableColumn<Cita, Integer> colCodigo;
 
     @FXML
-    private TableColumn<?, ?> colDocumento;
+    private TableColumn<Usuario, Integer> colDocumento;
 
     @FXML
-    private TableColumn<?, ?> colFecha;
+    private TableColumn<Cita, String> colFecha;
 
     @FXML
-    private TableColumn<?, ?> colLugar;
+    private TableColumn<Cita, String> colLugar;
 
     @FXML
-    private TableColumn<?, ?> colTurno;
+    private TableColumn<Cita, Integer> colTurno;
 
     @FXML
-    private TableColumn<?, ?> colUsuario;
+    private TableColumn<Usuario, String> colUsuario;
 
     @FXML
     private DatePicker dtaFecha;
