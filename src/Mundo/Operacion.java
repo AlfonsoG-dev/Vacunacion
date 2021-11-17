@@ -142,6 +142,7 @@ public class Operacion {
                         eliminar = true;
                         miCuenta().remove(i);
                     }else{
+                        eliminar = false;
                         System.out.println("La cuenta no se encuentra registrada");
                     }
                 }

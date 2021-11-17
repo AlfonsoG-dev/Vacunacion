@@ -49,7 +49,7 @@ public class panelIngreso {
         usuario = txtUsuario.getText();
         pass = txtPasword.getText();
         miCuenta = new Cuenta(usuario, pass);
-        if(miOperacion.buscarCuenta(miCuenta)==false){
+        if(miOperacion.buscarCuenta(miCuenta)==null){
             miOperacion.registrarCuenta(usuario, pass);
             Alertar.display("Ingreso y registro", "Se registro el usuario");
             limpiar();
