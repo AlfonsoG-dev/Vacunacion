@@ -1,6 +1,6 @@
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import Conexion.CitaDAO;
 import Mundo.Cita;
 import Mundo.Operacion;
 import Mundo.Usuario;
@@ -23,6 +23,7 @@ public class panelCita implements Initializable{
     Cita miCita;
     Operacion miOperacion = new Operacion();
     Usuario miUsuario;
+    CitaDAO miCitaDAO = new CitaDAO();
     private Parent root;
     @FXML
     private Button btnConsultar;
@@ -87,8 +88,10 @@ public class panelCita implements Initializable{
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
         try{
-            Cita nueva = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-            tblCitas.getItems().add(nueva);
+            if(miCitaDAO.buscarCita(txtCodigo.getText())!=null){
+
+                tblCitas.getItems().add(miCitaDAO.buscarCita(txtCodigo.getText()));
+            }
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }
