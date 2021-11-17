@@ -76,8 +76,9 @@ public class Operacion {
      * @param nCuenta, es la cuenta a buscar. nCuenta != "" && nCuenta != null
      * @return true si la cuenta se encuentra, de lo contrario false
      */
-    public Boolean buscarCuenta(Cuenta nCuenta){
+    public Cuenta buscarCuenta(Cuenta nCuenta){
         Boolean encontrado = false;
+        Cuenta c = null;
         try{
             if(miCuenta().size()>0){
 
@@ -85,13 +86,14 @@ public class Operacion {
                     Cuenta buscar = miCuenta().get(i);
                     if(buscar.darUsuario() == nCuenta.darUsuario() && buscar.darPasword()==nCuenta.darPasword()){
                         encontrado = true;
+                        c = buscar;
                     } 
                 }
             }
         }catch (Exception e){
             System.out.println("Error al momento de buscar la cuenta: " + e.getMessage());
         }
-        return encontrado;
+        return c;
     }
     /**
      * registar la cuenta del usuario
@@ -101,8 +103,7 @@ public class Operacion {
      * @param nPassword, es la contrasenia de la cuentra. nPassword != "" && nPassword != null
      * @return mensaje de "registro exitoso"
      */
-    public String registrarCuenta(String nUsuario, String nPassword){
-        String mensaje = "";
+    public Cuenta registrarCuenta(String nUsuario, String nPassword){
         Boolean stop = false;
         Cuenta nueva = null;
         try{
@@ -112,19 +113,16 @@ public class Operacion {
                     Cuenta inicial = miCuenta().get(i);
                     if(inicial.darUsuario() != nUsuario){
                         nueva = new Cuenta(nUsuario, nPassword);
-                        mensaje = "Se registro la cuenta con usurio: " + nueva.darUsuario() + "\n" + 
-                        "y contrasenia: " + nueva.darPasword();
                         stop= true;
                     }else{
-                        mensaje = "la cuenta se encuentra registrada con usuario: " + nUsuario + "\n" + 
-                        "y contrasenia: " + nPassword; 
+                        nueva = null;
                     }
                 }
             }
         }catch(Exception e){
             System.out.println("Error al registrar la cuenta: " + e.getMessage());
         }
-        return mensaje;
+        return nueva;
     }
     /**
      * eliminar una cuenta del sistema
@@ -160,23 +158,26 @@ public class Operacion {
      * @param nUsuario, es el usuario a verificar. nUsuario != "" && nUsuario != null
      * @return true si el usuario esta en el sistema, false de lo contrario 
      */
-    public Boolean buscarUsuario(Usuario nUsuario){
+    public Usuario buscarUsuario(Usuario nUsuario){
         Boolean encontrado = false;
+        Usuario u = null;
         try{
             for(int i=0; i<miUsuario().size() && !encontrado; i++){
                 Usuario existe = miUsuario().get(i);
                 if(existe.getDocumento() != nUsuario.getDocumento()){
+                    u = null;
                     System.out.print("El usuario no existe se debe registrar : ");
                 }
                 else{
                     encontrado = true;
+                    u = nUsuario;
                 }
             }
 
         }catch (Exception e){
             System.out.println("Error al buscar al usuario : " + e.getMessage());
         }
-        return encontrado;
+        return u;
     }
     /**
      * buscar la cita para saber si se encuentra registrada
@@ -187,15 +188,19 @@ public class Operacion {
      * el usuario solo tiene el codigo de la cita en donde 0 es que no tiene asignada cita.
      * si el usuario tiene agendada una cita se lo añade a la lista de citas agendadas
      */
-    public Boolean buscarCita(Usuario nUsuario){
+    public Cita buscarCita(Usuario nUsuario){
         Boolean encontrado = false;
+        Cita c = null;
         try{
             for(int i=0; i<miCita().size() && !encontrado; i++){
                 Cita existe = nUsuario.getCita();
                 if(existe.getCodigo() != nUsuario.getCita().getCodigo()){
+                    c = null;
+                    encontrado = false;
                     System.out.print("La cita se debe registrar : ");
                 }
                 else{
+                    c = nUsuario.getCita();
                     encontrado = true;
                 }
             }
@@ -203,7 +208,7 @@ public class Operacion {
         }catch(Exception e){
             System.out.println("Error al momento de buscar la cita: " + e.getMessage());
         }
-        return encontrado;
+        return c;
     }
     /**
      * cancelar la cita agendada por el usuario, para cancelar la cita se pone 0 en el turno de la cita
@@ -216,7 +221,7 @@ public class Operacion {
         Boolean encontrado = false;
         try{
 
-            if(buscarUsuario(nUsuario)!=false && buscarCita(nUsuario)!=false){
+            if(buscarUsuario(nUsuario)!=null && buscarCita(nUsuario)!=null){
                 Cita eliminar = nUsuario.getCita();
                 for(int i=0; i<miCita().size() && !encontrado; i++){
                     if(eliminar.getCodigo() != miCita().get(i).getCodigo()){
@@ -241,8 +246,7 @@ public class Operacion {
      * @param nUsuario, usuario que agenda la cita
      * @return la cita con el usuario que agendo la cita
      */
-    public String registrarCita(Cita nCita, Usuario nUsuario){
-        String mensaje = null;
+    public Usuario registrarCita(Cita nCita, Usuario nUsuario){
         Cita nuevaCita = null;
         Usuario nuevoUsuario = null;
         try{
@@ -251,18 +255,14 @@ public class Operacion {
                 nuevaCita = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
                 nuevoUsuario = new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), 
                 nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), nuevaCita);
-                if(buscarUsuario(nuevoUsuario) == false){
-                    mensaje = "El Usuario se registro como: " + nuevoUsuario.getNombre() + "\n" + 
-                    "Con numero de identificacion: " + nuevoUsuario.getDocumento() + "\n" + 
-                    "Con codigo de cita: " + nuevoUsuario.getCita().getCodigo() + "\n" + 
-                    "el turno de la cita es: " + nuevoUsuario.getCita().getTurno();
+                if(buscarUsuario(nuevoUsuario) == null){
                     agregarDatosLista(nuevaCita, nuevoUsuario);
                 }
             }
         }catch(Exception e){
             System.out.println("Error al momento de registrar la cita del usuario: " + e.getMessage());
         }
-        return mensaje;
+        return nuevoUsuario;
     }
     /**
      * se agregan los elementos a la lista para su verificacion
