@@ -89,7 +89,7 @@ public class panelCita implements Initializable{
     @FXML
     private TextField txtUsuario;
 
-    @FXML
+    @FXML   
     void btnConsultarOnClicked(ActionEvent event) {
         try{
             if(miCitaDAO.buscarCita(txtCodigo.getText())!=null){
@@ -116,9 +116,8 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-
+        Alertar.display("probar", dtaFecha.getValue().toString());
     }
-
     @FXML
     void btnVolverOnClicked(ActionEvent event) {
 
@@ -135,5 +134,21 @@ public class panelCita implements Initializable{
         colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
     }
-
+    /**
+     * verificar los campos a digitar
+     * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
+     * <b> post: </b> se verifican los campos
+     */
+    public void verificarCampos(){
+        if(txtUsuario.getText() == null || txtUsuario.getText() == ""){
+            Alertar.display("Verificar", "Verificar usuario");
+        }else if(txtCodigo.getText() == null || txtCodigo.getText() == ""){
+            Alertar.display("verificar", "Verificar codigo");
+        }else if(dtaFecha.getValue().toString() == null || dtaFecha.getValue().toString() == ""){
+            Alertar.display("Verificar", "Verificar fecha");
+        }
+        else if(txtTurno.getText() == null || txtTurno.getText() == ""){
+            Alertar.display("verificar", "Verificar turno");
+        }        
+    }
 }
