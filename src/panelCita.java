@@ -1,15 +1,6 @@
-import java.net.URL;
-import java.util.ResourceBundle;
-import Conexion.CitaDAO;
-import Mundo.Cita;
-import Mundo.Operacion;
-import Mundo.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -17,14 +8,27 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import Conexion.Conectar;
+import Conexion.CitaDAO;
+import Mundo.Cita;
+
 public class panelCita implements Initializable{
 
+    /**
+     * cita del usuario
+     */
     Cita miCita;
-    Operacion miOperacion = new Operacion();
-    Usuario miUsuario;
+    /**
+     * conexion con la base de datos
+     */
+    Conectar miConexion = new Conectar();
+    /**
+     * clase cita con las operaciones de la base de datos
+     */
     CitaDAO miCitaDAO = new CitaDAO();
-    private Parent root;
     @FXML
     private Button btnConsultar;
 
@@ -56,13 +60,10 @@ public class panelCita implements Initializable{
     private DatePicker dtaFecha;
 
     @FXML
-    private Label lblCita;
-
-    @FXML
     private Label lblCodigo;
 
     @FXML
-    private Label lblUsuario;
+    private Label lblFecha;
 
     @FXML
     private Label lblLugar;
@@ -71,10 +72,10 @@ public class panelCita implements Initializable{
     private Label lblTurno;
 
     @FXML
-    private TableView<Cita> tblCitas;
+    private Label lblUsuairo;
 
     @FXML
-    private TextField txtCita;
+    private TableView<Cita> tblCitas;
 
     @FXML
     private TextField txtCodigo;
@@ -84,6 +85,9 @@ public class panelCita implements Initializable{
 
     @FXML
     private TextField txtTurno;
+
+    @FXML
+    private TextField txtUsuario;
 
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
@@ -117,7 +121,9 @@ public class panelCita implements Initializable{
 
     }
     /**
-     * 
+     * se inicializan las columnas de la tabla
+     * <b> pre: </b> la tabla se encuentra inicializada
+     * <b> post: </b> se inicializan las columnas de la tabla
      */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -126,19 +132,5 @@ public class panelCita implements Initializable{
         colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
     }
-    /**
-     * 
-     */
-    public void entrarLogin() {
-        try {
-            root = FXMLLoader.load(getClass().getResource("PanelLogin.fxml"));
-            Stage citaStage = new Stage();
-            Scene scene = new Scene(root);
-            citaStage.setTitle("Vacunacion:login");
-            citaStage.setScene(scene);
-            citaStage.show();
-        } catch (Exception e) {
-            Alertar.display("Error", e.getMessage());
-        }
-    }
+
 }
