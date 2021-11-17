@@ -1,13 +1,15 @@
-import javax.swing.JOptionPane;
-
 import Mundo.Operacion;
 import Mundo.Cuenta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 public class panelIngreso {
 
     /**
@@ -37,23 +39,10 @@ public class panelIngreso {
     private TextField txtUsuario;
     private String usuario;
     private String pass;
+    private Parent root;
     @FXML
     void btnIngresarOnClicked(ActionEvent event) {
-        pass = txtPasword.getText();
-        usuario = txtUsuario.getText();
-        miCuenta = new Cuenta(usuario, pass);
-        if(pass!=null && usuario!=null){
-            if(miOperacion.buscarCuenta(miCuenta)!=false){
-                
-                Alertar.display("Ingreso y registro", "Ingresaste");
-                limpiar();
-            }else{
-
-                Alertar.display("Ingreso y registro", "El usuario se debe registrar");
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "Los valores se encuentran mal registrados");
-        }
+        entrarCita();
     }
 
     @FXML
@@ -78,4 +67,19 @@ public class panelIngreso {
         txtUsuario.setText(null);
         txtPasword.setText(null);
     } 
+    /**
+     * start la segunda ventana
+     */
+    public void entrarCita(){
+        try {
+            root= FXMLLoader.load(getClass().getResource("PanelCita.fxml"));    
+            Stage citaStage = new Stage();
+            Scene scene = new Scene(root);
+            citaStage.setTitle("Loggin");
+            citaStage.setScene(scene);
+            citaStage.show();
+        } catch (Exception e) {
+            Alertar.display("Error", e.getMessage());
+        }
+    }
 }
