@@ -29,6 +29,7 @@ public class CitaDAO {
      */
     public Cita buscarCita(String codigo){
         Connection mia = miConexion.conectar();
+        Cita nueva = null;
         try{
             PreparedStatement pst = null;
             String sql = "select * from vacuna where codigo = ?";
@@ -36,7 +37,7 @@ public class CitaDAO {
             pst.setString(1, codigo);
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
-                miCita = new Cita(Integer.parseInt(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(3)), rs.getString(4)); 
+                nueva = new Cita(Integer.parseInt(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(3)), rs.getString(4)); 
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
@@ -44,7 +45,27 @@ public class CitaDAO {
         finally{
             miConexion.desconectar(mia);
         }
-        return miCita;
+        return nueva;
     }
-    
+    /**
+     * registrar una cita en la base de datos
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se registra la cita en la base de datos
+     */
+    public Cita insertarCita(Cita nCita){
+        Cita registrar = null;
+        Connection mia = miConexion.conectar();
+        try{
+            String sql = "insert into vacuna (codigo, fecha, turno, lugar) values (?, ?, ?, ?)";
+            PreparedStatement pst = mia.prepareStatement(sql);
+            pst.setString(1, String.valueOf(nCita.getCodigo()));
+            pst.setString(2, nCita.getFecha());
+            pst.setString(3, String.valueOf(nCita.getTurno()));
+            pst.setString(4, nCita.getLugar());
+            pst.execute();
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        return registrar;
+    }
 }

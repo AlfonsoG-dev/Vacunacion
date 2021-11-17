@@ -116,7 +116,18 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        Alertar.display("probar", dtaFecha.getValue().toString());
+        try{
+            Cita registrar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            if(miCitaDAO.buscarCita(txtCodigo.getText())==null){
+                miCitaDAO.insertarCita(registrar);
+                tblCitas.getItems().add(registrar);
+                Alertar.display("Felicidades", "Se registro la cita con exito");
+            }else{
+                Alertar.display("Felicidades", "se encuentra registrada");
+            }
+        }catch(Exception e){
+            Alertar.display("Error", e.getMessage());
+        }
     }
     @FXML
     void btnVolverOnClicked(ActionEvent event) {
