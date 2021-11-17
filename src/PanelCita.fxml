@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="1135.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panelCita">
    <effect>
       <Bloom threshold="1.0" />
@@ -53,12 +52,12 @@
       <DatePicker fx:id="dtaFecha" layoutX="140.0" layoutY="334.0" />
       <TableView fx:id="tblCitas" layoutX="549.0" layoutY="79.0" prefHeight="241.0" prefWidth="444.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Usuario" />
-          <TableColumn prefWidth="75.0" text="Documento" />
-            <TableColumn prefWidth="75.0" text="Codigo" />
-            <TableColumn prefWidth="75.0" text="Turno" />
-            <TableColumn prefWidth="75.0" text="Lugar" />
-            <TableColumn prefWidth="75.0" text="fecha" />
+          <TableColumn fx:id="colUsuario" prefWidth="75.0" text="Usuario" />
+          <TableColumn fx:id="colDocumento" prefWidth="75.0" text="Documento" />
+            <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Codigo" />
+            <TableColumn fx:id="colTurno" prefWidth="75.0" text="Turno" />
+            <TableColumn fx:id="colLugar" prefWidth="75.0" text="Lugar" />
+            <TableColumn fx:id="colFecha" prefWidth="75.0" text="fecha" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
