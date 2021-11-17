@@ -47,7 +47,7 @@ public class Cita{
      * @return el codigo de la cita
      */
     public int getCodigo(){
-        return codigo;
+        return codigo;  
     }
     /**
      * fecha de la cita agendada
