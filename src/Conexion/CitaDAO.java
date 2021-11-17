@@ -93,6 +93,8 @@ public class CitaDAO {
     }
     /**
      * modificar cita de la base de datos
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se modifica la información de la cita
      * @param nCita, cita a modificar. nCita != "" && nCita != null
      * @return cita modificada
      */
@@ -100,7 +102,16 @@ public class CitaDAO {
         Cita modificar = null;
         Connection mia = miConexion.conectar();
         try{
-            
+            String sql = "update set fecha =?, turno =?, lugar =? where codigo =?";
+            PreparedStatement pst = mia.prepareStatement(sql);
+            pst.setString(1, String.valueOf(nCita.getCodigo()));
+            pst.setString(2, nCita.getFecha());
+            pst.setString(3, String.valueOf(nCita.getTurno()));
+            pst.setString(4, nCita.getLugar());
+            int count = pst.executeUpdate();
+            if(count > 0){
+                modificar = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
+            }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
         }finally{
