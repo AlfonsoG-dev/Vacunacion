@@ -1,3 +1,4 @@
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,8 +10,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import Mundo.Usuario;
 import Conexion.CitaDAO;
+import Conexion.UsuarioDAO;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -21,6 +25,10 @@ public class panelCita implements Initializable{
      * 
      */
     CitaDAO miCitaDAO = new CitaDAO();
+    /**
+     * 
+     */
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     @FXML
     private Button btnConsultar;
 
@@ -31,7 +39,7 @@ public class panelCita implements Initializable{
     private Button btnRegistrar;
 
     @FXML
-    private ComboBox<Usuario> cbxUsuarios;
+    private ComboBox<Integer> cbxUsuarios;
 
     @FXML
     private TableColumn<Cita, Integer> colCodigo;
@@ -95,7 +103,6 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-
     }
     /**
      * se inicializan las columnas de la tabla
@@ -108,6 +115,7 @@ public class panelCita implements Initializable{
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
+        agregarElemento();
     }
     /**
      * buscar la cita dado el codigo de la cita
@@ -138,5 +146,14 @@ public class panelCita implements Initializable{
         txtLugar.setText(nCita.getLugar());
         txtTurno.setText(String.valueOf(nCita.getTurno()));
         dtaFecha.setValue(LocalDate.parse(nCita.getFecha()));
+    }
+    /**
+     * añadir elemento al comboBox
+     * <b> pre: </b> la lista de elementos se encuentra inicializada
+     * <b> post: </b> se añade el elemento al ComboBox
+     */
+    public void agregarElemento(){
+        ObservableList<Integer> usuarios = usuarioDAO.seleccionarUsuario();
+        cbxUsuarios.getItems().addAll(usuarios);
     }
 }

@@ -19,8 +19,8 @@ public class UsuarioDAO {
      * <b> post: </b> se seleccionan todos los usuarios
      * @return el usuario de la base de datos
      */
-    public ObservableList<Usuario> seleccionarUsuario(){
-        ObservableList<Usuario> usuarios = FXCollections.observableArrayList();
+    public ObservableList<Integer> seleccionarUsuario(){
+        ObservableList<Integer> usuarios = FXCollections.observableArrayList();
         Usuario seleccion = null;
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
@@ -30,7 +30,7 @@ public class UsuarioDAO {
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 seleccion = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), rs.getString(8));
-                usuarios.add(seleccion);
+                usuarios.add(seleccion.getDocumento());
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
