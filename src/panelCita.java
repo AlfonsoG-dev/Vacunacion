@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import Mundo.Usuario;
 import Conexion.CitaDAO;
 import Conexion.UsuarioDAO;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -108,7 +107,7 @@ public class panelCita implements Initializable{
             if(mio!=null){
                 buscarCita(mio.getCita());
             }else{
-
+                Alertar.display("Buscar Usuario", "El usuario no existe");
             }
         }else{
             Alertar.display("Seleccion", "Seleccione al usuario");

@@ -65,7 +65,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbxUsuarios" editable="true" layoutX="140.0" layoutY="67.0" prefWidth="150.0" promptText="documento">
+      <ComboBox fx:id="cbxUsuarios" layoutX="140.0" layoutY="67.0" prefWidth="150.0" promptText="documento">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></ComboBox>
