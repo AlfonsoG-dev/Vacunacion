@@ -90,7 +90,12 @@ public class UsuarioDAO {
         return codigo;
     }
     /**
-     * actualizar la informacion del usuario
+     * Modifica la informacion del usuario cuando no tiene una cita
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se modifica el usuario dado el documento 
+     * @param documento, es el numero de documento del usuario. documento != "" && documento != null
+     * @param codigoCita, es el codigo de la cita a modificar. codigoCita != "" && codigoCita != null
+     * @return el usuario actualizado
      */
     public Usuario actualizarUsuario(String documento, String codigoCita){
         Usuario mio=null;

@@ -8,7 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import Mundo.Usuario;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -19,6 +19,10 @@ import Mundo.Cita;
 
 public class panelCita implements Initializable{
 
+    /**
+     * usuario de la cita
+     */
+    private Usuario miUsuario;
     /**
      * cita del usuario
      */
@@ -176,18 +180,9 @@ public class panelCita implements Initializable{
     public void buscar(){
         int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
         try{
-
-            if(codigo>0){
-                if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
-                    verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
-                    actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
-                }
-                else{
-                    Alertar.display("Error", "Cita incorrecta");
-                }
-            }else{
-                Alertar.display("Error", "Codigo igual a cero");
-            }
+            miCitaDAO.buscarCita(String.valueOf(codigo));
+            verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
+            actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }
@@ -200,11 +195,18 @@ public class panelCita implements Initializable{
     public void registrar(){
         try{
             Cita registrar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-            if(miCitaDAO.buscarCita(txtCodigo.getText())==null){
-                miCitaDAO.insertarCita(registrar);
-                Alertar.display("Felicidades", "Se registro la cita con exito");
+            Usuario buscar = usuarioDAO.buscarUsuario(txtUsuario.getText());
+            if(buscar != null && miCitaDAO.buscarCita(txtCodigo.getText())==null){
+                String codigos= String.valueOf(buscar.getCita().getCodigo());
+                if(codigos==null){
+                    miCitaDAO.insertarCita(registrar);
+                    usuarioDAO.actualizarUsuario(txtUsuario.getText(), txtCodigo.getText());
+                }else{
+                    Alertar.display("Usuairo", "El usuario ya \n tine una cita signada");
+                }
+                
             }else{
-                Alertar.display("Error", "se encuentra registrada");
+                Alertar.display("Cita y Usuario", "La cita o el usuario son nulos");
             }
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
