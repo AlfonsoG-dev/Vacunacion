@@ -70,6 +70,35 @@ public class UsuarioDAO {
         return encontrado;
     }
     /**
+     * eliminar la cita del usuario, si la cita es 0, no tiene cita, lo contrario es que tiene cita
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se elimina la cita del usuario 
+     * @param nCita, es la cita a eliminar del usuario. nCita != "" && nCita != null
+     * @return true si se elimino la cita de lo contrario false
+     */
+    public Boolean eliminarPorCodigo(Cita nCita){
+        Boolean eliminar = false;
+        Connection mia = miConexion.conectar();
+        PreparedStatement pst = null;
+        try{
+            String sql = "delete from usuario where codigo =?";
+            if(usuarioPorCodigo(nCita)!=false){
+                pst = mia.prepareStatement(sql);
+                pst.setString(8, String.valueOf(nCita.getCodigo()));
+                pst.execute();
+                eliminar = true;
+            }
+            else{
+                System.out.print("la cita no tiene usuario");
+            }
+        }catch(Exception e){
+
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return eliminar;
+    }
+    /**
      * buscar el codigo de la cita dado el usuario
      * <b> pre: </b> la base de datos se encuentra inicializada
      * <b> post: </b> se busca el codigo de la cita

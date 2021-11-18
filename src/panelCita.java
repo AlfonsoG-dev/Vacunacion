@@ -97,31 +97,12 @@ public class panelCita implements Initializable{
 
     @FXML   
     void btnConsultarOnClicked(ActionEvent event) {
-        int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
-        if(codigo>0){
-            if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
-                tblCitas.getItems().add(miCitaDAO.buscarCita(String.valueOf(codigo)));
-            }
-            else{
-                Alertar.display("Error", "Cita incorrecta");
-            }
-        }else{
-            Alertar.display("Error", "Codigo igual a cero");
-        }
+        buscar();
     }
 
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
-        try{
-            Cita eliminar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-            if(miCitaDAO.eliminarCita(eliminar)==false){
-                Alertar.display("Error", "No se elimino la cita");
-            }else{
-                Alertar.display("felicidades", "Se elimino la cita");
-            }
-        }catch(Exception e){
-            Alertar.display("Error: ", e.getMessage());
-        }
+       eliminar(txtCodigo.getText());
     }
 
     @FXML
@@ -141,22 +122,11 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        try{
-            Cita registrar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-            if(miCitaDAO.buscarCita(txtCodigo.getText())==null){
-                miCitaDAO.insertarCita(registrar);
-                tblCitas.getItems().add(registrar);
-                Alertar.display("Felicidades", "Se registro la cita con exito");
-            }else{
-                Alertar.display("Error", "se encuentra registrada");
-            }
-        }catch(Exception e){
-            Alertar.display("Error", e.getMessage());
-        }
+        registrar();
     }
     @FXML
     void btnVolverOnClicked(ActionEvent event) {
-
+        limpiar();
     }
     /**
      * se inicializan las columnas de la tabla
@@ -197,5 +167,66 @@ public class panelCita implements Initializable{
         txtLugar.setText(c.getLugar());
         txtTurno.setText(String.valueOf(c.getTurno()));
         dtaFecha.setValue(LocalDate.parse(c.getFecha()));
+    }
+    /**
+     * 
+     */
+    public void buscar(){
+        int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
+        if(codigo>0){
+            if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
+                tblCitas.getItems().add(miCitaDAO.buscarCita(String.valueOf(codigo)));
+                actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
+            }
+            else{
+                Alertar.display("Error", "Cita incorrecta");
+            }
+        }else{
+            Alertar.display("Error", "Codigo igual a cero");
+        }
+    }
+    /**
+     * 
+     */
+    public void registrar(){
+        try{
+            Cita registrar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            if(miCitaDAO.buscarCita(txtCodigo.getText())==null){
+                miCitaDAO.insertarCita(registrar);
+                tblCitas.getItems().add(registrar);
+                Alertar.display("Felicidades", "Se registro la cita con exito");
+            }else{
+                Alertar.display("Error", "se encuentra registrada");
+            }
+        }catch(Exception e){
+            Alertar.display("Error", e.getMessage());
+        }
+    }
+    /**
+     * 
+    */
+    public void eliminar(String codigo){
+        try{
+            buscar();
+            Cita bb = miCitaDAO.buscarCita(codigo);
+            Boolean eliminada = miCitaDAO.eliminarCita(bb);
+            if(eliminada != false){
+                Alertar.display("Eliminar", "Se elimino la cita");
+            }else{
+                Alertar.display("Error", "Se elimino la cita del usuario");
+            }
+        }catch(Exception e){
+            Alertar.display("Error", e.getMessage());
+        }
+    }
+    /**
+     * 
+     */
+    public void limpiar(){
+        txtCodigo.setText(null);
+        txtLugar.setText(null);
+        txtTurno.setText(null);
+        txtUsuario.setText(null);
+        dtaFecha.setValue(null);
     }
 }
