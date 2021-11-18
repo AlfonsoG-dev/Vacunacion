@@ -34,7 +34,7 @@ public class Usuario {
     /**
      * Cita agendada por el usuario 
      */
-    private Cita cita;
+    private String cita;
     //-------------------------------------//
     //----------------Constructor------------//
     //-------------------------------------//
@@ -51,7 +51,7 @@ public class Usuario {
      * @param nDireccion, es la direccion de domicilio del usuario. nDireccion != "" && nDireccion != null
      * @param nCita, es el codigo de la cita del usuario. nCita > 0 && nCita != null
      */
-    public Usuario(int nDocumento, String nTipo, String nNombre, String nApellido, int nCelular, String nCorreo, String nDireccion, Cita nCita){
+    public Usuario(int nDocumento, String nTipo, String nNombre, String nApellido, int nCelular, String nCorreo, String nDireccion, String nCita){
         
         numDocumento = nDocumento;
         tipoDocumento = nTipo;
@@ -117,9 +117,9 @@ public class Usuario {
     }
     /**
      * cita agendada del usuario
-     * @return cita del usuario
+     * @return codigo de la cita
      */
-    public Cita getCita(){
+    public String getCita(){
         return cita;
     }
     //-------------------------------------//
