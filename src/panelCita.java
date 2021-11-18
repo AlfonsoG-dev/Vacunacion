@@ -101,7 +101,11 @@ public class panelCita implements Initializable{
 
     @FXML   
     void btnConsultarOnClicked(ActionEvent event) {
-        buscar();
+        if(usuarioDAO.buscarUsuario(txtUsuario.getText())!=null){
+            buscar();
+        }else{
+            Alertar.display("Buscar", "El usuario no eixte");
+        }
     }
 
     @FXML
@@ -180,9 +184,13 @@ public class panelCita implements Initializable{
     public void buscar(){
         String codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
         try{
-            miCitaDAO.buscarCita(codigo);
-            verificarElemento(miCitaDAO.buscarCita(codigo));
-            actualizarCampos(miCitaDAO.buscarCita(codigo));
+            if(miCitaDAO.buscarCita(codigo)!=null ){
+
+                verificarElemento(miCitaDAO.buscarCita(codigo));
+                actualizarCampos(miCitaDAO.buscarCita(codigo));
+            }else{
+                Alertar.display("Buscar", "El usuario no tiene citas asignadas");
+            }
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }
