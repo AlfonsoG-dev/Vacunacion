@@ -18,10 +18,6 @@ public class Operacion {
      * lista con usuarios que tienen citas agendadas
      */
     private ArrayList<Usuario> usuariosCita;
-    /**
-     * numero maximo de citas o usuarios
-     */
-    private ArrayList<Cuenta> cuentas;
     //-------------------------------------//
     //----------------Constructor------------//
     //-------------------------------------//
@@ -35,7 +31,6 @@ public class Operacion {
         usuarios = new ArrayList<Usuario>();
         citas = new ArrayList<Cita>();
         usuariosCita = new ArrayList<Usuario>();
-        cuentas = new ArrayList<Cuenta>();
         verificarInvariante();
     }
     //-------------------------------------//
@@ -61,96 +56,6 @@ public class Operacion {
      */
     public ArrayList<Usuario> darUsuariosConCita(){
         return usuariosCita;
-    }
-    /**
-     * lista con las cuentas del usuario
-     * @return cuentas del usuario
-     */
-    public ArrayList<Cuenta> miCuenta(){
-        return cuentas;
-    }
-    /**
-     * buscar la cuenta del usuario
-     * <b> pre: </b> la lista de cuentas se encuentra inicializada
-     * <b> post: </b> se busca la cuenta y si no eixte se registra la cuenta
-     * @param nCuenta, es la cuenta a buscar. nCuenta != "" && nCuenta != null
-     * @return true si la cuenta se encuentra, de lo contrario false
-     */
-    public Cuenta buscarCuenta(Cuenta nCuenta){
-        Boolean encontrado = false;
-        Cuenta c = null;
-        try{
-            if(miCuenta().size()>0){
-
-                for(int i=0; i<miCuenta().size() && !encontrado; i++){
-                    Cuenta buscar = miCuenta().get(i);
-                    if(buscar.darUsuario() == nCuenta.darUsuario() && buscar.darPasword()==nCuenta.darPasword()){
-                        encontrado = true;
-                        c = buscar;
-                    } 
-                }
-            }
-        }catch (Exception e){
-            System.out.println("Error al momento de buscar la cuenta: " + e.getMessage());
-        }
-        return c;
-    }
-    /**
-     * registar la cuenta del usuario
-     * <b> pre: </b> la lista de cuentas se encuentra inicializada
-     * <b> post: </b> se regitra la cuenta del usuario
-     * @param nUsuario, es el usuario de la cuenta. nUsuario != "" && nUsuario != null
-     * @param nPassword, es la contrasenia de la cuentra. nPassword != "" && nPassword != null
-     * @return mensaje de "registro exitoso"
-     */
-    public Cuenta registrarCuenta(String nUsuario, String nPassword){
-        Boolean stop = false;
-        Cuenta nueva = null;
-        try{
-            if(miCuenta().size()>0){
-                
-                for(int i=0; i<miCuenta().size() && !stop;i++){
-                    Cuenta inicial = miCuenta().get(i);
-                    if(inicial.darUsuario() != nUsuario){
-                        nueva = new Cuenta(nUsuario, nPassword);
-                        stop= true;
-                    }else{
-                        nueva = null;
-                    }
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Error al registrar la cuenta: " + e.getMessage());
-        }
-        return nueva;
-    }
-    /**
-     * eliminar una cuenta del sistema
-     * <b> pre: </b> la lista de cuentas se encuentra inicializada
-     * <b> post: </b> se elimina la cuenta del sistema
-     * @param nUsuario, es el usuario a eliminar. nUsuario != "" && nUsuario != null
-     * @return true si se elimino la cuenta de lo contrario false
-     */
-    public Boolean eliminarCuenta(String nUsuario){
-        Boolean eliminar = false;
-        try{
-            if(miCuenta().size()>0){
-
-                for(int i=0; i<miCuenta().size() && !eliminar; i++){
-                    Cuenta c = miCuenta().get(i);
-                    if(c.darUsuario() == nUsuario){
-                        eliminar = true;
-                        miCuenta().remove(i);
-                    }else{
-                        eliminar = false;
-                        System.out.println("La cuenta no se encuentra registrada");
-                    }
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Error al eliminar la cuenta: " + e.getMessage());
-        }
-        return eliminar;
     }
     /**
      * busca al usuario en la lista de usuarios para verificar 
@@ -278,7 +183,6 @@ public class Operacion {
         assert !usuariosRepetidos() : "No tienen que existir 2 usuarios con numero de identificacion igual";
         assert !turnoRepetido() : "No tienen que existir 2 usuarios con el mismo turno de cita";
         assert !codigoCitaRepetido() : "No tienen que existir 2 usuarios con el mismo codigo de cita";
-        assert !cuentaRepetida(): "No tienen que existir 2 cuentas con el mismo usuario";
     }
     /**
      * valiget que no existan usuarios repetidos
@@ -324,22 +228,6 @@ public class Operacion {
             Usuario inicial = miUsuario().get(0);
             if(inicial.getCita().getCodigo() == miUsuario().get(i).getCita().getCodigo()){
                 noRepetido = true;
-            }
-        }
-        return noRepetido;
-    }
-    /**
-     * valiget que no existan 2 cuentas con el mismo usuario
-     * <b> pre: </b> la lista de cuentas se encuentra inicializada
-     * <b> post: </b> se valida que no existan 2 cuentas con el mismo usuario
-     * @return true si no existen 2 cuentas con el mismo usuario, false de lo contrario
-     */
-    private Boolean cuentaRepetida(){
-        Boolean noRepetido = true;
-        for(int i=1; i<miCuenta().size() && !noRepetido; i++){
-            Cuenta inicial = miCuenta().get(0);
-            if(inicial.darUsuario() == miCuenta().get(i).darUsuario()){
-                noRepetido = false;
             }
         }
         return noRepetido;

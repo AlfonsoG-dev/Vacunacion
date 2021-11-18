@@ -1,5 +1,4 @@
 import Mundo.Operacion;
-import Mundo.Cuenta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +15,6 @@ public class panelIngreso {
      * clase de tipo operacion
      */
     Operacion miOperacion = new Operacion();
-    /**
-     * clase de tipo cuenta
-     */
-    Cuenta miCuenta;
     /**
      * 
      */
@@ -41,8 +36,6 @@ public class panelIngreso {
 
     @FXML
     private TextField txtUsuario;
-    private String usuario;
-    private String pass;
     private Parent root;
     @FXML
     void btnIngresarOnClicked(ActionEvent event) {
@@ -51,19 +44,7 @@ public class panelIngreso {
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        usuario = txtUsuario.getText();
-        pass = txtPasword.getText();
-        miCuenta = new Cuenta(usuario, pass);
-        if(miOperacion.buscarCuenta(miCuenta)==null){
-            miOperacion.registrarCuenta(usuario, pass);
 
-            Alertar.display("Ingreso y registro", "Se registro el usuario");
-            limpiar();
-
-        }else{
-            
-            Alertar.display("Ingreso y registro", "El usuario se encuentra registrado");
-        }
     }
     /**
      * limpiar las casillas de texto de la pantalla
