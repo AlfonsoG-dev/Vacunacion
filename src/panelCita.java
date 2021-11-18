@@ -169,7 +169,9 @@ public class panelCita implements Initializable{
         dtaFecha.setValue(LocalDate.parse(c.getFecha()));
     }
     /**
-     * 
+     * buscar la cita del usuario dado el numero de documento del usuario
+     * <b> pre: </b> los metodos se encuentran inicializados
+     * <b> post: </b> se busca la cita del usuario
      */
     public void buscar(){
         int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
@@ -186,7 +188,9 @@ public class panelCita implements Initializable{
         }
     }
     /**
-     * 
+     * se registra la cita a la base de datos, no pueden haber 2 citas con el mismo codigo
+     * <b> pre: </b> los metodos se encuentran inicializados
+     * <b> post: </b> se registra la cita 
      */
     public void registrar(){
         try{
@@ -203,7 +207,9 @@ public class panelCita implements Initializable{
         }
     }
     /**
-     * 
+     * elimina la cita de la base de datos y el usuario tiene como cita 0
+     * <b> pre: </b> los metodos se encuentran inicializados
+     * <b> post: </b> se elimino la cita
     */
     public void eliminar(String codigo){
         try{
@@ -220,7 +226,9 @@ public class panelCita implements Initializable{
         }
     }
     /**
-     * 
+     * limpiar las casillas de texto 
+     * <b> pre: </b> los elementos se encuentran inicializados
+     * <b> post: </b> se limpian los elementos
      */
     public void limpiar(){
         txtCodigo.setText(null);

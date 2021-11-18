@@ -4,7 +4,6 @@ import Mundo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 public class UsuarioDAO {
     /**
      * Conexion con la base de datos
