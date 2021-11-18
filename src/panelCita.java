@@ -153,6 +153,6 @@ public class panelCita implements Initializable{
      */
     public void agregarElemento(){
         ObservableList<Integer> usuarios = usuarioDAO.seleccionarUsuario();
-        cbxUsuarios.getItems().addAll(usuarios);
+        cbxUsuarios.setItems(usuarios);
     }
 }
