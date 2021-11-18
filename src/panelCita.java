@@ -179,7 +179,6 @@ public class panelCita implements Initializable{
             if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
                 verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
                 actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
-                limpiar();
             }
             else{
                 Alertar.display("Error", "Cita incorrecta");
