@@ -86,21 +86,6 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-        String codigo = txtCodigo.getText();
-        if(codigo != null){
-            buscarCita(codigo);
-        }else{
-            Alertar.display("Error consulta", "El codigo esta vacio");
-        }
-    }
-
-    @FXML
-    void btnEliminarOnClicked(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnRegistrarOnClicked(ActionEvent event) {
         String s = cbxUsuarios.getSelectionModel().getSelectedItem().toString();
         if(!s.isEmpty()){
             Usuario mio = usuarioDAO.buscarUsuario(s);
@@ -112,6 +97,26 @@ public class panelCita implements Initializable{
         }else{
             Alertar.display("Seleccion", "Seleccione al usuario");
         }
+    }
+
+    @FXML
+    void btnEliminarOnClicked(ActionEvent event) {
+        if(txtCodigo.getText()!=null){
+            Cita buscada = miCitaDAO.buscarCita(txtCodigo.getText());
+            if(buscada!=null){
+                miCitaDAO.eliminarCita(buscada);
+                Alertar.display("Eliminar", "Se elimino la cita");
+            }else{
+                Alertar.display("Eliminar", "La cita no existe");
+            }
+        }else{
+            Alertar.display("Validar", "El codigo es null");
+        }
+    }
+
+    @FXML
+    void btnRegistrarOnClicked(ActionEvent event) {
+        Alertar.display("Mensaje", "Proximamente");
     }
     /**
      * se inicializan las columnas de la tabla
