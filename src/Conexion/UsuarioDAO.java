@@ -89,5 +89,27 @@ public class UsuarioDAO {
         }
         return codigo;
     }
-    
+    /**
+     * actualizar la informacion del usuario
+     */
+    public Usuario actualizarUsuario(String documento, String codigoCita){
+        Usuario mio=null;
+        Connection mia = miConexion.conectar();
+        PreparedStatement pst = null;
+        try{
+            String sql = "update usuario set cita =? where documento =?";
+            pst = mia.prepareStatement(sql);
+            pst.setString(1, documento);
+            pst.setString(8, codigoCita);
+            int num = pst.executeUpdate();
+            if(num>0){
+                mio=buscarUsuario(documento);
+            }
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return mio;
+    }
 }
