@@ -98,24 +98,21 @@ public class CitaDAO {
      * @param nCita, cita a modificar. nCita != "" && nCita != null
      * @return cita modificada
      */
-    public Cita modificarCita(String codigo, String fecha, String turno, String lugar){
+    public Cita modificarCita(Cita nCita){
         Cita modificar = null;
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
         try{
             String sql = "update vacuna set fecha=?, turno=?, lugar=? where codigo=?";
             pst = mia.prepareStatement(sql);
-            pst.setString(1, codigo);
-            pst.setString(2, fecha);
-            pst.setString(3, turno);
-            pst.setString(4, lugar);
+            pst.setString(1, String.valueOf(nCita.getCodigo()));
+            pst.setString(2, nCita.getFecha());
+            pst.setString(3, String.valueOf(nCita.getTurno()));
+            pst.setString(4, nCita.getLugar());
             int count = pst.executeUpdate();
-            if(count > 0){
-                modificar = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(turno), lugar);
+            while(count > 0){
+                modificar = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
                 System.out.print("La cita se modifico");
-            }
-            else{
-                System.out.print("No se realizo el conteo");
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());

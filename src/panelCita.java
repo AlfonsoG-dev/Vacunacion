@@ -125,7 +125,8 @@ public class panelCita implements Initializable{
         String fecha = dtaFecha.getValue().toString();
         String turno = txtTurno.getText();
         String lugar = txtLugar.getText();
-        if(miCitaDAO.modificarCita(codigo, fecha, turno, lugar)!=null){
+        Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(turno), lugar);
+        if(miCitaDAO.modificarCita(nueva)!=null){
             Alertar.display("Modificar", "Se modifico la cita");
         }
         else{
