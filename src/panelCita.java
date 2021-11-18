@@ -217,6 +217,8 @@ public class panelCita implements Initializable{
             Cita bb = miCitaDAO.buscarCita(codigo);
             Boolean eliminada = miCitaDAO.eliminarCita(bb);
             if(eliminada != false){
+                limpiar();
+                tblCitas.getItems().remove(bb);
                 Alertar.display("Eliminar", "Se elimino la cita");
             }else{
                 Alertar.display("Error", "Se elimino la cita del usuario");
