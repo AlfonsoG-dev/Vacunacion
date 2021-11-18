@@ -1,4 +1,5 @@
 package Conexion;
+import Mundo.Cita;
 import Mundo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,6 +40,34 @@ public class UsuarioDAO {
             miConexion.desconectar(mia);
         }
         return u;
+    }
+    /**
+     * buscar usuario dado el codigo de la cita
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se busca el usuario dado el codigo de cita
+     * @param nCodigo, es el codigo de la cita a buscar. nCodigo != "" && nCodigo != null
+     * @return true si el usuario tiene cita, false de lo contrario
+     */
+    public Boolean usuarioPorCodigo(Cita nCodigo){
+        Boolean encontrado = false;
+        Connection mia = miConexion.conectar();
+        Usuario nuevo = null;
+        PreparedStatement pst = null;
+        try{    
+            String sql = "select * from usuario where codigo =?";
+            pst = mia.prepareStatement(sql);
+            pst.setString(8, String.valueOf(nCodigo.getCodigo()));
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                nuevo  = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), miCitaDAO.buscarCita(rs.getString(8)));
+                encontrado = true;
+            }
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return encontrado;
     }
     /**
      * buscar el codigo de la cita dado el usuario
