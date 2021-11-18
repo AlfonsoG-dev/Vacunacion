@@ -102,6 +102,17 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
+        String s = cbxUsuarios.getSelectionModel().getSelectedItem().toString();
+        if(!s.isEmpty()){
+            Usuario mio = usuarioDAO.buscarUsuario(s);
+            if(mio!=null){
+                buscarCita(mio.getCita());
+            }else{
+
+            }
+        }else{
+            Alertar.display("Seleccion", "Seleccione al usuario");
+        }
     }
     /**
      * se inicializan las columnas de la tabla
