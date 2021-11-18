@@ -9,6 +9,30 @@ public class UsuarioDAO {
      */
     private Conectar miConexion = new Conectar();
     /**
+     * seleccionar los usuarios de la base de datos
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <b> post: </b> se seleccionan todos los usuarios
+     * @return el usuario de la base de datos
+     */
+    public Usuario seleccionarUsuario(){
+        Usuario seleccion = null;
+        Connection mia = miConexion.conectar();
+        PreparedStatement pst = null;
+        try{
+            String sql = "select * from usuario";
+            pst = mia.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                seleccion = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), rs.getString(8));
+            }
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return seleccion;
+    }
+    /**
      * buscar el usuario por numero de documento
      * <b> pre: </b> la base de datos se encuentra inicializada
      * <b> post: </b> se busca al usuario en la base de datos
