@@ -16,6 +16,9 @@ import Conexion.UsuarioDAO;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import Mundo.Cita;
 public class panelCita implements Initializable{
 
@@ -104,8 +107,10 @@ public class panelCita implements Initializable{
         if(txtCodigo.getText()!=null){
             Cita buscada = miCitaDAO.buscarCita(txtCodigo.getText());
             if(buscada!=null){
-                miCitaDAO.eliminarCita(buscada);
-                Alertar.display("Eliminar", "Se elimino la cita");
+                if(JOptionPane.showConfirmDialog(null, "Esta seguro de que quiere cambiar la informacion" + JOptionPane.YES_NO_OPTION)==0){
+                    miCitaDAO.eliminarCita(buscada);
+                    Alertar.display("Eliminar", "Se elimino la cita");
+                }
             }else{
                 Alertar.display("Eliminar", "La cita no existe");
             }
