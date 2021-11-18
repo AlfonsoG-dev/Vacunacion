@@ -1,13 +1,11 @@
 package Conexion;
 import Mundo.Usuario;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 public class UsuarioDAO {
     /**
      * Conexion con la base de datos
