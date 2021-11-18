@@ -75,12 +75,17 @@ public class UsuarioDAO {
      * @param documento, es el numero de documento del usuario. documento != null && documento != ""
      * @return el codigo de la cita
      */
-    public int codigoCitaUsuario(String documetno){
-        int codigo = 0;
+    public String codigoCitaUsuario(String documetno){
+        String codigo = null;
         try{
 
             if(buscarUsuario(documetno)!=null){
-                codigo = buscarUsuario(documetno).getCita().getCodigo();
+                if(buscarUsuario(documetno).getCita().getCodigo()!=0){
+                    codigo = String.valueOf(buscarUsuario(documetno).getCita().getCodigo());
+                }
+                else{
+                    codigo = "null";
+                }
             }else{
                 System.out.print("Error al consultar la cita");
             }
@@ -105,7 +110,7 @@ public class UsuarioDAO {
             String sql = "update usuario set cita =? where documento =?";
             pst = mia.prepareStatement(sql);
             pst.setString(1, documento);
-            pst.setString(8, codigoCita);
+            pst.setString(2, codigoCita);
             int num = pst.executeUpdate();
             if(num>0){
                 mio=buscarUsuario(documento);

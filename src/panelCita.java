@@ -178,11 +178,11 @@ public class panelCita implements Initializable{
      * <b> post: </b> se busca la cita del usuario
      */
     public void buscar(){
-        int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
+        String codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
         try{
-            miCitaDAO.buscarCita(String.valueOf(codigo));
-            verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
-            actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
+            miCitaDAO.buscarCita(codigo);
+            verificarElemento(miCitaDAO.buscarCita(codigo));
+            actualizarCampos(miCitaDAO.buscarCita(codigo));
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }
@@ -197,8 +197,8 @@ public class panelCita implements Initializable{
             Cita registrar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
             Usuario buscar = usuarioDAO.buscarUsuario(txtUsuario.getText());
             if(buscar != null && miCitaDAO.buscarCita(txtCodigo.getText())==null){
-                String codigos= String.valueOf(buscar.getCita().getCodigo());
-                if(codigos==null){
+                String codigos= String.valueOf(usuarioDAO.codigoCitaUsuario(txtUsuario.getText()));
+                if(codigos =="null" || codigos == null){
                     miCitaDAO.insertarCita(registrar);
                     usuarioDAO.actualizarUsuario(txtUsuario.getText(), txtCodigo.getText());
                 }else{
