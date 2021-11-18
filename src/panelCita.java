@@ -111,16 +111,16 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnModificarOnClicked(ActionEvent event) {
-        String codigo = txtCodigo.getText();
-        String fecha = dtaFecha.getValue().toString();
-        String turno = txtTurno.getText();
-        String lugar = txtLugar.getText();
-        Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(turno), lugar);
-        if(miCitaDAO.modificarCita(nueva)!=null){
-            Alertar.display("Modificar", "Se modifico la cita");
-        }
-        else{
-            Alertar.display("Modificar", "No se modifco la cita");
+        Cita buscar = miCitaDAO.buscarCita(txtCodigo.getText());
+        if(buscar!=null){
+            if(miCitaDAO.modificarCita(buscar)!=null){
+                miCitaDAO.modificarCita(buscar);
+                Alertar.display("Modificar", "Se modifico la cita");
+            }else{
+                Alertar.display("Modificar", "No se modifico la cita");
+            }
+        }else{
+            Alertar.display("Modificar", "la cita buscada \n no existe");
         }
     }
 

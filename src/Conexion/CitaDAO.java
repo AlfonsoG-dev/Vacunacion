@@ -105,12 +105,12 @@ public class CitaDAO {
         try{
             String sql = "update vacuna set fecha=?, turno=?, lugar=? where codigo=?";
             pst = mia.prepareStatement(sql);
-            pst.setString(1, String.valueOf(nCita.getCodigo()));
             pst.setString(2, nCita.getFecha());
             pst.setString(3, String.valueOf(nCita.getTurno()));
             pst.setString(4, nCita.getLugar());
+            pst.setString(1, String.valueOf(nCita.getCodigo()));
             int count = pst.executeUpdate();
-            while(count > 0){
+            if(count > 0){
                 modificar = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
                 System.out.print("La cita se modifico");
             }
