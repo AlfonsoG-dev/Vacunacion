@@ -77,11 +77,17 @@ public class UsuarioDAO {
      */
     public int codigoCitaUsuario(String documetno){
         int codigo = 0;
-        if(buscarUsuario(documetno)!=null){
-            codigo = buscarUsuario(documetno).getCita().getCodigo();
-        }else{
-            System.out.print("Error al consultar la cita");
+        try{
+
+            if(buscarUsuario(documetno)!=null){
+                codigo = buscarUsuario(documetno).getCita().getCodigo();
+            }else{
+                System.out.print("Error al consultar la cita");
+            }
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
         }
         return codigo;
     }
+    
 }

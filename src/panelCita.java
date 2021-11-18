@@ -175,16 +175,21 @@ public class panelCita implements Initializable{
      */
     public void buscar(){
         int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
-        if(codigo>0){
-            if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
-                verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
-                actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
+        try{
+
+            if(codigo>0){
+                if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
+                    verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
+                    actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
+                }
+                else{
+                    Alertar.display("Error", "Cita incorrecta");
+                }
+            }else{
+                Alertar.display("Error", "Codigo igual a cero");
             }
-            else{
-                Alertar.display("Error", "Cita incorrecta");
-            }
-        }else{
-            Alertar.display("Error", "Codigo igual a cero");
+        }catch(Exception e){
+            Alertar.display("Error", e.getMessage());
         }
     }
     /**
