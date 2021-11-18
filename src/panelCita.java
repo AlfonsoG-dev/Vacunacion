@@ -89,9 +89,9 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-        String s = cbxUsuarios.getSelectionModel().getSelectedItem().toString();
-        if(!s.isEmpty()){
-            Usuario mio = usuarioDAO.buscarUsuario(s);
+        String documento = cbxUsuarios.getSelectionModel().getSelectedItem().toString();
+        if(!documento.isEmpty()){
+            Usuario mio = usuarioDAO.buscarUsuario(documento);
             if(mio!=null){
                 buscarCita(mio.getCita());
             }else{
@@ -107,7 +107,7 @@ public class panelCita implements Initializable{
         if(txtCodigo.getText()!=null){
             Cita buscada = miCitaDAO.buscarCita(txtCodigo.getText());
             if(buscada!=null){
-                if(JOptionPane.showConfirmDialog(null, "Esta seguro de que quiere cambiar la informacion" + JOptionPane.YES_NO_OPTION)==0){
+                if(JOptionPane.showConfirmDialog(null, "Seguro quiere eliminar la cita del usuario" + JOptionPane.YES_NO_OPTION)==0){
                     miCitaDAO.eliminarCita(buscada);
                     Alertar.display("Eliminar", "Se elimino la cita");
                 }
@@ -150,7 +150,7 @@ public class panelCita implements Initializable{
             tblCitas.getItems().add(consultar);
             actualizarElementos(consultar);
         }else{
-            Alertar.display("Consultar", "La cita \n no se encutra registrada");
+            Alertar.display("Consultar", "La cita \n no se encuentra registrada");
         }
         return encontrar;
     }
