@@ -149,7 +149,7 @@ public class Operacion {
             if(nCita != null && nUsuario != null){
                 nuevaCita = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
                 nuevoUsuario = new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), 
-                nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), nuevaCita);
+                nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), String.valueOf(nuevaCita.getCodigo()));
                 if(buscarUsuario(nuevoUsuario) == null && buscarCita(nuevaCita)==null){
                     agregarDatosLista(nuevaCita, nuevoUsuario);
                 }
@@ -208,12 +208,13 @@ public class Operacion {
      */
     private Boolean turnoRepetido(){
         Boolean noRepetido = true;
-        for(int i=1; i<miUsuario().size(); i++){
-            Usuario inicial = miUsuario().get(0);
-            if(inicial.getCita().getTurno() == miUsuario().get(i).getCita().getTurno()){
-                noRepetido = false;
-            }
-        }
+       for(int i=0; i<miCita().size(); i++){
+           Cita primera = miCita().get(0);
+           Cita segunda = miCita().get(i);
+           if(primera.getTurno() != segunda.getTurno()){
+               noRepetido = true;
+           }
+       }
         return noRepetido;
     }
     /**
@@ -224,9 +225,10 @@ public class Operacion {
      */
     private Boolean codigoCitaRepetido(){
         Boolean noRepetido = false;
-        for(int i=1; i<miUsuario().size();i++){
-            Usuario inicial = miUsuario().get(0);
-            if(inicial.getCita().getCodigo() == miUsuario().get(i).getCita().getCodigo()){
+        for(int i=0; i<miCita().size();i++){
+            Cita primera = miCita().get(0);
+            Cita segunda = miCita().get(i);
+            if(primera.getCodigo() != segunda.getCodigo()){
                 noRepetido = true;
             }
         }
