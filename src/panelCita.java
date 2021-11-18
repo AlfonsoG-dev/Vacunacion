@@ -177,8 +177,9 @@ public class panelCita implements Initializable{
         int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
         if(codigo>0){
             if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
-                tblCitas.getItems().add(miCitaDAO.buscarCita(String.valueOf(codigo)));
+                verificarElemento(miCitaDAO.buscarCita(String.valueOf(codigo)));
                 actualizarCampos(miCitaDAO.buscarCita(String.valueOf(codigo)));
+                limpiar();
             }
             else{
                 Alertar.display("Error", "Cita incorrecta");
@@ -197,7 +198,6 @@ public class panelCita implements Initializable{
             Cita registrar = new Cita(Integer.parseInt(txtCodigo.getText()), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
             if(miCitaDAO.buscarCita(txtCodigo.getText())==null){
                 miCitaDAO.insertarCita(registrar);
-                tblCitas.getItems().add(registrar);
                 Alertar.display("Felicidades", "Se registro la cita con exito");
             }else{
                 Alertar.display("Error", "se encuentra registrada");
@@ -226,6 +226,19 @@ public class panelCita implements Initializable{
         }catch(Exception e){
             Alertar.display("Error", e.getMessage());
         }
+    }
+    /**
+     * verificar si el elemento esta o no en la tabla
+     */
+    public Boolean verificarElemento(Cita nCita){
+        Boolean v = false;
+        if(tblCitas.getItems().contains(nCita)==false){
+            tblCitas.getItems().add(nCita);
+            v = true;
+        }else if(tblCitas.getItems().contains(nCita)!=false){
+            Alertar.display("Añadir", "El elemento \n se encuentra registrado");
+        }
+        return v;
     }
     /**
      * limpiar las casillas de texto 
