@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import Conexion.Conectar;
 import Conexion.CitaDAO;
+import Conexion.UsuarioDAO;
 import Mundo.Cita;
 
 public class panelCita implements Initializable{
@@ -30,6 +31,10 @@ public class panelCita implements Initializable{
      * clase cita con las operaciones de la base de datos
      */
     CitaDAO miCitaDAO = new CitaDAO();
+    /**
+     * clase para las operaciones con usuario
+     */
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     @FXML
     private Button btnConsultar;
 
@@ -92,16 +97,16 @@ public class panelCita implements Initializable{
 
     @FXML   
     void btnConsultarOnClicked(ActionEvent event) {
-        try{
-            if(miCitaDAO.buscarCita(txtCodigo.getText())!=null){
-                actualizarCampos(miCitaDAO.buscarCita(txtCodigo.getText()));
-                tblCitas.getItems().add(miCitaDAO.buscarCita(txtCodigo.getText()));
+        int codigo = usuarioDAO.codigoCitaUsuario(txtUsuario.getText());
+        if(codigo>0){
+            if(miCitaDAO.buscarCita(String.valueOf(codigo))!=null){
+                tblCitas.getItems().add(miCitaDAO.buscarCita(String.valueOf(codigo)));
             }
             else{
-                Alertar.display("Consulta", "No existe la cita");
+                Alertar.display("Error", "Cita incorrecta");
             }
-        }catch(Exception e){
-            Alertar.display("Error", e.getMessage());
+        }else{
+            Alertar.display("Error", "Codigo igual a cero");
         }
     }
 
