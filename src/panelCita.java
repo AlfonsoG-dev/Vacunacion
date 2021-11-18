@@ -10,13 +10,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import Mundo.Usuario;
-
+import Conexion.CitaDAO;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 import Mundo.Cita;
 public class panelCita implements Initializable{
 
+    /**
+     * 
+     */
+    CitaDAO miCitaDAO = new CitaDAO();
     @FXML
     private Button btnConsultar;
 
@@ -76,7 +80,12 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-
+        String codigo = txtCodigo.getText();
+        if(codigo != null){
+            buscarCita(codigo);
+        }else{
+            Alertar.display("Error consulta", "El codigo esta vacio");
+        }
     }
 
     @FXML
@@ -99,5 +108,35 @@ public class panelCita implements Initializable{
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         colTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
         colLugar.setCellValueFactory(new PropertyValueFactory<>("lugar"));
+    }
+    /**
+     * buscar la cita dado el codigo de la cita
+     * <b> pre: </b> la cita se encuentra inicializada
+     * <b> post: </b> se busca la cita dado el codigo
+     * @param nCodigo, es el codigo de la cita a buscar
+     * @return true si la encontro de lo contrario false
+     */
+    public Boolean buscarCita(String nCodigo){
+        Boolean encontrar = false;
+        Cita consultar = miCitaDAO.buscarCita(nCodigo);
+        if(consultar != null){
+            tblCitas.getItems().add(consultar);
+            actualizarElementos(consultar);
+        }else{
+            Alertar.display("Consultar", "La cita \n no se encutra registrada");
+        }
+        return encontrar;
+    }
+    /**
+     * actualizar los elementos de la interfaz con la información consultada
+     * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
+     * <b> post: </b>  se actualizan los elementos de la interfaz
+     * @param nCita, es el objeto con la informacion para los elementos de la interfaz
+     */
+    public void actualizarElementos(Cita nCita){
+        txtCodigo.setText(String.valueOf(nCita.getCodigo()));
+        txtLugar.setText(nCita.getLugar());
+        txtTurno.setText(String.valueOf(nCita.getTurno()));
+        dtaFecha.setValue(LocalDate.parse(nCita.getFecha()));
     }
 }
