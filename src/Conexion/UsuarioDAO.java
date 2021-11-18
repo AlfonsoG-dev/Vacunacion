@@ -23,7 +23,7 @@ public class UsuarioDAO {
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
         try{
-            String sql = "select * from usuario";
+            String sql = "select * from usuario order by documento";
             pst = mia.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
