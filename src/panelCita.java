@@ -225,4 +225,13 @@ public class panelCita implements Initializable{
         ObservableList<Integer> usuarios = usuarioDAO.seleccionarUsuario();
         cbxUsuarios.setItems(usuarios);
     }
+    /**
+     * limpiar los elementos de la interfaz
+     */
+    public void limpiar(){
+        txtCodigo.setText(null);
+        txtLugar.setText(null);
+        txtTurno.setText(null);
+        dtaFecha.setValue(null);
+    }
 }
