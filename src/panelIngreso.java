@@ -12,49 +12,72 @@ import javafx.stage.Stage;
 import Conexion.Conectar;
 public class panelIngreso {
     /**
-     * clase de tipo operacion
+     * Operaciones de la cita
      */
     Operacion miOperacion = new Operacion();
     /**
-     * 
+     * conexion con la base de datos
      */
     Conectar conexion;
+    /**
+     * boton para ingresar al panelCita
+     */
     @FXML
     private Button btnIngresar;
-
+    /**
+     * boton para registrar usuario
+     */
     @FXML
     private Button btnRegistro;
-
+    /**
+     * etiqueta de la contrasenia
+     */
     @FXML
     private Label lblPasword;
-
+    /**
+     * etiqueta con el usuario
+     */
     @FXML
     private Label lblUsuarioL;
-
+    /**
+     * elemento con la contrasenia de la cuenta
+     */
     @FXML
     private PasswordField txtPasword;
-
+    /**
+     * elemento con el usuario de la cuenta
+     */
     @FXML
     private TextField txtUsuario;
+    /**
+     * elemento con la informacion del panel
+     */
     private Parent root;
+    /**
+     * ingresar al panel cita
+     * @param event accion de ingresar al panelCita
+     */
     @FXML
     void btnIngresarOnClicked(ActionEvent event) {
         entrarCita();
     }
-
+    /**
+     * registrar usuario
+     * @param event accion de registrar usuario
+     */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-
+        Alertar.display("Registrar", "Desabilitado \n por el momento");
     }
     /**
-     * limpiar las casillas de texto de la pantalla
+     * limpiar los elementos de la interfaz
      */
     public void limpiar(){
         txtUsuario.setText(null);
         txtPasword.setText(null);
     } 
     /**
-     * start la segunda ventana
+     * llamar al panelCita 
      */
     public void entrarCita(){
         try {
