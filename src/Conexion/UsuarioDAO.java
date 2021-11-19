@@ -30,7 +30,7 @@ public class UsuarioDAO {
             String sql = "select * from usuario order by documento";
             pst = mia.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();  
-            if(rs.next()){
+            while(rs.next()){
                 seleccion = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), rs.getString(8));
                 usuarios.add(seleccion.getDocumento());
             }
