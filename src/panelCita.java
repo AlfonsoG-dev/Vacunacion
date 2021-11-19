@@ -149,8 +149,10 @@ public class panelCita implements Initializable{
     */
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
-        if(txtCodigo.getText()!=null){
-            Cita buscada = miCitaDAO.buscarCita(txtCodigo.getText());
+        Cita mia = tblCitas.getSelectionModel().getSelectedItem();
+        String miCodigo = String.valueOf(mia.getCodigo());
+        if(miCodigo!=null){
+            Cita buscada = miCitaDAO.buscarCita(miCodigo);
             if(buscada!=null){
                 if(JOptionPane.showConfirmDialog(null, "Seguro quiere eliminar la cita del usuario" + JOptionPane.YES_NO_OPTION)==0){
                     miCitaDAO.eliminarCita(buscada);

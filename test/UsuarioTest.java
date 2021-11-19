@@ -20,7 +20,7 @@ public class UsuarioTest {
      */
     public void scenario1(){
         miCita = new Cita(12, "febrero/23/2020", 13, "cali");
-        miUsuario = new Usuario(123, "cedula", "juan", "lopez", 316, "@gmail", "calle-20", "12");
+        miUsuario = new Usuario(123, "cedula", "juan", "lopez", 316, "@gmail", "calle-20", String.valueOf(miCita.getCodigo()));
     }
     /**
      * Prueba 1: Se encarga de verificar el constructor de la clase usuario
