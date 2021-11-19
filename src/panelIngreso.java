@@ -16,10 +16,6 @@ public class panelIngreso {
      */
     Operacion miOperacion = new Operacion();
     /**
-     * conexion con la base de datos
-     */
-    Conectar conexion;
-    /**
      * boton para ingresar al panelCita
      */
     @FXML

@@ -2,11 +2,15 @@ package Conexion;
 import Mundo.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import Mundo.Operacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class UsuarioDAO {
+    /**
+     * operaciones de la vacunacion
+     */
+    private Operacion miOperacion = new Operacion();
     /**
      * Conexion con la base de datos
      */
@@ -55,6 +59,7 @@ public class UsuarioDAO {
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 u  = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), rs.getString(8));
+                miOperacion.miUsuario().add(u);
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
