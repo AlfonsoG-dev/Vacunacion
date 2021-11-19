@@ -23,70 +23,112 @@ import Mundo.Cita;
 public class panelCita implements Initializable{
 
     /**
-     * 
+     * cita del usuario 
      */
     CitaDAO miCitaDAO = new CitaDAO();
     /**
-     * 
+     * operaciones del usuario
      */
     UsuarioDAO usuarioDAO = new UsuarioDAO();
+    /**
+     * boton que realiza la accion de consultar cita
+     */
     @FXML
     private Button btnConsultar;
-
+    /**
+     * boton que realiza la accion de eliminar cita
+     */
     @FXML
     private Button btnEliminar;
-
+    /**
+     * boton para realizar el registro de usuario y cita
+     */
     @FXML
     private Button btnRegistrar;
-
+    /**
+     * lista de usuarios ordenados por documento
+     */
     @FXML
     private ComboBox<Integer> cbxUsuarios;
-
+    /**
+     * columna que representa el codigo de la cita
+     */
     @FXML
     private TableColumn<Cita, Integer> colCodigo;
-
+    /**
+     * columna que representa la fecha de la cita
+     */
     @FXML
     private TableColumn<Cita, String> colFecha;
-
+    /**
+     * columna que representa el lugar de la cita
+     */
     @FXML
     private TableColumn<Cita, String> colLugar;
-
+    /**
+     * columna que representa el turno de la cita
+     */
     @FXML
     private TableColumn<Cita, Integer> colTurno;
-
+    /**
+     * elemento para elegir la fecha de la cita
+     */
     @FXML
     private DatePicker dtaFecha;
-
+    /**
+     * etiqueta de la tabla de citas
+     */
     @FXML
     private Label lblCitas;
-
+    /**
+     * etiqueta del codigo de cita
+     */
     @FXML
     private Label lblCodigo;
-
+    /**
+     * etiqueta de la fecha de cita
+     */
     @FXML
     private Label lblFecha;
-
+    /**
+     * etiqueta del lugar de la cita
+     */
     @FXML
     private Label lblLugar;
-
+    /**
+     * etiqueta del turno de cita
+     */
     @FXML
     private Label lblTurno;
-
+    /**
+     * etiqueta del numero de documento del usuario
+     */
     @FXML
     private Label lblUsuairo;
-
+    /**
+     * tabla de registros de cita
+     */
     @FXML
     private TableView<Cita> tblCitas;
-
+    /**
+     * elemento con el codigo de cita
+     */
     @FXML
     private TextField txtCodigo;
-
+    /**
+     * elemento con el lugar de la cita
+     */
     @FXML
     private TextField txtLugar;
-
+    /**
+     * elemento con el turno de la cita
+     */
     @FXML
     private TextField txtTurno;
-
+    /**
+     * consultar la cita dado el documento del usuario
+     * @param event accion de consultar cita
+     */
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
         String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
@@ -101,7 +143,10 @@ public class panelCita implements Initializable{
             Alertar.display("Buscar", "Documento mal digitado");
         }
     }
-
+    /**
+     * eliminar la cita del usuario
+     * @param event accion de eliminar la cita
+    */
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
         if(txtCodigo.getText()!=null){
@@ -118,7 +163,10 @@ public class panelCita implements Initializable{
             Alertar.display("Validar", "El codigo es null");
         }
     }
-
+    /**
+     * registrar la cita al usuario sin cita
+     * @param event accion de registrar cita
+     */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
         Alertar.display("Mensaje", "Proximamente");
