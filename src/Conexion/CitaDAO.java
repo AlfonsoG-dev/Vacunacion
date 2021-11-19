@@ -1,5 +1,5 @@
 package Conexion;
-
+import Mundo.Operacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +11,10 @@ public class CitaDAO {
      * conexion con la base de datos
      */
     private Conectar miConexion = new Conectar();
+    /**
+     * operaciones para la vacunacion
+     */
+    private Operacion miOperacion = new Operacion();
     /**
      * buscar la cita en la base de datos dado el codigo de la cita 
      * <b> pre: </b> la tabla de cita se encuentra inicializada
@@ -29,6 +33,7 @@ public class CitaDAO {
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 nueva = new Cita(Integer.parseInt(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(3)), rs.getString(4)); 
+                miOperacion.miCita().add(nueva);
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
@@ -56,6 +61,8 @@ public class CitaDAO {
             pst.setString(3, String.valueOf(nCita.getTurno()));
             pst.setString(4, nCita.getLugar());
             pst.execute();
+            registrar = nCita;
+            miOperacion.miCita().add(registrar);
         }catch(Exception e){
             System.out.println("Error: " + e.getMessage());
         }finally{
@@ -82,6 +89,7 @@ public class CitaDAO {
                 PreparedStatement pst = mia.prepareStatement(sql);
                 pst.setString(1, String.valueOf(nCita.getCodigo()));
                 pst.execute();
+                miOperacion.miCita().remove(nCita);
                 eliminar = true;
             }
         }catch(Exception e){
