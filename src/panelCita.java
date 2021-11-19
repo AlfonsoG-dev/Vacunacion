@@ -89,7 +89,7 @@ public class panelCita implements Initializable{
 
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-        String documento = cbxUsuarios.getSelectionModel().getSelectedItem().toString();
+        String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
         if(!documento.isEmpty()){
             Usuario mio = usuarioDAO.buscarUsuario(documento);
             if(mio!=null){
@@ -98,7 +98,7 @@ public class panelCita implements Initializable{
                 Alertar.display("Buscar Usuario", "El usuario no existe");
             }
         }else{
-            Alertar.display("Seleccion", "Seleccione al usuario");
+            Alertar.display("Buscar", "Documento mal digitado");
         }
     }
 
