@@ -199,6 +199,7 @@ public class panelCita implements Initializable{
         if(consultar != null){
             tblCitas.getItems().add(consultar);
             actualizarElementos(consultar);
+            limpiar();
         }else{
             Alertar.display("Consultar", "La cita \n no se encuentra registrada");
         }
