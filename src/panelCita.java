@@ -197,7 +197,7 @@ public class panelCita implements Initializable{
         Boolean encontrar = false;
         Cita consultar = miCitaDAO.buscarCita(nCodigo);
         if(consultar != null){
-            tblCitas.getItems().add(consultar);
+            objetoRepetido(consultar);
             actualizarElementos(consultar);
             limpiar();
         }else{
@@ -228,11 +228,31 @@ public class panelCita implements Initializable{
     }
     /**
      * limpiar los elementos de la interfaz
+     * <b> pre: </b> los elementos de la interfaz se encuentra inicializados 
+     * <b> post: </b> se limpian los elementos de la interfaz
      */
     public void limpiar(){
         txtCodigo.setText(null);
         txtLugar.setText(null);
         txtTurno.setText(null);
         dtaFecha.setValue(null);
+    }
+    /**
+     * correccion del bug para agregar elementos en la lista
+     * <b> pre: </b> los elementos se encuentran inicializados
+     * <b> post: </b> verificar si el objeto se encuentra en la lista
+     * si el objeto se encuentra en la lista no se debe agregar, de lo contrario se lo agrega
+     */
+    public void objetoRepetido(Cita nCita){
+        if(nCita != null){
+            Boolean encontrar = tblCitas.getItems().contains(nCita);
+            if(encontrar == false){
+                tblCitas.getItems().add(nCita);
+            }else{
+                Alertar.display("Repetido?", "La cita se encuentra registrada");
+            }
+        }else{
+            Alertar.display("Repetido?", "La cita no esta registrada");
+        }
     }
 }
