@@ -5,9 +5,20 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import Mundo.Cita;
+import Mundo.Usuario;
+import Conexion.CitaDAO;
+import Conexion.UsuarioDAO;
 
 public class panelRegistro {
-
+    /**
+     * 
+     */
+    CitaDAO citaDAO = new CitaDAO();
+    /**
+     * 
+     */
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     @FXML
     private Button btnCncelar;
 
@@ -18,13 +29,13 @@ public class panelRegistro {
     private Button btnRegistrar1;
 
     @FXML
-    private ComboBox<?> cbxCodigoCita;
+    private ComboBox<Integer> cbxCodigoCita;
 
     @FXML
-    private ComboBox<?> cbxDocumento;
+    private ComboBox<Integer> cbxDocumento;
 
     @FXML
-    private ComboBox<?> cbxTipo;
+    private ComboBox<String> cbxTipo;
 
     @FXML
     private DatePicker dtaFecha;

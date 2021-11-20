@@ -1,7 +1,10 @@
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -10,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import Mundo.Usuario;
 import Conexion.CitaDAO;
 import Conexion.UsuarioDAO;
@@ -176,7 +180,7 @@ public class panelCita implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        Alertar.display("Mensaje", "Proximamente");
+        entrarARegistro();
     }
     /**
      * se inicializan las columnas de la tabla
@@ -258,6 +262,23 @@ public class panelCita implements Initializable{
             }
         }else{
             Alertar.display("Repetido?", "La cita no esta registrada");
+        }
+    }
+    /**
+     * ingresar al panel de registro
+     * <b> pre: </b> el panel de registro se encuentra inicializado
+     * <b> post: </b> se ingresa al panel registro
+     */
+    public void entrarARegistro(){
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("PanelRegistro.fxml"));
+            Stage registroStage = new Stage();
+            Scene scena = new Scene(root);
+            registroStage.setTitle("Vacunacion: Registro");
+            registroStage.setScene(scena);
+            registroStage.showAndWait();
+        }catch(Exception e){
+            Alertar.display("Ingreso", e.getMessage());
         }
     }
 }
