@@ -269,6 +269,7 @@ public class panelCita implements Initializable{
      * ingresar al panel de registro
      * <b> pre: </b> el panel de registro se encuentra inicializado
      * <b> post: </b> se ingresa al panel registro
+     * para entrar al registro se utiliza el boton <b> (btnRegistroOnClicked)</b>
      */
     public void entrarARegistro(){
         try{
