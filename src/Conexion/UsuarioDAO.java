@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class UsuarioDAO {
     /**
+     * 
+     */
+    CitaDAO citaDAO = new CitaDAO();
+    /**
      * operaciones de la vacunacion
      */
     private Operacion miOperacion = new Operacion();
@@ -40,6 +44,34 @@ public class UsuarioDAO {
             miConexion.desconectar(mia);
         }
         return usuarios;
+    }
+    /**
+     * seleccionar usuarios de la base de datos sin cita
+     * <b> pre: </b> la base de datos se encuentra inicializada
+     * <p> post: </b> se seleccionan todos los usuarios sin cita
+     * @return usurios sin cita
+     */
+    public ObservableList<Integer> usuariosSinCita(){
+        ObservableList<Integer> sinCita = FXCollections.observableArrayList();
+        Usuario seleccion = null;
+        Connection mia = miConexion.conectar();
+        PreparedStatement pst = null;
+        try{
+            String sql = "select * from usuario order by documento";
+            pst = mia.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();  
+            while(rs.next()){
+                seleccion = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), rs.getString(8));
+                if(citaDAO.buscarCita(seleccion.getCita())==null){
+                    sinCita.add(seleccion.getDocumento());
+                }
+            }
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return sinCita;
     }
     /**
      * buscar el usuario por numero de documento
