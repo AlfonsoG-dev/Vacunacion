@@ -225,6 +225,7 @@ public class panelCita implements Initializable{
         txtLugar.setText(nCita.getLugar());
         txtTurno.setText(String.valueOf(nCita.getTurno()));
         dtaFecha.setValue(LocalDate.parse(nCita.getFecha()));
+        cbxUsuarios.setValue(null);
     }
     /**
      * añadir elemento al comboBox
