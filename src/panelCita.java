@@ -150,20 +150,24 @@ public class panelCita implements Initializable{
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
         Cita mia = tblCitas.getSelectionModel().getSelectedItem();
-        String miCodigo = String.valueOf(mia.getCodigo());
-        if(miCodigo!=null){
-            Cita buscada = miCitaDAO.buscarCita(miCodigo);
-            if(buscada!=null){
-                if(JOptionPane.showConfirmDialog(null, "Seguro quiere eliminar la cita del usuario" + JOptionPane.YES_NO_OPTION)==0){
-                    tblCitas.getItems().remove(buscada);
-                    miCitaDAO.eliminarCita(buscada);
-                    Alertar.display("Eliminar", "Se elimino la cita");
+        if(mia != null){
+            String miCodigo = String.valueOf(mia.getCodigo());
+            if(miCodigo!=null){
+                Cita buscada = miCitaDAO.buscarCita(miCodigo);
+                if(buscada!=null){
+                    if(JOptionPane.showConfirmDialog(null, "Seguro quiere eliminar la cita del usuario" + JOptionPane.YES_NO_OPTION)==0){
+                        tblCitas.getItems().remove(buscada);
+                        miCitaDAO.eliminarCita(buscada);
+                        Alertar.display("Eliminar", "Se elimino la cita");
+                    }
+                }else{
+                    Alertar.display("Eliminar", "La cita no existe");
                 }
             }else{
-                Alertar.display("Eliminar", "La cita no existe");
+                Alertar.display("Validar", "El codigo es null");
             }
         }else{
-            Alertar.display("Validar", "El codigo es null");
+            Alertar.display("Eliminar", "Ningun objeto \n ha sido seleccionado");
         }
     }
     /**
