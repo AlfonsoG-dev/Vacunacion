@@ -1,5 +1,8 @@
 package Conexion;
 import Mundo.Operacion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +18,33 @@ public class CitaDAO {
      * operaciones para la vacunacion
      */
     private Operacion miOperacion = new Operacion();
+    /**
+     * seleccionar todas las citas de la base de datos por codigo
+     * <b> pre: </b> las citas se encuentran inicializadas
+     * <b> post: </b> se seleccionan las citas
+     * @return las citas de la base de datos
+     */
+    public ObservableList<Integer> seleccionarCitas(){
+        ObservableList<Integer> citas = FXCollections.observableArrayList();
+        Cita nueva = null;
+        Connection mia = miConexion.conectar();
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try{
+            String sql = "select * from vacuna";
+            pst = mia.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                nueva = new Cita(Integer.parseInt(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(3)), rs.getString(4)); 
+                citas.add(nueva.getCodigo());
+            }
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(mia);
+        }
+        return citas;
+    }
     /**
      * buscar la cita en la base de datos dado el codigo de la cita 
      * <b> pre: </b> la tabla de cita se encuentra inicializada
