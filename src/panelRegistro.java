@@ -121,12 +121,19 @@ public class panelRegistro implements Initializable{
         String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
         if(!documento.isEmpty()){
             Usuario nUsuario = usuarioDAO.buscarUsuario(documento);
-            String codigo = nUsuario.getCita();
-            Cita nCita = citaDAO.buscarCita(codigo); 
-            if(nCita != null && nUsuario != null){
-                actualizarElementos(nUsuario, nCita);
+            if(nUsuario != null){
+                String codigo = nUsuario.getCita();
+                Cita nCita = citaDAO.buscarCita(codigo); 
+                if(nUsuario != null){
+                    actualizarElementosUsuario(nUsuario);
+                    if(nCita != null){
+                        actualizarElementosCita(nCita);
+                    }else{
+                        Alertar.display("Verificar", "no tiene cita");
+                    }
+                }
             }else{
-                Alertar.display("Verificar", "El usuario o la cita estan mal¡¡??");
+                Alertar.display("Verificar", "Seleccione un usuario");
             }
         }else{
             Alertar.display("Verificar", "Seleccione un usuario");
@@ -146,15 +153,19 @@ public class panelRegistro implements Initializable{
      * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
      * <b> post: </b> se actualiza la informacion de los elementos
      * @param nUsuario, es el usuario con la informacion. nUsuario != null && nUsuario != ""
-     * @param nCita, es la cita con la informacion. nCita != "" && nCita != null
      */
-    public void actualizarElementos(Usuario nUsuario, Cita nCita){
+    public void actualizarElementosUsuario(Usuario nUsuario){
         txtApellido.setText(nUsuario.getApellido());
         txtCelular.setText(String.valueOf(nUsuario.getCelular()));
         txtCorreo.setText(nUsuario.getCorreo());
         txtDireccion.setText(nUsuario.getDireccion());
-        txtLugar.setText(nCita.getLugar());
         txtNombre.setText(nUsuario.getNombre());
+    }
+    /**
+     * 
+     */
+    public void actualizarElementosCita(Cita nCita){
+        txtLugar.setText(nCita.getLugar());
         txtTurno.setText(String.valueOf(nCita.getTurno()));
         dtaFecha.setValue(LocalDate.parse(nCita.getFecha()));
         txtCodigo.setText(String.valueOf(nCita.getCodigo()));
@@ -183,7 +194,7 @@ public class panelRegistro implements Initializable{
      * <b> post: </b> se agrega el elemento a la combo box
      */
     public void agregarElemento(){
-        ObservableList<Integer> usuarios = usuarioDAO.seleccionarUsuario();
+        ObservableList<Integer> usuarios = usuarioDAO.usuariosSinCita();
         cbxDocumento.setItems(usuarios);
         cbxTipo.getItems().add("id");
         cbxTipo.getItems().add("otro");
