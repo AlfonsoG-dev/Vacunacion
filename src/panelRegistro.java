@@ -33,7 +33,7 @@ public class panelRegistro implements Initializable{
     private Button btnRegistrar;
 
     @FXML
-    private Button btnVrigicar;
+    private Button btnVrificar;
 
     @FXML
     private ComboBox<Integer> cbxCodigoCIta;
@@ -129,7 +129,7 @@ public class panelRegistro implements Initializable{
                     if(nCita != null){
                         actualizarElementosCita(nCita);
                     }else{
-                        Alertar.display("Verificar", "no tiene cita");
+                        Alertar.display("Verificar", "El usuario no posee \n una cita asignada");
                     }
                 }
             }else{
@@ -160,9 +160,12 @@ public class panelRegistro implements Initializable{
         txtCorreo.setText(nUsuario.getCorreo());
         txtDireccion.setText(nUsuario.getDireccion());
         txtNombre.setText(nUsuario.getNombre());
+        cbxTipo.setValue(nUsuario.getTipo());
     }
     /**
-     * 
+     * actualizar los elementos de la interfaz con la informacion de cita
+     * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
+     * <b> post: </b> se actualizan los elementos con la informacion de la cita
      */
     public void actualizarElementosCita(Cita nCita){
         txtLugar.setText(nCita.getLugar());
@@ -191,14 +194,13 @@ public class panelRegistro implements Initializable{
     /**
      * agregar elementos a las combo box
      * <b> pre: </b> la lista de elementos se encuentra inicializada
-     * <b> post: </b> se agrega el elemento a la combo box
+     * <b> post: </b> se agrega el elemento a cada combo box
      */
     public void agregarElemento(){
         ObservableList<Integer> usuarios = usuarioDAO.usuariosSinCita();
         cbxDocumento.setItems(usuarios);
         ObservableList<Integer> citas = citaDAO.seleccionarCitas();
         cbxCodigoCIta.setItems(citas);
-
         cbxTipo.getItems().add("id");
         cbxTipo.getItems().add("otro");
         cbxTipo.getItems().add("cc");
