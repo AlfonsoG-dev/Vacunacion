@@ -33,7 +33,10 @@ public class panelRegistro implements Initializable{
     private Button btnRegistrar;
 
     @FXML
-    private Button btnRegistrar1;
+    private Button btnVrigicar;
+
+    @FXML
+    private ComboBox<Integer> cbxCodigoCIta;
 
     @FXML
     private ComboBox<Integer> cbxDocumento;
@@ -88,9 +91,6 @@ public class panelRegistro implements Initializable{
 
     @FXML
     private TextField txtCelular;
-
-    @FXML
-    private TextField txtCodigo;
 
     @FXML
     private TextField txtCorreo;
@@ -168,7 +168,7 @@ public class panelRegistro implements Initializable{
         txtLugar.setText(nCita.getLugar());
         txtTurno.setText(String.valueOf(nCita.getTurno()));
         dtaFecha.setValue(LocalDate.parse(nCita.getFecha()));
-        txtCodigo.setText(String.valueOf(nCita.getCodigo()));
+        cbxCodigoCIta.setValue(nCita.getCodigo());
     }
     /**
      * limpiar los elementos de la interfaz
@@ -183,7 +183,7 @@ public class panelRegistro implements Initializable{
         txtLugar.setText(null);
         txtNombre.setText(null);
         txtTurno.setText(null);
-        txtCodigo.setText(null);
+        cbxCodigoCIta.setValue(null);
         dtaFecha.setValue(null);
         cbxDocumento.setValue(null);
         cbxTipo.setValue(null);
@@ -196,6 +196,9 @@ public class panelRegistro implements Initializable{
     public void agregarElemento(){
         ObservableList<Integer> usuarios = usuarioDAO.usuariosSinCita();
         cbxDocumento.setItems(usuarios);
+        ObservableList<Integer> citas = citaDAO.seleccionarCitas();
+        cbxCodigoCIta.setItems(citas);
+
         cbxTipo.getItems().add("id");
         cbxTipo.getItems().add("otro");
         cbxTipo.getItems().add("cc");

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="967.0" style="-fx-background-color: #6fa2a8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panelRegistro">
    <cursor>
       <Cursor fx:constant="HAND" />
@@ -105,6 +104,6 @@
             <Font name="Baskerville Old Face" size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="txtCodigo" layoutX="674.0" layoutY="193.0" />
+      <ComboBox fx:id="cbxCodigoCIta" editable="true" layoutX="673.0" layoutY="206.0" prefHeight="25.0" prefWidth="150.0" promptText="Codigo" style="-fx-background-color: #69093f;" />
    </children>
 </AnchorPane>
