@@ -155,6 +155,7 @@ public class panelCita implements Initializable{
             Cita buscada = miCitaDAO.buscarCita(miCodigo);
             if(buscada!=null){
                 if(JOptionPane.showConfirmDialog(null, "Seguro quiere eliminar la cita del usuario" + JOptionPane.YES_NO_OPTION)==0){
+                    tblCitas.getItems().remove(buscada);
                     miCitaDAO.eliminarCita(buscada);
                     Alertar.display("Eliminar", "Se elimino la cita");
                 }
