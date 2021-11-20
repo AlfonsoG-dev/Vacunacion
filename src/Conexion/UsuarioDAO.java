@@ -147,7 +147,7 @@ public class UsuarioDAO {
             pst.setString(7, nUsuario.getDireccion());
             pst.setString(8, codigoCita);
             int num = pst.executeUpdate();
-            if(num>0){
+            while(num>0){
                 mio=new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), codigoCita);
                 System.out.print("Se actualizo el usuario");
             }

@@ -19,99 +19,160 @@ import Conexion.UsuarioDAO;
 
 public class panelRegistro implements Initializable{
     /**
-     * 
+     * operaciones de la cita del usuario
      */
     CitaDAO citaDAO = new CitaDAO();
     /**
-     * 
+     * operaciones del usuario
      */
     UsuarioDAO usuarioDAO = new UsuarioDAO();
+    /**
+     * boton para cancelar las acciones que se esten realizando
+     */
     @FXML
     private Button btnCncelar;
-
+    /**
+     * boton para realizar el registro de la cita al usuario
+     */
     @FXML
     private Button btnRegistrar;
-
+    /**
+     * boton para verificar informacion 
+     */
     @FXML
     private Button btnVrificar;
-
+    /**
+     * lista de codigos de cita
+     */
     @FXML
     private ComboBox<Integer> cbxCodigoCIta;
-
+    /**
+     * lista de usuarios sin cita
+     */
     @FXML
     private ComboBox<Integer> cbxDocumento;
-
+    /**
+     * tipo de documento
+     */
     @FXML
     private ComboBox<String> cbxTipo;
-
+    /**
+     * fecha actual
+     */
     @FXML
     private DatePicker dtaFecha;
-
+    /**
+     * etiqueta del apellido del usuario
+     */
     @FXML
     private Label lblApellido;
-
+    /**
+     * etiqueta del celular del usuario
+     */
     @FXML
     private Label lblCelular;
-
+    /**
+     * etiqueta del codigo de cita
+     */
     @FXML
     private Label lblCodigoCita;
-
+    /**
+     * etiqueta del correo del usuario
+     */
     @FXML
     private Label lblCorreo;
-
+    /**
+     * etiqueta de la direccion del usuario
+     */
     @FXML
     private Label lblDireccion;
-
+    /**
+     * etiqeta de documento del usuario
+     */
     @FXML
     private Label lblDocumento;
-
+    /**
+     * etiqueta de la fecha de cita
+     */
     @FXML
     private Label lblFechaCIta;
-
+    /**
+     * etiqueta del lugar de la cita
+     */
     @FXML
     private Label lblLugarICita;
-
+    /**
+     * etiqueta de nombre del usuario
+     */
     @FXML
     private Label lblNombre;
-
+    /**
+     * etiqueta de registro de la cita
+     */
     @FXML
     private Label lblRegistroCita;
-
+    /**
+     * etiqueta de registro del usuario
+     */
     @FXML
     private Label lblRegistroUsuario;
-
+    /**
+     * etiqueta del tipo de documento
+     */
     @FXML
     private Label lblTipo;
-
+    /**
+     * etiqueta del turno de la cita
+     */
     @FXML
     private Label lblTurnoCita;
-
+    /**
+     * casilla de texto para el apellido del usuario
+     */
     @FXML
     private TextField txtApellido;
-
+    /**
+     * casilla de texto para el numero de celular del usuario
+     */
     @FXML
     private TextField txtCelular;
-
+    /***
+     * casilla de texto para el correo del usuario
+     */
     @FXML
     private TextField txtCorreo;
-
+    /**
+     * casilla de texto para la direccion del usuario 
+     */
     @FXML
     private TextField txtDireccion;
-
+    /**
+     * casilla de texto para el lugar de la cita
+     */
     @FXML
     private TextField txtLugar;
-
+    /**
+     * casilla de texto para el nombre del usuario
+     */
     @FXML
     private TextField txtNombre;
-
+    /**
+     * casilla de texto para el turno de la cita
+     */
     @FXML
     private TextField txtTurno;
-
+    /**
+     * boton con la accion de cancelar las operaciones que se esten realizando
+     * @param event. es el evento de cancelar
+     */
     @FXML
     void btnCancelarOnClicked(ActionEvent event) {
         limpiar();
     }
-
+    /**
+     * accion de registrar la cita al usuario consultado 
+     * @param event evento de registrar cita al usuario
+     */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
         String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
@@ -123,6 +184,10 @@ public class panelRegistro implements Initializable{
             Alertar.display("Registro", "El codigo es invalido");
         }
     }
+    /**
+     * boton para verificar la informacion del usuario y cita
+     * @param event, evento de verificar la informacion
+     */
     @FXML
     void btnVerificarOnClicked(ActionEvent event) {
         String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
