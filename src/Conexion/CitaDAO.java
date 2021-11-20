@@ -148,7 +148,7 @@ public class CitaDAO {
             pst.setString(3, String.valueOf(nCita.getTurno()));
             pst.setString(4, nCita.getLugar());
             int count = pst.executeUpdate();
-            if(count > 0){
+            while(count > 0){
                 modificar = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
                 System.out.print("La cita se modifico");
             }

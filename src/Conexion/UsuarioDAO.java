@@ -89,7 +89,7 @@ public class UsuarioDAO {
             pst = mia.prepareStatement(sql);
             pst.setString(1, nDocumento);
             ResultSet rs = pst.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 u  = new Usuario(Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4), Integer.parseInt(rs.getString(5)), rs.getString(6), rs.getString(7), rs.getString(8));
                 miOperacion.miUsuario().add(u);
             }
@@ -131,18 +131,25 @@ public class UsuarioDAO {
      * @param codigoCita, es el codigo de la cita a modificar. codigoCita != "" && codigoCita != null
      * @return el usuario actualizado
      */
-    public Usuario actualizarUsuario(String documento, String codigoCita){
+    public Usuario actualizarUsuario(Usuario nUsuario, String codigoCita){
         Usuario mio=null;
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
         try{
-            String sql = "update usuario set cita =? where documento =?";
+            String sql = "update usuario set tipo=?, nombre=?, apelido=?, celular=?, correo=?, direccion=?, cita =? where documento=?";
             pst = mia.prepareStatement(sql);
-            pst.setString(1, documento);
-            pst.setString(2, codigoCita);
+            pst.setString(1, String.valueOf(nUsuario.getDocumento()));
+            pst.setString(2, nUsuario.getTipo());
+            pst.setString(3, nUsuario.getNombre());
+            pst.setString(4, nUsuario.getApellido());
+            pst.setString(5, String.valueOf(nUsuario.getCelular()));
+            pst.setString(6, nUsuario.getCorreo());
+            pst.setString(7, nUsuario.getDireccion());
+            pst.setString(8, codigoCita);
             int num = pst.executeUpdate();
             if(num>0){
-                mio=buscarUsuario(documento);
+                mio=new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), codigoCita);
+                System.out.print("Se actualizo el usuario");
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());

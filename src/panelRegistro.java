@@ -114,7 +114,14 @@ public class panelRegistro implements Initializable{
 
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-
+        String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
+        String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+        if(!codigo.isEmpty()){
+            Cita nCita = new Cita(Integer.parseInt(codigo), dtaFecha.getValue().toString(), Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            registrarCitaUsuario(nCita, documento);
+        }else{
+            Alertar.display("Registro", "El codigo es invalido");
+        }
     }
     @FXML
     void btnVerificarOnClicked(ActionEvent event) {
@@ -137,6 +144,34 @@ public class panelRegistro implements Initializable{
             }
         }else{
             Alertar.display("Verificar", "Seleccione un usuario");
+        }
+    }
+    /**
+     * registrar cita a usuario
+     * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
+     * <b> post: </b> se registra la cita y el codigo de cita al usuario
+     * @param nCita, es la cita a registrar. nCita != "" && nCita != null
+     * @param nDocumento, es el documento del usuario sin cita. nDocumento != "" && nDocumento != null
+     */
+    public void registrarCitaUsuario(Cita nCita, String nDocumento){
+        Usuario buscar = usuarioDAO.buscarUsuario(nDocumento);
+        Cita nBuscada = citaDAO.buscarCita(String.valueOf(nCita.getCodigo()));
+        if(buscar != null){
+            if(nBuscada == null){
+                if(citaDAO.insertarCita(nCita)!=null){
+                    if(usuarioDAO.actualizarUsuario(buscar, String.valueOf(nCita.getCodigo()))!=null){
+                        Alertar.display("Registro", "La cita se registro");
+                    }else{
+                        Alertar.display("Registro", "No se actualizo la informacion del usuario");
+                    }
+                }else{
+                    Alertar.display("Registrar", "La cita no se registro");
+                }
+            }else{
+                Alertar.display("Registrar", "La cita se encuentra registrada \n intente con otro codigo de cita");
+            }
+        }else{
+            Alertar.display("Registrar", "El usuario no existe");
         }
     }
     /**
