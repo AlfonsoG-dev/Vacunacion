@@ -97,14 +97,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbxCodigoCita" editable="true" layoutX="673.0" layoutY="209.0" prefWidth="150.0" style="-fx-background-color: #99f2a8;" />
       <DatePicker fx:id="dtaFecha" layoutX="673.0" layoutY="280.0" prefHeight="31.0" prefWidth="150.0" />
       <TextField fx:id="txtTurno" layoutX="674.0" layoutY="374.0" />
       <TextField fx:id="txtLugar" layoutX="674.0" layoutY="463.0" />
-      <Button fx:id="btnRegistrar1" layoutX="253.0" layoutY="581.0" mnemonicParsing="false" onAction="#btnRegistrarOnClicked" prefHeight="43.0" prefWidth="103.0" style="-fx-background-color: #5b635d;" text="Verificar" textFill="#184a3a">
+      <Button fx:id="btnVrificar" layoutX="253.0" layoutY="581.0" mnemonicParsing="false" onAction="#btnVerificarOnClicked" prefHeight="43.0" prefWidth="103.0" style="-fx-background-color: #5b635d;" text="Verificar" textFill="#184a3a">
          <font>
             <Font name="Baskerville Old Face" size="15.0" />
          </font>
       </Button>
+      <TextField fx:id="txtCodigo" layoutX="674.0" layoutY="193.0" />
    </children>
 </AnchorPane>
