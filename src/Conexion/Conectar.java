@@ -31,7 +31,7 @@ public class Conectar {
         Connection c = null;
         try{
             c = DriverManager.getConnection(url, user, password);
-            System.out.print("Conectado");
+            //System.out.print("Conectado");
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
         }
