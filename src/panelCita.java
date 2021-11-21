@@ -165,7 +165,7 @@ public class panelCita implements Initializable{
                         Alertar.display("Eliminar", "Se elimino la cita");
                     }
                 }else{
-                    Alertar.display("Eliminar", "La cita no existe");
+                    Alertar.display("Eliminar", "La cita no exste");
                 }
             }else{
                 Alertar.display("Validar", "El codigo es null");
