@@ -183,7 +183,12 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnVerificarOnClicked(ActionEvent event) {
-        
+        String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+        if(!documento.isEmpty()){
+            verificarUsuario(documento);
+        }else{
+            Alertar.display("Verificar: Usuario", "Seleccione un documento");
+        }
     }
     /**
      * registrar cita a usuario
@@ -195,7 +200,6 @@ public class panelRegistro implements Initializable{
     public void registrarCitaUsuario(Cita nCita, String nDocumento){
         Usuario buscado = usuarioDAO.buscarUsuario(nDocumento);
         if(buscado != null){
-            actualizarElementosUsuario(buscado);
             if(buscado.getCita()==null){
                 usuarioDAO.actualizarUsuario(buscado, String.valueOf(nCita.getCodigo()));
             }else{
@@ -203,6 +207,25 @@ public class panelRegistro implements Initializable{
             }
         }else{
             Alertar.display("Registar:Usuario", "El usuario no \n se encuentra registrado");
+        }
+    }
+    /**
+     * verificar que el usuario no tenga citas asignadas
+     * <b> pre: </b> el usuario se encuentra inicializado
+     * <b> post: </b> se verifica la informacion del usuario
+     * @param nDocumento, es el documento del usuario a verificar. nDodumento != "" && nDocumento != null
+     */
+    public void verificarUsuario(String nDocumento){
+        Usuario buscar = usuarioDAO.buscarUsuario(nDocumento);
+        if(buscar != null){
+            actualizarElementosUsuario(buscar);
+            if(buscar.getCita()!=null){
+                Alertar.display("Verificar: cita", "El usuario ya\n tiene una cita asignada");
+            }else{
+                Alertar.display("Verificar: cita", "El usuario no\n tiene una cita asigndad");
+            }   
+        }else{
+            Alertar.display("Verificar: Usuario", "El usuario no existe");
         }
     }
     /**
