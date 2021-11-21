@@ -45,7 +45,7 @@ public class panelRegistro implements Initializable{
      * lista de codigos de cita
      */
     @FXML
-    private ComboBox<Integer> cbxCodigoCIta;
+    private ComboBox<Integer> cbxCodigoCIta;    
     /**
      * lista de usuarios sin cita
      */
