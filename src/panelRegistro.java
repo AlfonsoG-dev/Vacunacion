@@ -175,7 +175,16 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        
+        String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
+        String fecha = dtaFecha.getValue().toString();
+        Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+        if(registrarCita(nueva)!=false){
+            String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+            Usuario buscar = usuarioDAO.buscarUsuario(documento);
+            if(buscar != null){
+                registrarCodigoCita(buscar, codigo);
+            }
+        }
     }
     /**
      * boton para verificar la informacion del usuario y cita
@@ -198,7 +207,20 @@ public class panelRegistro implements Initializable{
      * @param nUsuario, es el usuario a actualizar. nUsuario != "" && nUsuario != null
      */
     public void registrarCodigoCita(Usuario nUsuario, String nCodigo){
-
+        if(nUsuario != null && nCodigo != null){
+            if(nUsuario.getCita()==null){
+                Usuario actual = usuarioDAO.actualizarUsuario(nUsuario, nCodigo);
+                if(actual != null){
+                    Alertar.display("Registrar: Codigo", "Exitoso");
+                }else{
+                    Alertar.display("Registrar: Codigo", "No se actualizo el usuario");
+                }
+            }else{
+                System.out.print("El usuario tiene cita asignada");
+            }
+        }else{
+            System.out.print("Error al validar usuario y codigo cita");
+        }
     }
     /**
      * registrar cita enn la base de datos
@@ -206,8 +228,21 @@ public class panelRegistro implements Initializable{
      * <b> post: </b> se registra la cita 
      * @param nCita, es la cita a registrar
      */
-    public void registrarCita(Cita nCita){
-
+    public Boolean registrarCita(Cita nCita){
+        Boolean registrar = false;
+        Cita mia = citaDAO.buscarCita(String.valueOf(nCita.getCodigo()));
+        if(mia == null){
+            Cita citaInsertada = citaDAO.insertarCita(nCita);
+            if(citaInsertada != null){
+                registrar = true;
+                Alertar.display("Registro: Cita", "Se registro la cita");
+            }else{
+                Alertar.display("Registro: Cita", "NO se registro la cita");
+            }
+        }else{
+            System.out.print("La cita se encuentra registrada");
+        }
+        return registrar;
     }
     /**
      * verificar que el usuario no tenga citas asignadas

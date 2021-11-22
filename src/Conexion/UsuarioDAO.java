@@ -136,7 +136,7 @@ public class UsuarioDAO {
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
         try{
-            String sql = "update usuario set tipo=?, nombre=?, apelido=?, celular=?, correo=?, direccion=?, cita =? where documento=?";
+            String sql = "update usuario set tipo=?, nombre=?, apelido=?, celular=?, correo=?, direccion=?, cita=? where documento=?";
             pst = mia.prepareStatement(sql);
             pst.setString(1, String.valueOf(nUsuario.getDocumento()));
             pst.setString(2, nUsuario.getTipo());
@@ -147,7 +147,7 @@ public class UsuarioDAO {
             pst.setString(7, nUsuario.getDireccion());
             pst.setString(8, codigoCita);
             int num = pst.executeUpdate();
-            if(num>0){
+            while(num>0){
                 mio=new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), codigoCita);
                 System.out.print("Se actualizo el usuario");
             }
