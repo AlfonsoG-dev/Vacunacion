@@ -175,7 +175,7 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-
+        
     }
     /**
      * boton para verificar la informacion del usuario y cita
@@ -191,23 +191,23 @@ public class panelRegistro implements Initializable{
         }
     }
     /**
-     * registrar cita a usuario
+     * registrar el codigo de la cita al usuario
      * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
      * <b> post: </b> se registra la cita y el codigo de cita al usuario
-     * @param nCita, es la cita a registrar para el usurio. nCita != "" && nCita != null
-     * @param nDocumento, es el documento del usuario sin cita. nDocumento != "" && nDocumento != null
+     * @param nCodigo, es el codigo de cita a registrar. nCodigo != "" && nCodigo != null
+     * @param nUsuario, es el usuario a actualizar. nUsuario != "" && nUsuario != null
      */
-    public void registrarCitaUsuario(Cita nCita, String nDocumento){
-        Usuario buscado = usuarioDAO.buscarUsuario(nDocumento);
-        if(buscado != null){
-            if(buscado.getCita()==null){
-                usuarioDAO.actualizarUsuario(buscado, String.valueOf(nCita.getCodigo()));
-            }else{
-                Alertar.display("Buscar: Cita", "El usuario ya \n tiene citas asignadas");
-            }
-        }else{
-            Alertar.display("Registar:Usuario", "El usuario no \n se encuentra registrado");
-        }
+    public void registrarCodigoCita(Usuario nUsuario, String nCodigo){
+
+    }
+    /**
+     * registrar cita enn la base de datos
+     * <b> pre: </b> la cita se encuentra inicializada 
+     * <b> post: </b> se registra la cita 
+     * @param nCita, es la cita a registrar
+     */
+    public void registrarCita(Cita nCita){
+
     }
     /**
      * verificar que el usuario no tenga citas asignadas
