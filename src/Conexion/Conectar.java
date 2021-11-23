@@ -9,7 +9,7 @@ public class Conectar {
     /**
      * direccion url de la conexion
      */
-    private final static String url="jdbc:postgresql://localhost:5432/GestorP";
+    private final static String url="jdbc:postgresql://localhost:5432/vacuna";
     /**
      * usuario de la base de datos
      */

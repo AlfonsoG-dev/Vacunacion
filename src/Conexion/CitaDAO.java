@@ -31,7 +31,7 @@ public class CitaDAO {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try{
-            String sql = "select * from vacuna";
+            String sql = "select * from vacunacion";
             pst = mia.prepareStatement(sql);
             rs = pst.executeQuery();
             while(rs.next()){
@@ -57,7 +57,7 @@ public class CitaDAO {
         Cita nueva = null;
         try{
             PreparedStatement pst = null;
-            String sql = "select * from vacuna where codigo = ?";
+            String sql = "select * from vacunacion where codigo = ?";
             pst = mia.prepareStatement(sql);
             pst.setString(1, codigo);
             ResultSet rs = pst.executeQuery();
@@ -84,7 +84,7 @@ public class CitaDAO {
         Cita registrar = null;
         Connection mia = miConexion.conectar();
         try{
-            String sql = "insert into vacuna (codigo, fecha, turno, lugar) values (?, ?, ?, ?)";
+            String sql = "insert into vacunacion (codigo, fecha, turno, lugar) values (?, ?, ?, ?)";
             PreparedStatement pst = mia.prepareStatement(sql);
             pst.setString(1, String.valueOf(nCita.getCodigo()));
             pst.setString(2, nCita.getFecha());
@@ -111,7 +111,7 @@ public class CitaDAO {
         Boolean eliminar = false;
         Connection mia = miConexion.conectar();
         try{
-            String sql = "delete from vacuna where codigo = ?";
+            String sql = "delete from vacunacion where codigo = ?";
             if(buscarCita(String.valueOf(nCita.getCodigo()))==null){
                 System.out.print("La cita no existe");
                 
@@ -141,7 +141,7 @@ public class CitaDAO {
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
         try{
-            String sql = "update vacuna set fecha=?, turno=?, lugar=? where codigo=?";
+            String sql = "update vacunacion set fecha=?, turno=?, lugar=? where codigo=?";
             pst = mia.prepareStatement(sql);
             pst.setString(1, String.valueOf(nCita.getCodigo()));
             pst.setString(2, nCita.getFecha());
