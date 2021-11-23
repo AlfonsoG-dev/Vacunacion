@@ -21,8 +21,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-
 import Mundo.Cita;
 public class panelCita implements Initializable{
 
@@ -153,26 +151,8 @@ public class panelCita implements Initializable{
     */
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
-        Cita mia = tblCitas.getSelectionModel().getSelectedItem();
-        if(mia != null){
-            String miCodigo = String.valueOf(mia.getCodigo());
-            if(miCodigo!=null){
-                Cita buscada = miCitaDAO.buscarCita(miCodigo);
-                if(buscada!=null){
-                    if(JOptionPane.showConfirmDialog(null, "Seguro quiere eliminar la cita del usuario" + JOptionPane.YES_NO_OPTION)==0){
-                        tblCitas.getItems().remove(buscada);
-                        miCitaDAO.eliminarCita(buscada);
-                        Alertar.display("Eliminar", "Se elimino la cita");
-                    }
-                }else{
-                    Alertar.display("Eliminar", "La cita no exste");
-                }
-            }else{
-                Alertar.display("Validar", "El codigo es null");
-            }
-        }else{
-            Alertar.display("Eliminar", "Ningun objeto \n ha sido seleccionado");
-        }
+        int posicion = tblCitas.getSelectionModel().getSelectedIndex();
+        objetoRepetido(posicion);
     }
     /**
      * registrar la cita al usuario sin cita
@@ -180,7 +160,7 @@ public class panelCita implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-        entrarARegistro();
+
     }
     /**
      * se inicializan las columnas de la tabla
@@ -206,11 +186,11 @@ public class panelCita implements Initializable{
         Boolean encontrar = false;
         Cita consultar = miCitaDAO.buscarCita(nCodigo);
         if(consultar != null){
-            objetoRepetido(consultar);
+            tblCitas.getItems().add(consultar);
             actualizarElementos(consultar);
             limpiar();
         }else{
-            Alertar.display("Consultar", "La cita \n no se encuentra registrada");
+            Alertar.display("Consultar: Cita", "La cita \n no se encuentra registrada");
         }
         return encontrar;
     }
@@ -253,17 +233,8 @@ public class panelCita implements Initializable{
      * <b> post: </b> verificar si el objeto se encuentra en la lista
      * si el objeto se encuentra en la lista no se debe agregar, de lo contrario se lo agrega
      */
-    public void objetoRepetido(Cita nCita){
-        if(nCita != null){
-            Boolean encontrar = tblCitas.getItems().contains(nCita);
-            if(encontrar == false){
-                tblCitas.getItems().add(nCita);
-            }else{
-                Alertar.display("Repetido?", "La cita se encuentra registrada");
-            }
-        }else{
-            Alertar.display("Repetido?", "La cita no esta registrada");
-        }
+    public void objetoRepetido(int posicion){
+        tblCitas.getItems().set(posicion, null);
     }
     /**
      * ingresar al panel de registro
