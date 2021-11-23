@@ -136,7 +136,7 @@ public class UsuarioDAO {
         Connection mia = miConexion.conectar();
         PreparedStatement pst = null;
         try{
-            String sql = "update usuario set tipo=?, nombre=?, apelido=?, celular=?, correo=?, direccion=?, cita=? where documento=?";
+            String sql = "update usuario set tipo=?, nombre=?, apel|lido=?, celular=?, correo=?, direccion=?, cita=? where documento=?";
             pst = mia.prepareStatement(sql);
             pst.setString(1, String.valueOf(nUsuario.getDocumento()));
             pst.setString(2, nUsuario.getTipo());
