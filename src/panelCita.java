@@ -152,7 +152,15 @@ public class panelCita implements Initializable{
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
         int posicion = tblCitas.getSelectionModel().getSelectedIndex();
-        objetoRepetido(posicion);
+        if(String.valueOf(posicion) != null){
+            Cita miCita = tblCitas.getSelectionModel().getSelectedItem(); 
+            if(miCita!=null){
+                eliminarCita(miCita);
+                objetoRepetido(posicion);
+            }else{
+                Alertar.display("Eliminar: Cita", "La cita es nula");
+            }
+        }
     }
     /**
      * registrar la cita al usuario sin cita
@@ -160,7 +168,7 @@ public class panelCita implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
-
+        entrarARegistro();
     }
     /**
      * se inicializan las columnas de la tabla
@@ -193,6 +201,25 @@ public class panelCita implements Initializable{
             Alertar.display("Consultar: Cita", "La cita \n no se encuentra registrada");
         }
         return encontrar;
+    }
+    /**
+     * eliminar cita de la base de datos
+     * <b> pre: </b> la cita se encuetra registrada
+     * <b> post: </b> se elimino la cita registrada
+     * @param nCita, es la cita a eliminar. nCita != "" && nCita != null
+     */
+    public void eliminarCita(Cita nCita){
+        if(nCita!=null){
+            Boolean mia = miCitaDAO.eliminarCita(nCita);
+            if(mia != false){
+                Alertar.display("Eliminar: Cita", "La cita se elimino");
+            }else{
+                Alertar.display("Eliminar: Cita", "La cita no se elimino");
+            }
+
+        }else{
+            Alertar.display("Eliminar: Cita", "La cita es nula");
+        }
     }
     /**
      * actualizar los elementos de la interfaz con la información consultada
