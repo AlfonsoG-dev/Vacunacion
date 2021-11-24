@@ -138,6 +138,7 @@ public class UsuarioDAO {
         try{
             String sql = "update usuario set tipo=?, nombre=?, apellido=?, celular=?, correo=?, direccion=?, cita=? where documento=?";
             pst = mia.prepareStatement(sql);
+            pst.setString(1, String.valueOf(nUsuario.getDocumento()));
             pst.setString(2, nUsuario.getTipo());
             pst.setString(3, nUsuario.getNombre());
             pst.setString(4, nUsuario.getApellido());
@@ -145,7 +146,6 @@ public class UsuarioDAO {
             pst.setString(6, nUsuario.getCorreo());
             pst.setString(7, nUsuario.getDireccion());
             pst.setString(8, codigoCita);
-            pst.setString(1, String.valueOf(nUsuario.getDocumento()));
             int num = pst.executeUpdate();
             while(num>0){
                 mio=new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), codigoCita);
