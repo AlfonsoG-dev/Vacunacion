@@ -261,7 +261,7 @@ public class panelCita implements Initializable{
      * si el objeto se encuentra en la lista no se debe agregar, de lo contrario se lo agrega
      */
     public void objetoRepetido(int posicion){
-        tblCitas.getItems().set(posicion, null);
+        tblCitas.getItems().remove(posicion);
     }
     /**
      * ingresar al panel de registro
