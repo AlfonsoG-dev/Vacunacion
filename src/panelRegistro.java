@@ -174,16 +174,22 @@ public class panelRegistro implements Initializable{
      * @param event evento de registrar cita al usuario
      */
     @FXML
-    void btnRegistrarOnClicked(ActionEvent event) {
-        String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
-        String fecha = dtaFecha.getValue().toString();
-        Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-        if(registrarCita(nueva)!=false){
-            String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
-            Usuario buscar = usuarioDAO.buscarUsuario(documento);
-            if(buscar != null){
-                registrarCodigoCita(buscar, codigo);
+    void btnRegistrarOnClicked(ActionEvent event){
+        try{
+            String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
+            String fecha = dtaFecha.getValue().toString();
+            Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            if(!codigo.isEmpty() && registrarCita(nueva)!=false){
+                String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+                if(!documento.isEmpty()){
+                    Usuario buscar = usuarioDAO.buscarUsuario(documento);
+                    if(buscar != null){
+                        registrarCodigoCita(buscar, codigo);
+                    }
+                }
             }
+        }catch(Exception e){
+            Alertar.display("Error", "Registro invalido \n " + e.getMessage());
         }
     }
     /**
