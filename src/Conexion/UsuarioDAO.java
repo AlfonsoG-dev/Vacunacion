@@ -124,6 +124,29 @@ public class UsuarioDAO {
         return codigo;
     }
     /**
+     * registrar un usuario a la base de datos 
+     * <b> pre: </b> el usuario se encuentra inicializado
+     * <b> post: </b> se registra el usuario en la base de datos
+     * @param nUsuario, es el usuario a registar. nUsuario != "" && nUsuario != null
+     * @return el usuario registrado en la base de datos 
+     */
+    public Usuario registarUsuraio(){
+        Usuario nuevo = null;
+        Connection conexion = miConexion.conectar();
+        PreparedStatement pst = null;
+        try{
+            String sql = "";
+            pst = conexion.prepareStatement(sql);
+            //TODO: realizar el registro del usuario
+            pst.execute();
+        }catch(Exception e){
+            System.out.print("Error: " + e.getMessage());
+        }finally{
+            miConexion.desconectar(conexion);
+        }
+        return nuevo;
+    }
+    /**
      * Modifica la informacion del usuario cuando no tiene una cita
      * <b> pre: </b> la base de datos se encuentra inicializada
      * <b> post: </b> se modifica el usuario dado el documento 
