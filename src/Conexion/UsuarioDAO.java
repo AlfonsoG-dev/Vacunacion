@@ -130,7 +130,7 @@ public class UsuarioDAO {
      * @param nUsuario, es el usuario a registar. nUsuario != "" && nUsuario != null
      * @return el usuario registrado en la base de datos 
      */
-    public Usuario registarUsuraio(Usuario nUsuario){
+    public Usuario registrarUsuario(Usuario nUsuario){
         Usuario nuevo = null;
         Connection conexion = miConexion.conectar();
         PreparedStatement pst = null;

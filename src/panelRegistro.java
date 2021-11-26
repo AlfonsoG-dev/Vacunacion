@@ -195,11 +195,19 @@ public class panelRegistro implements Initializable{
      * registrar el codigo de la cita al usuario
      * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
      * <b> post: </b> se registra la cita y el codigo de cita al usuario
-     * @param nCodigo, es el codigo de cita a registrar. nCodigo != "" && nCodigo != null
+     * @param nCita, es la cita registrada para el usuario. nCita != "" && nCita != null
      * @param nUsuario, es el usuario a actualizar. nUsuario != "" && nUsuario != null
      */
-    public void registrarCodigoCita(Usuario nUsuario, Cita nCita){
-        
+    public void registrarTodo(Usuario nUsuario, Cita nCita){
+        if(nUsuario != null && nCita != null){
+            if(registrarCita(nCita) != false){
+                if(usuarioDAO.registrarUsuario(nUsuario) != null){
+                    Alertar.display("Registrar Usuario", "Se registro el usuario\n con la cita");
+                }
+            }
+        }else{
+            Alertar.display("Registrar usuario", "Valores invalidos");
+        }
     }
     /**
      * registrar cita enn la base de datos
