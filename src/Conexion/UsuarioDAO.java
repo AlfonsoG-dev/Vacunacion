@@ -130,15 +130,23 @@ public class UsuarioDAO {
      * @param nUsuario, es el usuario a registar. nUsuario != "" && nUsuario != null
      * @return el usuario registrado en la base de datos 
      */
-    public Usuario registarUsuraio(){
+    public Usuario registarUsuraio(Usuario nUsuario){
         Usuario nuevo = null;
         Connection conexion = miConexion.conectar();
         PreparedStatement pst = null;
         try{
             String sql = "";
             pst = conexion.prepareStatement(sql);
-            //TODO: realizar el registro del usuario
+            pst.setString(1, String.valueOf(nUsuario.getDocumento()));
+            pst.setString(2, nUsuario.getTipo());
+            pst.setString(3, nUsuario.getNombre());
+            pst.setString(4, nUsuario.getApellido());
+            pst.setString(5, String.valueOf(nUsuario.getCelular()));
+            pst.setString(6, nUsuario.getCorreo());
+            pst.setString(7, nUsuario.getDireccion());
+            pst.setString(8, nUsuario.getCita());
             pst.execute();
+            nuevo = nUsuario;
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
         }finally{
