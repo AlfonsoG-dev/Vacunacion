@@ -14,6 +14,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+
 import Conexion.CitaDAO;
 import Conexion.UsuarioDAO;
 
@@ -175,22 +176,7 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event){
-        try{
-            String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
-            String fecha = dtaFecha.getValue().toString();
-            Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-            if(!codigo.isEmpty() && registrarCita(nueva)!=false){
-                String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
-                if(!documento.isEmpty()){
-                    Usuario buscar = usuarioDAO.buscarUsuario(documento);
-                    if(buscar != null){
-                        registrarCodigoCita(buscar, codigo);
-                    }
-                }
-            }
-        }catch(Exception e){
-            Alertar.display("Error", "Registro invalido \n " + e.getMessage());
-        }
+
     }
     /**
      * boton para verificar la informacion del usuario y cita
@@ -212,21 +198,8 @@ public class panelRegistro implements Initializable{
      * @param nCodigo, es el codigo de cita a registrar. nCodigo != "" && nCodigo != null
      * @param nUsuario, es el usuario a actualizar. nUsuario != "" && nUsuario != null
      */
-    public void registrarCodigoCita(Usuario nUsuario, String nCodigo){
-        if(nUsuario != null && nCodigo != null){
-            if(nUsuario.getCita()==null){
-                Usuario actual = usuarioDAO.actualizarUsuario(nUsuario, nCodigo);
-                if(actual != null){
-                    Alertar.display("Registrar: Codigo", "Exitoso");
-                }else{
-                    Alertar.display("Registrar: Codigo", "No se actualizo el usuario");
-                }
-            }else{
-                System.out.print("El usuario tiene cita asignada");
-            }
-        }else{
-            System.out.print("Error al validar usuario y codigo cita");
-        }
+    public void registrarCodigoCita(Usuario nUsuario, Cita nCita){
+        
     }
     /**
      * registrar cita enn la base de datos
@@ -236,18 +209,20 @@ public class panelRegistro implements Initializable{
      */
     public Boolean registrarCita(Cita nCita){
         Boolean registrar = false;
-        Cita mia = citaDAO.buscarCita(String.valueOf(nCita.getCodigo()));
-        if(mia == null){
-            Cita citaInsertada = citaDAO.insertarCita(nCita);
-            if(citaInsertada != null){
-                registrar = true;
-                Alertar.display("Registro: Cita", "Se registro la cita");
+        try{
+            if(citaDAO.buscarCita(String.valueOf(nCita.getCodigo()))==null){
+                Cita nueva = citaDAO.insertarCita(nCita);
+                if(nueva != null){
+                    Alertar.display("Registrar: Cita", "Se registro la cita");
+                }
             }else{
-                Alertar.display("Registro: Cita", "NO se registro la cita");
+                Alertar.display("Registrar: cita", "La cita ya \n se encuentra registrada");
             }
-        }else{
-            System.out.print("La cita se encuentra registrada");
+
+        }catch(Exception e){
+            Alertar.display("Registrar: Cita", "Error al momento de registrar cita \n " + e.getMessage());
         }
+
         return registrar;
     }
     /**
