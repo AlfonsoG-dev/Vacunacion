@@ -176,7 +176,17 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event){
-
+        try{
+            String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
+            String fecha = dtaFecha.getValue().toString();   
+            Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(txtTurno.getText()), txtLugar.getText());
+            String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+            String tipo = cbxTipo.getSelectionModel().getSelectedItem();
+            Usuario nuevo = new Usuario(Integer.parseInt(documento), tipo, txtNombre.getText(), txtApellido.getText(), Integer.parseInt(txtCelular.getText()), txtCorreo.getText(), txtDireccion.getText(), String.valueOf(codigo));
+            registrarTodo(nuevo, nueva);
+        }catch(Exception e){
+            Alertar.display("Error: registrarUsuario", e.getMessage());
+        }
     }
     /**
      * boton para verificar la informacion del usuario y cita
@@ -198,16 +208,19 @@ public class panelRegistro implements Initializable{
      * @param nCita, es la cita registrada para el usuario. nCita != "" && nCita != null
      * @param nUsuario, es el usuario a actualizar. nUsuario != "" && nUsuario != null
      */
-    public void registrarTodo(Usuario nUsuario, Cita nCita){
+    public Boolean registrarTodo(Usuario nUsuario, Cita nCita){
+        Boolean registrar = false;
         if(nUsuario != null && nCita != null){
             if(registrarCita(nCita) != false){
                 if(usuarioDAO.registrarUsuario(nUsuario) != null){
                     Alertar.display("Registrar Usuario", "Se registro el usuario\n con la cita");
+                    registrar = true;
                 }
             }
         }else{
             Alertar.display("Registrar usuario", "Valores invalidos");
         }
+        return registrar;
     }
     /**
      * registrar cita enn la base de datos
@@ -222,6 +235,7 @@ public class panelRegistro implements Initializable{
                 Cita nueva = citaDAO.insertarCita(nCita);
                 if(nueva != null){
                     Alertar.display("Registrar: Cita", "Se registro la cita");
+                    registrar = true;
                 }
             }else{
                 Alertar.display("Registrar: cita", "La cita ya \n se encuentra registrada");

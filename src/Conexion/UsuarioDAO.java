@@ -135,7 +135,7 @@ public class UsuarioDAO {
         Connection conexion = miConexion.conectar();
         PreparedStatement pst = null;
         try{
-            String sql = "";
+            String sql = "insert into usuario (documento, tipo, nombre, apellido, celular, correo, direccion, cita) values (?, ?, ?, ?, ?, ?, ?, ?)";
             pst = conexion.prepareStatement(sql);
             pst.setString(1, String.valueOf(nUsuario.getDocumento()));
             pst.setString(2, nUsuario.getTipo());
