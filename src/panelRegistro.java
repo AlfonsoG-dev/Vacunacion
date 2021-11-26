@@ -331,6 +331,5 @@ public class panelRegistro implements Initializable{
         cbxTipo.getItems().add("id");
         cbxTipo.getItems().add("otro");
         cbxTipo.getItems().add("cc");
-
     }
 }
