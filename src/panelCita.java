@@ -280,10 +280,10 @@ public class panelCita implements Initializable{
         int mio= 0;
         if(tblCitas.getItems().contains(consultar)==true){
             mio = tblCitas.getItems().indexOf(consultar);
-            System.out.print("posicion es: " + tblCitas.getItems().get(mio));
+            Alertar.display("Tabla: ","La posicion del elemento es: " + tblCitas.getItems().get(mio));
         }else{
             encontrar = false;
-            System.out.print("No existe");
+            Alertar.display("Error:", "Elemento no existe en la tabla");
         }
         return encontrar;
     }
