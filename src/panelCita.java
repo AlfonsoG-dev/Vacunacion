@@ -21,6 +21,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import Mundo.Cita;
 public class panelCita implements Initializable{
 
@@ -155,8 +157,8 @@ public class panelCita implements Initializable{
         if(String.valueOf(posicion) != null){
             Cita miCita = tblCitas.getSelectionModel().getSelectedItem(); 
             if(miCita!=null){
-                eliminarCita(miCita);
-                eliminarElementoTabla(posicion);
+                /*eliminarCita(miCita);*/
+                eliminarElementoTabla(miCita, posicion);
             }else{
                 Alertar.display("Eliminar: Cita", "La cita es nula");
             }
@@ -255,13 +257,18 @@ public class panelCita implements Initializable{
         dtaFecha.setValue(null);
     }
     /**
-     * eliminar un elemento de la tabla
+     * eliminar un elemento de la tabla dada la cita y la posicion en la tabla pero no de la base de datos 
      * <br> pre :</br> el elemento se encuentra en la tabla  
      * <br> post :</br> se elimino el elemento de la tabla 
      * @param posicion, es la posicion del elemento en la tabla; posicion != null && posicion > 0
+     * @param n
      */
-    public void eliminarElementoTabla(int posicion){
-        tblCitas.getItems().remove(posicion);
+    public void eliminarElementoTabla(Cita nCita, int posicion){
+        if(tblCitas.getItems().contains(nCita)==true){
+            tblCitas.getItems().remove(posicion);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error no existe el elemento en la tabla");
+        }
     }
     /**
      * ingresar al panel de registro
