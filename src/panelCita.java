@@ -136,7 +136,7 @@ public class panelCita implements Initializable{
         String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
         if(!documento.isEmpty()){
             Usuario mio = usuarioDAO.buscarUsuario(documento);
-            if(mio!=null){
+            if(mio!=null && verificarElementoTabla(miCitaDAO.buscarCita(mio.getCita()))==false){
                 buscarCita(mio.getCita());
             }else{
                 Alertar.display("Buscar Usuario", "El usuario no existe");
@@ -194,6 +194,7 @@ public class panelCita implements Initializable{
         Boolean encontrar = false;
         Cita consultar = miCitaDAO.buscarCita(nCodigo);
         if(consultar != null){
+            System.out.print("Se ingresa la cita");
             tblCitas.getItems().add(consultar);
             actualizarElementos(consultar);
             limpiar();
@@ -267,6 +268,24 @@ public class panelCita implements Initializable{
         }else{
             Alertar.display("Eliminar: elemento tabla", "No existe el elemento en la tabla");
         }
+    }
+    /**
+     * metodo para verificar si ya existe la cita en la tabla; si la cita existe no permite añadir o la elimina
+     * <br> pre: </br> la tabla se encuentra inicializada 
+     * <br> post: </br> se elimina el elemento de la tabla
+     * @param consultar; la cita a verificar; consultar != null
+     */
+    public boolean verificarElementoTabla(Cita consultar){
+        boolean encontrar = true;
+        int mio= 0;
+        if(tblCitas.getItems().contains(consultar)==true){
+            mio = tblCitas.getItems().indexOf(consultar);
+            System.out.print("posicion es: " + tblCitas.getItems().get(mio));
+        }else{
+            encontrar = false;
+            System.out.print("No existe");
+        }
+        return encontrar;
     }
     /**
      * ingresar al panel de registro
