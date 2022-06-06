@@ -21,8 +21,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
-
 import Mundo.Cita;
 public class panelCita implements Initializable{
 
@@ -157,7 +155,7 @@ public class panelCita implements Initializable{
         if(String.valueOf(posicion) != null){
             Cita miCita = tblCitas.getSelectionModel().getSelectedItem(); 
             if(miCita!=null){
-                /*eliminarCita(miCita);*/
+                eliminarCita(miCita);
                 eliminarElementoTabla(miCita, posicion);
             }else{
                 Alertar.display("Eliminar: Cita", "La cita es nula");
@@ -237,7 +235,7 @@ public class panelCita implements Initializable{
         cbxUsuarios.setValue(null);
     }
     /**
-     * añadir elemento al comboBox
+     * Lista de elementos para la combobox de usuarios
      * <b> pre: </b> la lista de elementos se encuentra inicializada
      * <b> post: </b> se añade el elemento al ComboBox
      */
@@ -267,7 +265,7 @@ public class panelCita implements Initializable{
         if(tblCitas.getItems().contains(nCita)==true){
             tblCitas.getItems().remove(posicion);
         }else{
-            JOptionPane.showMessageDialog(null, "Error no existe el elemento en la tabla");
+            Alertar.display("Eliminar: elemento tabla", "No existe el elemento en la tabla");
         }
     }
     /**
