@@ -21,6 +21,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import Mundo.Cita;
 public class panelCita implements Initializable{
 
@@ -133,13 +135,15 @@ public class panelCita implements Initializable{
      */
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
+        int resp=JOptionPane.showConfirmDialog(null,"Selecciona SI solo si la tabla no cuenta con este elemento");
         String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
         if(!documento.isEmpty()){
             Usuario mio = usuarioDAO.buscarUsuario(documento);
-            if(mio!=null && verificarElementoTabla(miCitaDAO.buscarCita(mio.getCita()))==false){
+            if(mio!=null && verificarElementoTabla(miCitaDAO.buscarCita(mio.getCita()))==true){
+                Alertar.display("Consultar", "los datos se encuentran en la tabla");
+                
+            }else if(JOptionPane.OK_OPTION == resp){
                 buscarCita(mio.getCita());
-            }else{
-                Alertar.display("Buscar Usuario", "El usuario no existe");
             }
         }else{
             Alertar.display("Buscar", "Documento mal digitado");
