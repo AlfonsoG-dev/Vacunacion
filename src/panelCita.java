@@ -255,10 +255,10 @@ public class panelCita implements Initializable{
         dtaFecha.setValue(null);
     }
     /**
-     * correccion del bug para agregar elementos en la lista
-     * <b> pre: </b> los elementos se encuentran inicializados
-     * <b> post: </b> verificar si el objeto se encuentra en la lista
-     * si el objeto se encuentra en la lista no se debe agregar, de lo contrario se lo agrega
+     * eliminar un elemento de la tabla
+     * <br> pre :</br> el elemento se encuentra en la tabla  
+     * <br> post :</br> se elimino el elemento de la tabla 
+     * @param posicion, es la posicion del elemento en la tabla; posicion != null && posicion > 0
      */
     public void eliminarElementoTabla(int posicion){
         tblCitas.getItems().remove(posicion);
