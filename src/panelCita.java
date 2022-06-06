@@ -156,7 +156,7 @@ public class panelCita implements Initializable{
             Cita miCita = tblCitas.getSelectionModel().getSelectedItem(); 
             if(miCita!=null){
                 eliminarCita(miCita);
-                objetoRepetido(posicion);
+                eliminarElementoTabla(posicion);
             }else{
                 Alertar.display("Eliminar: Cita", "La cita es nula");
             }
@@ -260,7 +260,7 @@ public class panelCita implements Initializable{
      * <b> post: </b> verificar si el objeto se encuentra en la lista
      * si el objeto se encuentra en la lista no se debe agregar, de lo contrario se lo agrega
      */
-    public void objetoRepetido(int posicion){
+    public void eliminarElementoTabla(int posicion){
         tblCitas.getItems().remove(posicion);
     }
     /**
