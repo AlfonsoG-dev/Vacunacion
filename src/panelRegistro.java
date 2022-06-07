@@ -303,6 +303,7 @@ public class panelRegistro implements Initializable{
         txtDireccion.setText(nUsuario.getDireccion());
         txtNombre.setText(nUsuario.getNombre());
         cbxTipo.setValue(nUsuario.getTipo());
+        cbxDocumento.setValue(nUsuario.getDocumento());
     }
     /**
      * actualizar los elementos de la interfaz con la informacion de cita
