@@ -94,6 +94,7 @@ public class panelIngreso {
             panelCita mia = root.getController();
             //creamos la escena del controlador
             Scene scene = new Scene(mio);
+            citaStage.setTitle("Vacunacion: Citas");
             //asignamos la escene al controlador de panelIngreso
             citaStage.setScene(scene);
             //visualizamos la interfaz creada
@@ -104,6 +105,7 @@ public class panelIngreso {
             mia.agregarElemento();
             //cirro panelIngreso
             this.stage.close();
+            mia.setStage(citaStage);
 
         } catch (Exception e) {
             Alertar.display("Error", e.getMessage());
