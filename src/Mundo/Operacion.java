@@ -2,10 +2,23 @@ package Mundo;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import Conexion.CitaDAO;
+import Conexion.UsuarioDAO;
+
 public class Operacion {
     //-------------------------------------//
     //----------------Atributos------------//
     //-------------------------------------//
+    /**
+     * clase conexion con usuarioDAO
+     */
+    private UsuarioDAO usuarioDAO;
+    /**
+     * clase conexion con citaDAO
+     */
+    private CitaDAO citaDAO;
     /**
      * usuarios a vacunar
      */
@@ -61,11 +74,19 @@ public class Operacion {
      * busca al usuario en la lista de usuarios para verificar 
      * <b> pre: </b> la lsita de usuarios se encuentra inicializada
      * <b> post: </b> se verifica el usuario y si el usuario no existe se debe de registrar
-     * @param nUsuario, es el usuario a verificar. nUsuario != "" && nUsuario != null
+     * @param documento, es el documento del usuario, documento; documento!= null && documento != ""
      * @return true si el usuario esta en el sistema, false de lo contrario 
      */
-    public Usuario buscarUsuario(Usuario nUsuario){
+    public Usuario buscarUsuario(String documento){
         Usuario encontrado = null;
+        usuarioDAO = new UsuarioDAO();
+        if(usuarioDAO.buscarUsuario(documento)!=null){
+            encontrado = usuarioDAO.buscarUsuario(documento);
+            listaUsuarios().add(encontrado);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error operacion.buscarUsuario: " + "\n"
+            + "El usuario no existe");
+        }
         return encontrado;        
     }
     /**
@@ -77,9 +98,16 @@ public class Operacion {
      * el usuario solo tiene el codigo de la cita en donde 0 es que no tiene asignada cita.
      * si el usuario tiene agendada una cita se lo añade a la lista de citas agendadas
      */
-    public Cita buscarCita(Cita nCita){
+    public Cita buscarCita(String codigo){
         Cita encontrada = null;
-
+        citaDAO = new CitaDAO();
+        if(citaDAO.buscarCita(codigo)!=null){
+            encontrada = citaDAO.buscarCita(codigo);
+            listaCitas().add(encontrada);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error operacion.buscarCita: " + "\n" 
+            + "La cita no existe");
+        }
         return encontrada;
     }
     /**
