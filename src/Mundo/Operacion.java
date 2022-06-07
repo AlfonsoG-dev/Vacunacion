@@ -122,7 +122,7 @@ public class Operacion {
             listaCitas().add(encontrada);
         }else{
             JOptionPane.showMessageDialog(null, "Error operacion.buscarCita: " + "\n" 
-            + "La cita no existe");
+            + "La cita no existe o ya ha sido eliminada");
         }
         return encontrada;
     }
