@@ -303,6 +303,8 @@ public class panelCita implements Initializable{
      */
     public void entrarARegistro(){
         try{
+            String doc = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
+            Usuario miUs = usuarioDAO.buscarUsuario(doc);
             FXMLLoader load = new FXMLLoader(getClass().getResource("PanelRegistro.fxml"));
             Stage registroStage = new Stage();
             Parent root = load.load();
@@ -311,7 +313,7 @@ public class panelCita implements Initializable{
             registroStage.setTitle("Vacunacion: Registro");
             registroStage.setScene(scena);
             registroStage.show();
-            registro.agregarElemento();
+            registro.actualizarElementosUsuario(miUs);
             this.stageCita.close();
             registro.setStage(registroStage);
         }catch(Exception e){
