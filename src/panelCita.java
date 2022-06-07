@@ -318,7 +318,7 @@ public class panelCita extends panelRegistro{
                 this.stageCita.close();
                 registro.setStage(registroStage);
             }else{
-                Alertar.display("Error:", "Seleccione un usuario sin cita");
+                Alertar.display("Error:", "Seleccione un usuario");
             }
         }catch(Exception e){
             Alertar.display("Ingreso", e.getMessage());
