@@ -11,4 +11,9 @@ Este proyecto necesita de los siguientes cambios para que funcione correctamente
 - <p> Las tablas se relacionan como Usuario tiene atributo denominado getCita() que es la llave primaria de la tabla de cita </p>
 - <p> Para que el proyecto funcione debes eliminar el archivo launch.json y crear el uno propio; una ves creado el archivo añade la siguiente line a las instrucciones <h1> "vmArgs": "--module-path \"lib/javafx-sdk-17.0.1/lib\" --add-modules javafx.controls,javafx.fxml" </h1> </p>
 
-# Este es mi primer intento de realizar un README; espero puedan poner a funcionar el proyecto.
+# Este es mi primer intento de realizar un README; espero puedan poner a funcionar el proyecto; dejo algunas capturas del proyecto
+<p align="center">
+  <img src="doc\login.jpg" width="350" title="Login">
+  <img src="doc\panelCita.jpg" width="350" title="Consultas, Registro y Eliminar">
+  <img src="doc\panelRegistro.jpg" width="350" title="Registrar datos">
+</p>
