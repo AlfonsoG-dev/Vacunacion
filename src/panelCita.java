@@ -154,7 +154,18 @@ public class panelCita extends panelRegistro{
     */
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
-
+        operaciones = new Operacion();
+        try {
+            Cita eliminar = tblCitas.getSelectionModel().getSelectedItem();
+            boolean comprobar = operaciones.eliminarCita(String.valueOf(eliminar.getCodigo()));
+            if(comprobar != false){
+                Alertar.display("panelCita", "Se elimino la cita");
+                eliminarElementoTabla(eliminar, tblCitas.getSelectionModel().getSelectedIndex());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error panelCita.eliminar: " + "\n"
+            + e.getMessage());
+        }
     }
     /**
      * registrar la cita al usuario sin cita
