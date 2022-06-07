@@ -90,6 +90,22 @@ public class Operacion {
         return encontrado;        
     }
     /**
+     * metodo para registar un usuario en el sistema
+     * <br> pre: </br> la base de datos se encuentra inicializada
+     * <br> post: </br> se registro el nuevo usuario
+     * @param nuevo, es el usuario a registar; nuevo != null 
+     */
+    public void registrarUsuario(Usuario nuevo){
+        usuarioDAO = new UsuarioDAO();
+        if(buscarUsuario(String.valueOf(nuevo.getDocumento()))!=null){
+            usuarioDAO.registrarUsuario(nuevo);
+            listaUsuarios().add(buscarUsuario(String.valueOf(nuevo.getDocumento())));
+        }else{
+            JOptionPane.showMessageDialog(null, "Error operacion.registrarUsuario: " + "\n" 
+            + "No se puede registrar al usuario");
+        }
+    }
+    /**
      * buscar la cita para saber si se encuentra registrada
      * <b> pre: </b> la lista de citas y usuarios se encuentra incializada
      * <b> post: </b> se verifica si el usuario tiene una cita agendada o nop
@@ -114,35 +130,38 @@ public class Operacion {
      * cancelar la cita agendada por el usuario, para cancelar la cita se pone 0 en el turno de la cita
      * <b> pre: </b> la lista de citas y de usuarios se encuentra inicializada
      * <b> post: </b> se elimina la cita de la lista de citas
-     * @param nCita, es la cita a eliminar, nCita != "" && nCita != ""
+     * @param codigo, es el codigo de la cita a eliminar; codigo != null && codigo != ""
      * @return true si la cita se elimino de lo contrario false
      */
-    public Boolean cancelarCita(Cita nCita){
-        Boolean encontrado = false;
-
-        return encontrado;
+    public Boolean eliminarCita(String codigo){
+        Boolean eliminar = false;
+        citaDAO = new CitaDAO();
+        if(buscarCita(codigo)!=null){
+            citaDAO.eliminarCita(buscarCita(codigo));
+            eliminar = true;
+            listaCitas().remove(buscarCita(codigo));
+        }else{
+            JOptionPane.showMessageDialog(null, "Error operacion.eliminarCita: " + "\n" 
+            + "La cita no se elimino");
+        }
+        return eliminar;
     }
     /**
-     * re agenget la cita que se cancelo para otra fecha
+     * 
      * <b> pre: </b> la lista de citas se encuentra inicializada
-     * <b> post: </b> se agenda la cita para el usuario
-     * @param nCita, cita del usuario a agenget
-     * @param nUsuario, usuario que agenda la cita
-     * @return la cita con el usuario que agendo la cita
+     * <b> post: </b> se se registra la cita
+     * @param nCita, la cita a registrar; nCita != null
+     * @return la cita a registar
      */
-    public void registrarCita(Cita nCita, Usuario nUsuario){
-        Cita nuevaCita = null;
-        Usuario nuevoUsuario = null;
-    }
-    /**
-     * se agregan los elementos a la lista para su verificacion
-     * <b> pre: </b> las lista de usuario, cita se encuentran inicializadas
-     * <b> post: </b> se añaden los elementos a la lista
-     * @param nCita, es la cita del usuario. nCita != "" && nCita != null
-     * @param nUsuario, es el usurio que agendo la cita. nUsuario != "" && nUsuario != null
-     */
-    public void agregarDatosLista(Cita nCita, Usuario nUsuario){
-
+    public void registrarCita(Cita nCita){
+        citaDAO = new CitaDAO();
+        if(buscarCita(String.valueOf(nCita.getCodigo()))==null){
+            citaDAO.insertarCita(nCita);
+            listaCitas().add(buscarCita(String.valueOf(nCita.getCodigo())));
+        }else{
+            JOptionPane.showMessageDialog(null, "Error operacion.registarCita: " + "\n" 
+            + "No se puede registrar la cita");
+        }
     }
     //-*---------------------------*-//
     //-*------Invariante-----------*-//
