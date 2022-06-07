@@ -1,12 +1,16 @@
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import Mundo.Cita;
 import Mundo.Usuario;
 
@@ -14,11 +18,16 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
 
 import Conexion.CitaDAO;
 import Conexion.UsuarioDAO;
 
 public class panelRegistro implements Initializable{
+    /**
+     * estado del controlador panelRegistro
+     */
+    private Stage miStage;
     /**
      * operaciones de la cita del usuario
      */
@@ -163,12 +172,18 @@ public class panelRegistro implements Initializable{
     @FXML
     private TextField txtTurno;
     /**
-     * boton con la accion de cancelar las operaciones que se esten realizando
+     * boton con la obciones para 1) regresar al panelCita; 2) quedarse en panelRegistro 3)cancelar operacion o limpiar casillas
      * @param event. es el evento de cancelar
      */
     @FXML
     void btnCancelarOnClicked(ActionEvent event) {
-        limpiar();
+        int resp=JOptionPane.showConfirmDialog(null,"Quieres regresar al panelCita");
+        if(JOptionPane.OK_OPTION == resp){
+            regresarCita();
+        }else{
+            limpiar();
+        }
+        
     }
     /**
      * accion de registrar la cita al usuario consultado 
@@ -331,5 +346,48 @@ public class panelRegistro implements Initializable{
         cbxTipo.getItems().add("id");
         cbxTipo.getItems().add("otro");
         cbxTipo.getItems().add("cc");
+    }
+    /**
+     * metodo para regresar al panelCita cerrando panelRegistro
+     * <br> pre: </br> panelCita se encuentra inicializado y panelRegistro esta abierto
+     * <br> post: </br> panelRegistro se cierra y panelCita queda abierto
+     */
+    public void regresarCita(){
+        try {
+            //cargamos el archivo con la vista
+            FXMLLoader root= new FXMLLoader(getClass().getResource("PanelCita.fxml"));    
+            //creamos el estado del controlador
+            Stage citaStage = new Stage();
+            //creamos el padre de la vista
+            Parent mio = root.load();
+            // creamos un objeto del controlador de panelCita y le asignamos el controlador de la vista 
+            panelCita mia = root.getController();
+            //creamos la escena del controlador
+            Scene scene = new Scene(mio);
+            citaStage.setTitle("Vacunacion: Citas");
+            //asignamos la escene al controlador de panelIngreso
+            citaStage.setScene(scene);
+            //visualizamos la interfaz creada
+            citaStage.show();
+            //asignamos el valor deseado al controlador panelCita, preferiblemente asignar un metodo que reciba valores
+            //de panelIngreso y utilizarlo en panelCita
+            //en este caso solo agrego elemento que es un metodo void que no necesita de parametros.
+            mia.agregarElemento();
+            //cirro panelIngreso
+            this.miStage.close();
+            mia.setStage(citaStage);
+
+        } catch (Exception e) {
+            Alertar.display("Error", e.getMessage());
+        }
+    }
+    /**
+     * metodo para obtener el estado de panelRegistro
+     * <br> pre: </br> panelRegistro se encuentra inicializado
+     * <br> post: </br> se obtine el estado de panelRegistro
+     * @param registroStage, es el estado del controlador panelRegistro; registroStage != "" && registroStage != null
+     */
+    public void setStage(Stage registroStage) {
+        miStage = registroStage;
     }
 }
