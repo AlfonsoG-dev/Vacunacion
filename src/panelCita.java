@@ -2,7 +2,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-//import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,13 +17,8 @@ import Mundo.Usuario;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import Conexion.UsuarioDAO;
-
-//import javax.swing.JOptionPane;
-
 import Mundo.Cita;
 import Mundo.Operacion;
 public class panelCita extends panelRegistro{
@@ -251,11 +245,9 @@ public class panelCita extends panelRegistro{
      * para entrar al registro se utiliza el boton <b> (btnRegistroOnClicked)</b>
      */
     public void entrarARegistro(){
+        operaciones = new Operacion();
+        String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
         try{
-            usuarioDAO = new UsuarioDAO();
-            String doc = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
-            Usuario miUs = usuarioDAO.buscarUsuario(doc);
-            if(miUs!=null){
                 FXMLLoader load = new FXMLLoader(getClass().getResource("PanelRegistro.fxml"));
                 Stage registroStage = new Stage();
                 Parent root = load.load();
@@ -264,14 +256,12 @@ public class panelCita extends panelRegistro{
                 registroStage.setTitle("Vacunacion: Registro");
                 registroStage.setScene(scena);
                 registroStage.show();
-                registro.actualizarElementosUsuario(miUs);
+                registro.actualizarElementosUsuario(operaciones.buscarUsuario(documento));
                 this.stageCita.close();
                 registro.setStage(registroStage);
-            }else{
-                Alertar.display("Error:", "Seleccione un usuario");
-            }
         }catch(Exception e){
-            Alertar.display("Ingreso", e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error panelCita.entrarARegistro: " + "\n"
+            + e.getMessage());
         }
     }
     /**
