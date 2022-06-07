@@ -37,6 +37,7 @@ public class CitaDAO {
             while(rs.next()){
                 nueva = new Cita(Integer.parseInt(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(3)), rs.getString(4)); 
                 citas.add(nueva.getCodigo());
+                miOperacion.listaCitas().add(nueva);
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
@@ -63,7 +64,7 @@ public class CitaDAO {
             ResultSet rs = pst.executeQuery();
             if(rs.next()){
                 nueva = new Cita(Integer.parseInt(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(3)), rs.getString(4)); 
-                miOperacion.miCita().add(nueva);
+                miOperacion.listaCitas().add(nueva);
             }
         }catch(Exception e){
             System.out.print("Error: " + e.getMessage());
@@ -92,7 +93,7 @@ public class CitaDAO {
             pst.setString(4, nCita.getLugar());
             pst.execute();
             registrar = nCita;
-            miOperacion.miCita().add(registrar);
+            miOperacion.listaCitas().add(registrar);
         }catch(Exception e){
             System.out.println("Error: " + e.getMessage());
         }finally{
@@ -119,7 +120,7 @@ public class CitaDAO {
                 PreparedStatement pst = mia.prepareStatement(sql);
                 pst.setString(1, String.valueOf(nCita.getCodigo()));
                 pst.execute();
-                miOperacion.miCita().remove(nCita);
+                miOperacion.listaCitas().remove(nCita);
                 eliminar = true;
             }
         }catch(Exception e){

@@ -58,7 +58,7 @@ public class OperacionTest {
         Usuario buscado = miOperacion.buscarUsuario(u);
         Cita buscada = miOperacion.buscarCita(c);
         if(miOperacion.registrarCita(c, u)!=null){
-            assertNotNull("Deberia estar el usuario registrado", miOperacion.miUsuario());
+            assertNotNull("Deberia estar el usuario registrado", miOperacion.listaUsuarios());
             assertEquals("Deberia ser el mismo usuario", u.getDocumento(), buscado.getDocumento());
             assertEquals("Deberia ser la misma cita", c.getCodigo(), buscada.getCodigo());
 

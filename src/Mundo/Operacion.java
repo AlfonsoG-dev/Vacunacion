@@ -40,21 +40,21 @@ public class Operacion {
      * lista de usuarios en la eps
      * @return usuarios en la eps
      */
-    public ArrayList<Usuario> miUsuario(){
+    public ArrayList<Usuario> listaUsuarios(){
         return usuarios;
     }
     /**
      * lista de citas para el usuario
      * @return citas para el usuario
      */
-    public ArrayList<Cita> miCita(){
+    public ArrayList<Cita> listaCitas(){
         return citas;
     }
     /**
      * lista con las citas agendadas al usuario
      * @return citas agendadas por el usuario
      */
-    public ArrayList<Usuario> darUsuariosConCita(){
+    public ArrayList<Usuario> listaUsuariosConCita(){
         return usuariosCita;
     }
     /**
@@ -65,25 +65,8 @@ public class Operacion {
      * @return true si el usuario esta en el sistema, false de lo contrario 
      */
     public Usuario buscarUsuario(Usuario nUsuario){
-        Boolean encontrado = false;
-        Usuario u = null;
-        try{
-            for(int i=0; i<miUsuario().size() && !encontrado; i++){
-                Usuario existe = miUsuario().get(i);
-                if(existe.getDocumento() != nUsuario.getDocumento()){
-                    u = null;
-                    System.out.print("El usuario no existe se debe registrar : ");
-                }
-                else{
-                    encontrado = true;
-                    u = nUsuario;
-                }
-            }
-
-        }catch (Exception e){
-            System.out.println("Error al buscar al usuario : " + e.getMessage());
-        }
-        return u;
+        Usuario encontrado = null;
+        return encontrado;        
     }
     /**
      * buscar la cita para saber si se encuentra registrada
@@ -95,26 +78,9 @@ public class Operacion {
      * si el usuario tiene agendada una cita se lo añade a la lista de citas agendadas
      */
     public Cita buscarCita(Cita nCita){
-        Boolean encontrado = false;
-        Cita c = null;
-        try{
-            for(int i=0; i<miCita().size() && !encontrado; i++){
-                Cita existe = miCita().get(i);
-                if(existe.getCodigo() != nCita.getCodigo()){
-                    c = null;
-                    encontrado = false;
-                    System.out.print("La cita se debe registrar : ");
-                }
-                else{
-                    c = nCita;
-                    encontrado = true;
-                }
-            }
+        Cita encontrada = null;
 
-        }catch(Exception e){
-            System.out.println("Error al momento de buscar la cita: " + e.getMessage());
-        }
-        return c;
+        return encontrada;
     }
     /**
      * cancelar la cita agendada por el usuario, para cancelar la cita se pone 0 en el turno de la cita
@@ -125,13 +91,7 @@ public class Operacion {
      */
     public Boolean cancelarCita(Cita nCita){
         Boolean encontrado = false;
-        try{
-            if(buscarCita(nCita)!=null){
-                miCita().remove(nCita);
-            }
-        }catch(Exception e){
-            System.out.println("Error al momento de cancelar la cita: " + e.getMessage());
-        }
+
         return encontrado;
     }
     /**
@@ -142,22 +102,9 @@ public class Operacion {
      * @param nUsuario, usuario que agenda la cita
      * @return la cita con el usuario que agendo la cita
      */
-    public Usuario registrarCita(Cita nCita, Usuario nUsuario){
+    public void registrarCita(Cita nCita, Usuario nUsuario){
         Cita nuevaCita = null;
         Usuario nuevoUsuario = null;
-        try{
-            if(nCita != null && nUsuario != null){
-                nuevaCita = new Cita(nCita.getCodigo(), nCita.getFecha(), nCita.getTurno(), nCita.getLugar());
-                nuevoUsuario = new Usuario(nUsuario.getDocumento(), nUsuario.getTipo(), nUsuario.getNombre(), nUsuario.getApellido(), 
-                nUsuario.getCelular(), nUsuario.getCorreo(), nUsuario.getDireccion(), String.valueOf(nuevaCita.getCodigo()));
-                if(buscarUsuario(nuevoUsuario) == null && buscarCita(nuevaCita)==null){
-                    agregarDatosLista(nuevaCita, nuevoUsuario);
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Error al momento de registrar la cita del usuario: " + e.getMessage());
-        }
-        return nuevoUsuario;
     }
     /**
      * se agregan los elementos a la lista para su verificacion
@@ -167,14 +114,7 @@ public class Operacion {
      * @param nUsuario, es el usurio que agendo la cita. nUsuario != "" && nUsuario != null
      */
     public void agregarDatosLista(Cita nCita, Usuario nUsuario){
-        try{
-            miUsuario().add(nUsuario);
-            miCita().add(nCita);
-            darUsuariosConCita().add(nUsuario);
 
-        }catch(Exception e){
-            System.out.println("Error al momento de registrar datos en las listas: " + e.getMessage());
-        }
     }
     //-*---------------------------*-//
     //-*------Invariante-----------*-//
@@ -192,9 +132,9 @@ public class Operacion {
      */
     private Boolean usuariosRepetidos(){
         Boolean noRepetido = true;
-        for(int i = 1; i < miUsuario().size();i++){
-            Usuario inicial = miUsuario().get(0);
-            if(inicial.getDocumento()==miUsuario().get(i).getDocumento()){
+        for(int i = 1; i < listaUsuarios().size();i++){
+            Usuario inicial = listaUsuarios().get(0);
+            if(inicial.getDocumento()==listaUsuarios().get(i).getDocumento()){
                 noRepetido = false;
             }
         }
@@ -208,9 +148,9 @@ public class Operacion {
      */
     private Boolean turnoRepetido(){
         Boolean noRepetido = true;
-       for(int i=0; i<miCita().size(); i++){
-           Cita primera = miCita().get(0);
-           Cita segunda = miCita().get(i);
+       for(int i=0; i<listaCitas().size(); i++){
+           Cita primera = listaCitas().get(0);
+           Cita segunda = listaCitas().get(i);
            if(primera.getTurno() != segunda.getTurno()){
                noRepetido = true;
            }
@@ -225,9 +165,9 @@ public class Operacion {
      */
     private Boolean codigoCitaRepetido(){
         Boolean noRepetido = false;
-        for(int i=0; i<miCita().size();i++){
-            Cita primera = miCita().get(0);
-            Cita segunda = miCita().get(i);
+        for(int i=0; i<listaCitas().size();i++){
+            Cita primera = listaCitas().get(0);
+            Cita segunda = listaCitas().get(i);
             if(primera.getCodigo() != segunda.getCodigo()){
                 noRepetido = true;
             }
