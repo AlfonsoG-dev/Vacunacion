@@ -191,17 +191,6 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event){
-        try{
-            String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
-            String fecha = dtaFecha.getValue().toString();   
-            Cita nueva = new Cita(Integer.parseInt(codigo), fecha, Integer.parseInt(txtTurno.getText()), txtLugar.getText());
-            String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
-            String tipo = cbxTipo.getSelectionModel().getSelectedItem();
-            Usuario nuevo = new Usuario(Integer.parseInt(documento), tipo, txtNombre.getText(), txtApellido.getText(), Integer.parseInt(txtCelular.getText()), txtCorreo.getText(), txtDireccion.getText(), String.valueOf(codigo));
-            registrarTodo(nuevo, nueva);
-        }catch(Exception e){
-            Alertar.display("Error: registrarUsuario", e.getMessage());
-        }
     }
     /**
      * boton para verificar la informacion del usuario y cita
@@ -209,12 +198,7 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnVerificarOnClicked(ActionEvent event) {
-        String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
-        if(!documento.isEmpty()){
-            verificarUsuario(documento);
-        }else{
-            Alertar.display("Verificar: Usuario", "Seleccione un documento");
-        }
+
     }
     /**
      * registrar el codigo de la cita al usuario
@@ -225,16 +209,7 @@ public class panelRegistro implements Initializable{
      */
     public Boolean registrarTodo(Usuario nUsuario, Cita nCita){
         Boolean registrar = false;
-        if(nUsuario != null && nCita != null){
-            if(registrarCita(nCita) != false){
-                if(usuarioDAO.registrarUsuario(nUsuario) != null){
-                    Alertar.display("Registrar Usuario", "Se registro el usuario\n con la cita");
-                    registrar = true;
-                }
-            }
-        }else{
-            Alertar.display("Registrar usuario", "Valores invalidos");
-        }
+
         return registrar;
     }
     /**
@@ -245,21 +220,6 @@ public class panelRegistro implements Initializable{
      */
     public Boolean registrarCita(Cita nCita){
         Boolean registrar = false;
-        try{
-            if(citaDAO.buscarCita(String.valueOf(nCita.getCodigo()))==null){
-                Cita nueva = citaDAO.insertarCita(nCita);
-                if(nueva != null){
-                    Alertar.display("Registrar: Cita", "Se registro la cita");
-                    registrar = true;
-                }
-            }else{
-                Alertar.display("Registrar: cita", "La cita ya \n se encuentra registrada");
-            }
-
-        }catch(Exception e){
-            Alertar.display("Registrar: Cita", "Error al momento de registrar cita \n " + e.getMessage());
-        }
-
         return registrar;
     }
     /**
@@ -269,17 +229,7 @@ public class panelRegistro implements Initializable{
      * @param nDocumento, es el documento del usuario a verificar. nDodumento != "" && nDocumento != null
      */
     public void verificarUsuario(String nDocumento){
-        Usuario buscar = usuarioDAO.buscarUsuario(nDocumento);
-        if(buscar != null){
-            actualizarElementosUsuario(buscar);
-            if(buscar.getCita()!=null){
-                Alertar.display("Verificar: cita", "El usuario ya\n tiene una cita asignada");
-            }else{
-                Alertar.display("Verificar: cita", "El usuario no\n tiene una cita asigndad");
-            }   
-        }else{
-            Alertar.display("Verificar: Usuario", "El usuario no existe");
-        }
+        
     }
     /**
      * se inicializan los combo cox
