@@ -19,6 +19,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 //import javax.swing.JOptionPane;
 
 import Mundo.Cita;
@@ -133,7 +135,18 @@ public class panelCita extends panelRegistro{
      */
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-
+        operaciones = new Operacion();
+        try {
+            String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
+            Usuario paraCita = operaciones.buscarUsuario(documento);
+            Cita mia = operaciones.buscarCita(paraCita.getCita());
+            //System.out.print("el usuario es: " + operaciones.buscarUsuario(documento).getNombre());
+            tblCitas.getItems().add(mia);
+            limpiar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error panelCita.consultar: " + "\n"
+            + e.getMessage());
+        }
     }
     /**
      * eliminar la cita del usuario
@@ -210,24 +223,6 @@ public class panelCita extends panelRegistro{
         }else{
             Alertar.display("Eliminar: elemento tabla", "No existe el elemento en la tabla");
         }
-    }
-    /**
-     * metodo para verificar si ya existe la cita en la tabla; si la cita existe no permite añadir o la elimina
-     * <br> pre: </br> la tabla se encuentra inicializada 
-     * <br> post: </br> se elimina el elemento de la tabla
-     * @param consultar; la cita a verificar; consultar != null
-     */
-    public boolean verificarElementoTabla(Cita consultar){
-        boolean encontrar = true;
-        int mio= 0;
-        if(tblCitas.getItems().contains(consultar)==true){
-            mio = tblCitas.getItems().indexOf(consultar);
-            Alertar.display("Tabla: ","La posicion del elemento es: " + tblCitas.getItems().get(mio));
-        }else{
-            encontrar = false;
-            Alertar.display("Error:", "Elemento no existe en la tabla");
-        }
-        return encontrar;
     }
     /**
      * ingresar al panel de registro y cerrar el panelCita
