@@ -15,8 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import Mundo.Usuario;
-import Conexion.CitaDAO;
-import Conexion.UsuarioDAO;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -24,16 +22,12 @@ import java.util.ResourceBundle;
 //import javax.swing.JOptionPane;
 
 import Mundo.Cita;
+import Mundo.Operacion;
 public class panelCita extends panelRegistro{
-
     /**
-     * cita del usuario 
+     * clase con las operaciones a realizar
      */
-    CitaDAO miCitaDAO = new CitaDAO();
-    /**
-     * operaciones del usuario
-     */
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private Operacion operaciones;
     /**
      * estado del controlador panelCita
      */
@@ -171,26 +165,6 @@ public class panelCita extends panelRegistro{
         agregarElemento();
     }
     /**
-     * buscar la cita dado el codigo de la cita
-     * <b> pre: </b> la cita se encuentra inicializada
-     * <b> post: </b> se busca la cita dado el codigo
-     * @param nCodigo, es el codigo de la cita a buscar
-     * @return true si la encontro de lo contrario false
-     */
-    public Boolean buscarCita(String nCodigo){
-        Boolean encontrado = false;
-        return encontrado;
-    }
-    /**
-     * eliminar cita de la base de datos
-     * <b> pre: </b> la cita se encuetra registrada
-     * <b> post: </b> se elimino la cita registrada
-     * @param nCita, es la cita a eliminar. nCita != "" && nCita != null
-     */
-    public void eliminarCita(Cita nCita){
-
-    }
-    /**
      * actualizar los elementos de la interfaz con la información consultada
      * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
      * <b> post: </b>  se actualizan los elementos de la interfaz
@@ -228,7 +202,7 @@ public class panelCita extends panelRegistro{
      * <br> pre :</br> el elemento se encuentra en la tabla  
      * <br> post :</br> se elimino el elemento de la tabla 
      * @param posicion, es la posicion del elemento en la tabla; posicion != null && posicion > 0
-     * @param n
+     * @param nCita, es la cita a eliminar de la tabla, nCita != null && nCita != ""
      */
     public void eliminarElementoTabla(Cita nCita, int posicion){
         if(tblCitas.getItems().contains(nCita)==true){
