@@ -15,6 +15,10 @@ public class panelIngreso {
      */
     Operacion miOperacion = new Operacion();
     /**
+     * Estado del controlador
+     */
+    private Stage stage;
+    /**
      * boton para ingresar al panelCita
      */
     @FXML
@@ -47,7 +51,7 @@ public class panelIngreso {
     /**
      * elemento con la informacion del panel
      */
-    private Parent root;
+    private FXMLLoader root;
     /**
      * ingresar al panel cita
      * @param event accion de ingresar al panelCita
@@ -72,18 +76,46 @@ public class panelIngreso {
         txtPasword.setText(null);
     } 
     /**
-     * llamar al panelCita 
+     * Metodo para ingresar al panel cita y cerrar el panel de ingreso; 
+     * una vez se entra al panelCita no se puede regresar al panel de ingreso; 
+     * se debe hacer un boton en el panelCita para regresar al panelIngreso
+     * <br> pre: </br> el panelCita se encuentra inicializado
+     * <br> post: </br> se ingreso al panelCita y se cierra panelIngreso
      */
     public void entrarCita(){
         try {
-            root= FXMLLoader.load(getClass().getResource("PanelCita.fxml"));    
+            //cargamos el archivo con la vista
+            root= new FXMLLoader(getClass().getResource("PanelCita.fxml"));    
+            //creamos el estado del controlador
             Stage citaStage = new Stage();
-            Scene scene = new Scene(root);
-            citaStage.setTitle("Vacunacion: Cita");
+            //creamos el padre de la vista
+            Parent mio = root.load();
+            // creamos un objeto del controlador de panelCita y le asignamos el controlador de la vista 
+            panelCita mia = root.getController();
+            //creamos la escena del controlador
+            Scene scene = new Scene(mio);
+            //asignamos la escene al controlador de panelIngreso
             citaStage.setScene(scene);
-            citaStage.showAndWait();
+            //visualizamos la interfaz creada
+            citaStage.show();
+            //asignamos el valor deseado al controlador panelCita, preferiblemente asignar un metodo que reciba valores
+            //de panelIngreso y utilizarlo en panelCita
+            //en este caso solo agrego elemento que es un metodo void que no necesita de parametros.
+            mia.agregarElemento();
+            //cirro panelIngreso
+            this.stage.close();
+
         } catch (Exception e) {
             Alertar.display("Error", e.getMessage());
         }
+    }
+    /**
+     * metodo para recibir el estado del controlador panelIngreso desde la clase main
+     * <br> pre: </br> la clase main se encuentra inicializada
+     * <br> post: </br> se recibe el estado del controlador de panelIngreso
+     * @param primaryStage, es el estado del controlador panelIngreso, primaryStage != "" && primaryStage!=null
+     */
+    public void setStage(Stage primaryStage) {
+        stage = primaryStage;
     }
 }
