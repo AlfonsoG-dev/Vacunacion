@@ -35,6 +35,10 @@ public class panelCita implements Initializable{
      */
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     /**
+     * estado del controlador panelCita
+     */
+    private Stage stageCita;
+    /**
      * boton que realiza la accion de consultar cita
      */
     @FXML
@@ -292,21 +296,35 @@ public class panelCita implements Initializable{
         return encontrar;
     }
     /**
-     * ingresar al panel de registro
+     * ingresar al panel de registro y cerrar el panelCita
      * <b> pre: </b> el panel de registro se encuentra inicializado
-     * <b> post: </b> se ingresa al panel registro
+     * <b> post: </b> se ingresa al panel registro y se cierra panelCita
      * para entrar al registro se utiliza el boton <b> (btnRegistroOnClicked)</b>
      */
     public void entrarARegistro(){
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("PanelRegistro.fxml"));
+            FXMLLoader load = new FXMLLoader(getClass().getResource("PanelRegistro.fxml"));
             Stage registroStage = new Stage();
+            Parent root = load.load();
+            panelRegistro registro = load.getController();
             Scene scena = new Scene(root);
             registroStage.setTitle("Vacunacion: Registro");
             registroStage.setScene(scena);
-            registroStage.showAndWait();
+            registroStage.show();
+            registro.agregarElemento();
+            this.stageCita.close();
+            registro.setStage(registroStage);
         }catch(Exception e){
             Alertar.display("Ingreso", e.getMessage());
         }
+    }
+    /**
+     * metodo para obtener el estado del controlador panelCita
+     * <br> pre: </br> el controlador panelCita se encuentra inicializado 
+     * <br> post: </br> se obtine el estado del controlador
+     * @param citaStage; es el estado del controlador panelCita; citaStage != null && citaStage != null
+     */
+    public void setStage(Stage citaStage) {
+        stageCita = citaStage;
     }
 }
