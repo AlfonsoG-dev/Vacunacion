@@ -21,11 +21,17 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import Conexion.UsuarioDAO;
+
 //import javax.swing.JOptionPane;
 
 import Mundo.Cita;
 import Mundo.Operacion;
 public class panelCita extends panelRegistro{
+    /**
+     * clase conexion UsuarioDAO
+     */
+    UsuarioDAO usuarioDAO;
     /**
      * clase con las operaciones a realizar
      */
@@ -141,8 +147,10 @@ public class panelCita extends panelRegistro{
             Usuario paraCita = operaciones.buscarUsuario(documento);
             Cita mia = operaciones.buscarCita(paraCita.getCita());
             //System.out.print("el usuario es: " + operaciones.buscarUsuario(documento).getNombre());
-            tblCitas.getItems().add(mia);
-            limpiar();
+            if(mia != null){
+                tblCitas.getItems().add(mia);
+                limpiar();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error panelCita.consultar: " + "\n"
             + e.getMessage());
@@ -207,6 +215,7 @@ public class panelCita extends panelRegistro{
      * <b> post: </b> se añade el elemento al ComboBox
      */
     public void agregarElemento(){
+        usuarioDAO = new UsuarioDAO();
         ObservableList<Integer> usuarios = usuarioDAO.seleccionarUsuario();
         cbxUsuarios.setItems(usuarios);
     }
@@ -243,6 +252,7 @@ public class panelCita extends panelRegistro{
      */
     public void entrarARegistro(){
         try{
+            usuarioDAO = new UsuarioDAO();
             String doc = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
             Usuario miUs = usuarioDAO.buscarUsuario(doc);
             if(miUs!=null){
