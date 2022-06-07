@@ -10,12 +10,14 @@ import javafx.stage.Stage;
 public class App extends Application {
     @Override
     public void start(Stage primaryStage) { 
-        Parent root;
         try {
-            root= FXMLLoader.load(getClass().getResource("PanelLogin.fxml"));    
+            FXMLLoader mio = new FXMLLoader(getClass().getResource("PanelLogin.fxml"));    
+            Parent root = mio.load();
             Scene scene = new Scene(root);
             primaryStage.setTitle("Loggin");
             primaryStage.setScene(scene);
+            panelIngreso ingreso = mio.getController();
+            ingreso.setStage(primaryStage);
             primaryStage.show();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al intentar llamar la interfaz: " + e.getMessage());
