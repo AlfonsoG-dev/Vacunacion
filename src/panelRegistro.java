@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import Mundo.Cita;
+import Mundo.Operacion;
 import Mundo.Usuario;
 
 import java.net.URL;
@@ -29,13 +30,17 @@ public class panelRegistro implements Initializable{
      */
     private Stage miStage;
     /**
-     * operaciones de la cita del usuario
+     * clase conxion citaDAO
      */
     CitaDAO citaDAO = new CitaDAO();
     /**
-     * operaciones del usuario
+     * clase conxion usuarioDAO
      */
     UsuarioDAO usuarioDAO = new UsuarioDAO();
+    /**
+     * clase con las funciones
+     */
+    Operacion operaciones = new Operacion();
     /**
      * boton para cancelar las acciones que se esten realizando
      */
@@ -191,6 +196,13 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnRegistrarOnClicked(ActionEvent event){
+        try {
+            registrarCita();
+            Alertar.display("panelRegistro: registrar ctia a usuario", "Se registro la cita");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error panelRegistro.botonRegistrar: " + "\n"
+            + e.getMessage());
+        }
     }
     /**
      * boton para verificar la informacion del usuario y cita
@@ -198,38 +210,65 @@ public class panelRegistro implements Initializable{
      */
     @FXML
     void btnVerificarOnClicked(ActionEvent event) {
-
+        verificarUsuario();
     }
     /**
-     * registrar el codigo de la cita al usuario
+     * modificar el valor de cita para usuario
      * <b> pre: </b> los elementos de la interfaz se encuentran inicializados
      * <b> post: </b> se registra la cita y el codigo de cita al usuario
      * @param nCita, es la cita registrada para el usuario. nCita != "" && nCita != null
-     * @param nUsuario, es el usuario a actualizar. nUsuario != "" && nUsuario != null
      */
-    public Boolean registrarTodo(Usuario nUsuario, Cita nCita){
+    public Boolean actualizarCitaUsuario(Cita nCita){
         Boolean registrar = false;
-
+        String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+        try {
+            if(operaciones.buscarUsuario(documento)!=null){
+                usuarioDAO.actualizarUsuario(operaciones.buscarUsuario(documento), String.valueOf(nCita.getCodigo()));
+                registrar = true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error panelRegistro.actualizarCitaUsuario: " + "\n"
+            + e.getMessage());
+        }
         return registrar;
     }
     /**
      * registrar cita enn la base de datos
      * <b> pre: </b> la cita se encuentra inicializada 
      * <b> post: </b> se registra la cita 
-     * @param nCita, es la cita a registrar
      */
-    public Boolean registrarCita(Cita nCita){
+    public Boolean registrarCita(){
         Boolean registrar = false;
+        String codigo = String.valueOf(cbxCodigoCIta.getSelectionModel().getSelectedItem());
+        Cita nueva = null;
+        int mio = Integer.parseInt(txtTurno.getText());
+        try {  
+            nueva = new Cita(Integer.parseInt(codigo), dtaFecha.getValue().toString(), mio, txtLugar.getText());
+            operaciones.registrarCita(nueva);
+            actualizarCitaUsuario(nueva);
+            registrar = true;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error panelRegistro.registarCita: " + "\n"
+            + e.getMessage());
+        }
         return registrar;
     }
     /**
      * verificar que el usuario no tenga citas asignadas
      * <b> pre: </b> el usuario se encuentra inicializado
      * <b> post: </b> se verifica la informacion del usuario
-     * @param nDocumento, es el documento del usuario a verificar. nDodumento != "" && nDocumento != null
      */
-    public void verificarUsuario(String nDocumento){
-        
+    public void verificarUsuario(){
+        String documento = String.valueOf(cbxDocumento.getSelectionModel().getSelectedItem());
+        try {
+            if(operaciones.buscarUsuario(documento)!=null && operaciones.buscarCita(operaciones.buscarUsuario(documento).getCita())==null){
+                Alertar.display("panelRegistro: VerificarUsuario", "El usuario puede asignar cita");
+            }            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error panelRegistro.verificarUsuario" + "\n"
+            + e.getMessage());
+        }
     }
     /**
      * se inicializan los combo cox
