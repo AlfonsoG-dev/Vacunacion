@@ -21,7 +21,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 import Mundo.Cita;
 public class panelCita extends panelRegistro{
@@ -139,19 +139,7 @@ public class panelCita extends panelRegistro{
      */
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-        int resp=JOptionPane.showConfirmDialog(null,"Selecciona SI solo si la tabla no cuenta con este elemento");
-        String documento = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
-        if(!documento.isEmpty()){
-            Usuario mio = usuarioDAO.buscarUsuario(documento);
-            if(mio!=null && verificarElementoTabla(miCitaDAO.buscarCita(mio.getCita()))==true){
-                Alertar.display("Consultar", "los datos se encuentran en la tabla");
-                
-            }else if(JOptionPane.OK_OPTION == resp){
-                buscarCita(mio.getCita());
-            }
-        }else{
-            Alertar.display("Buscar", "Documento mal digitado");
-        }
+
     }
     /**
      * eliminar la cita del usuario
@@ -159,16 +147,7 @@ public class panelCita extends panelRegistro{
     */
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
-        int posicion = tblCitas.getSelectionModel().getSelectedIndex();
-        if(String.valueOf(posicion) != null){
-            Cita miCita = tblCitas.getSelectionModel().getSelectedItem(); 
-            if(miCita!=null){
-                eliminarCita(miCita);
-                eliminarElementoTabla(miCita, posicion);
-            }else{
-                Alertar.display("Eliminar: Cita", "La cita es nula");
-            }
-        }
+
     }
     /**
      * registrar la cita al usuario sin cita
@@ -199,17 +178,8 @@ public class panelCita extends panelRegistro{
      * @return true si la encontro de lo contrario false
      */
     public Boolean buscarCita(String nCodigo){
-        Boolean encontrar = false;
-        Cita consultar = miCitaDAO.buscarCita(nCodigo);
-        if(consultar != null){
-            System.out.print("Se ingresa la cita");
-            tblCitas.getItems().add(consultar);
-            actualizarElementos(consultar);
-            limpiar();
-        }else{
-            Alertar.display("Consultar: Cita", "La cita \n no se encuentra registrada");
-        }
-        return encontrar;
+        Boolean encontrado = false;
+        return encontrado;
     }
     /**
      * eliminar cita de la base de datos
@@ -218,17 +188,7 @@ public class panelCita extends panelRegistro{
      * @param nCita, es la cita a eliminar. nCita != "" && nCita != null
      */
     public void eliminarCita(Cita nCita){
-        if(nCita!=null){
-            Boolean mia = miCitaDAO.eliminarCita(nCita);
-            if(mia != false){
-                Alertar.display("Eliminar: Cita", "La cita se elimino");
-            }else{
-                Alertar.display("Eliminar: Cita", "La cita no se elimino");
-            }
 
-        }else{
-            Alertar.display("Eliminar: Cita", "La cita es nula");
-        }
     }
     /**
      * actualizar los elementos de la interfaz con la información consultada
