@@ -305,17 +305,21 @@ public class panelCita extends panelRegistro{
         try{
             String doc = String.valueOf(cbxUsuarios.getSelectionModel().getSelectedItem());
             Usuario miUs = usuarioDAO.buscarUsuario(doc);
-            FXMLLoader load = new FXMLLoader(getClass().getResource("PanelRegistro.fxml"));
-            Stage registroStage = new Stage();
-            Parent root = load.load();
-            panelRegistro registro = load.getController();
-            Scene scena = new Scene(root);
-            registroStage.setTitle("Vacunacion: Registro");
-            registroStage.setScene(scena);
-            registroStage.show();
-            registro.actualizarElementosUsuario(miUs);
-            this.stageCita.close();
-            registro.setStage(registroStage);
+            if(miUs!=null){
+                FXMLLoader load = new FXMLLoader(getClass().getResource("PanelRegistro.fxml"));
+                Stage registroStage = new Stage();
+                Parent root = load.load();
+                panelRegistro registro = load.getController();
+                Scene scena = new Scene(root);
+                registroStage.setTitle("Vacunacion: Registro");
+                registroStage.setScene(scena);
+                registroStage.show();
+                registro.actualizarElementosUsuario(miUs);
+                this.stageCita.close();
+                registro.setStage(registroStage);
+            }else{
+                Alertar.display("Error:", "Seleccione un usuario sin cita");
+            }
         }catch(Exception e){
             Alertar.display("Ingreso", e.getMessage());
         }
