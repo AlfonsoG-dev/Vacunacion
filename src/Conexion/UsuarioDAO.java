@@ -19,7 +19,7 @@ public class UsuarioDAO {
      * seleccionar los usuarios de la base de datos
      * <b> pre: </b> la base de datos se encuentra inicializada
      * <b> post: </b> se seleccionan todos los usuarios
-     * @return el usuario de la base de datos
+     * @return el documento de los usuarios
      */
     public ObservableList<Integer> seleccionarUsuario(){
         ObservableList<Integer> usuarios = FXCollections.observableArrayList();
