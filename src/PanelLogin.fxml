@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panelIngreso">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="259.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panelIngreso">
    <children>
-      <Label fx:id="lblUsuarioL" layoutX="62.0" layoutY="61.0" prefHeight="27.0" prefWidth="124.0" text="Usuario" textAlignment="CENTER" textFill="#a41d1d">
+      <Label fx:id="lblUsuarioL" alignment="CENTER" layoutX="40.0" layoutY="61.0" prefHeight="27.0" prefWidth="124.0" text="Usuario" textAlignment="CENTER" textFill="#a41d1d">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblPasword" layoutX="62.0" layoutY="150.0" prefHeight="27.0" prefWidth="124.0" text="Password" textAlignment="CENTER" textFill="#a41d1d">
+      <Label fx:id="lblPasword" alignment="CENTER" layoutX="40.0" layoutY="137.0" prefHeight="27.0" prefWidth="124.0" text="Password" textAlignment="CENTER" textFill="#a41d1d">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnIngresar" layoutX="112.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnIngresarOnClicked" prefHeight="27.0" prefWidth="80.0" text="Ingresar" />
-      <Button fx:id="btnRegistro" layoutX="244.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnRegistrarOnClicked" prefHeight="27.0" prefWidth="80.0" text="Registrarse" />
-      <PasswordField fx:id="txtPasword" layoutX="170.0" layoutY="151.0" />
+      <Button fx:id="btnIngresar" layoutX="84.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnIngresarOnClicked" prefHeight="27.0" prefWidth="80.0" text="Ingresar" />
+      <Button fx:id="btnRegistro" layoutX="217.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnRegistrarOnClicked" prefHeight="27.0" prefWidth="80.0" text="Registrarse" />
+      <PasswordField fx:id="txtPasword" layoutX="170.0" layoutY="138.0" />
       <TextField fx:id="txtUsuario" layoutX="170.0" layoutY="62.0" />
    </children>
 </AnchorPane>
