@@ -362,10 +362,10 @@ public class panelRegistro implements Initializable{
             //asignamos el valor deseado al controlador panelCita, preferiblemente asignar un metodo que reciba valores
             //de panelIngreso y utilizarlo en panelCita
             //en este caso solo agrego elemento que es un metodo void que no necesita de parametros.
-            mia.agregarElemento();
+            //mia.agregarElemento();
             //cirro panelIngreso
             this.miStage.close();
-            mia.setStage(citaStage);
+            //mia.setStage(citaStage);
 
         } catch (Exception e) {
             Alertar.display("Error", e.getMessage());

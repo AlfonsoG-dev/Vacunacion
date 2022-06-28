@@ -35,7 +35,7 @@
       </Label>
       <TableView fx:id="tblUsuarios" layoutX="79.0" layoutY="119.0" prefHeight="241.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="199.0" text="Documento" />
+          <TableColumn fx:id="colDocumento" prefWidth="199.0" text="Documento" />
         </columns>
       </TableView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" layoutY="56.0" prefHeight="30.0" prefWidth="80.0" text="Usuario" textAlignment="CENTER" textFill="#796161">
