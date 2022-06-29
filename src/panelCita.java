@@ -5,8 +5,12 @@ import Conexion.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import Mundo.Usuario;
 import Mundo.Cita;
+import Mundo.Operacion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,9 +26,13 @@ import javafx.stage.Stage;
 public class panelCita implements Initializable{
 
     /**
-     * usuarioDAto
+     * Usuario con la conexion a la base de datos
      */
     UsuarioDAO usuarioDAO = new UsuarioDAO();
+    /**
+     * operaciones con los usuarios
+     */
+    Operacion operaciones = new Operacion();
     /**
      * estado del controlador actual
      */
@@ -93,14 +101,25 @@ public class panelCita implements Initializable{
      */
     @FXML
     void btnConsultarOnClicked(ActionEvent event) {
-
+        try {
+            int miDocumento = tblUsuarios.getSelectionModel().getSelectedItem().getDocumento();
+            int index = tblUsuarios.getSelectionModel().getSelectedIndex();
+            informacionCita(miDocumento, index);
+        } catch (Exception e) {
+            Alertar.display("Error: panelCita-Consultar", e.getMessage());
+        }
     }
     /**
      * accion de eliminar la cita del usuario
      */
     @FXML
     void btnEliminarOnClicked(ActionEvent event) {
-
+        try {
+            if(JOptionPane.showConfirmDialog(null, "Desea eliminar el la cuenta??", "Eliminar Cuenta", JOptionPane.YES_NO_OPTION) == 0){
+            }
+        } catch (Exception e) {
+            Alertar.display("Error: panelCita-Eliminar", e.getMessage());
+        }
     }
     /**
      * accion de registrar cita el usuario
@@ -108,6 +127,23 @@ public class panelCita implements Initializable{
     @FXML
     void btnRegistrarOnClicked(ActionEvent event) {
         entrarRegistro();
+    }
+    /**
+     * actualizar la informacion de cita dado el documento del usuario
+     * <br> pre: </br> el usuario se encuentra inicializado
+     * <br> post: </br> se obtiene la cita
+     * @param documento, es el numero de documento del usuario que posee la cita, documento > 0
+     * @param nIndex, es el la posicion del documento en la tabla
+     */
+    public void informacionCita(int documento, int nIndex){
+        Usuario buscado = operaciones.buscarUsuario(String.valueOf(documento));
+        if(buscado != null){
+            Cita miCitaBuscada = operaciones.buscarCita(buscado.getCita());
+            if(miCitaBuscada!=null){
+                tblCitas.getItems().add(miCitaBuscada);
+                eliminarUsuarioTabla(nIndex);
+            }
+        }
     }
     /**
      * inicializar los datos de las tablas 
@@ -131,6 +167,32 @@ public class panelCita implements Initializable{
     public void agregarElemento(){
         ObservableList<Usuario> misUsuarios = usuarioDAO.seleccionarUsuario();
         tblUsuarios.setItems(misUsuarios);
+    }
+    /**
+     * elimina un elemento de la tabla usuarios
+     * <br> pre: </br> la tabla se encuentra inicializada 
+     * <br> post: </br> se elimino el usuario
+     * @param nIndex, es la posicion del usuario a eliminar
+     * @return true si se elimina el usuario, false de lo contrario
+     */
+    public Boolean eliminarUsuarioTabla(int nIndex){
+        Boolean eliminado = false;
+        if(tblUsuarios.getItems().remove(nIndex) != null){
+            eliminado = true;
+        }
+        return eliminado;
+    }
+    /**
+     * elimnar cita de los datos de la tabla
+     * <br> pre: </br> la tabla se encuentra inicializada
+     * <br> post: </br> se elimina la cita de la tabla 
+     * @param nIndex, es la posicion de la cita en la tabla
+     * @return true si se elimina la cita, false de lo contrario 
+     */
+    public Boolean eliminarCitaTabla(int nIndex){
+        Boolean eliminar = false;
+        //TODO eliminar la cita
+        return eliminar;
     }
     /**
      * entrar al panelRegistro
